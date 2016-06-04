@@ -25,6 +25,12 @@
     <Filter Include="Project Files\Drawing">
       <UniqueIdentifier>{355458a4-b029-403a-8083-01acfc696e7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\Features">
+      <UniqueIdentifier>{9d8aedab-52c9-41a6-bcd4-76a4da536c5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Vector">
+      <UniqueIdentifier>{8825a124-88f8-491e-bfa8-3f2773f17b80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK.cpp">
@@ -44,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Drawing.cpp">
       <Filter>Project Files\Drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Visuals.cpp">
+      <Filter>Project Files\Features</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +76,24 @@
     </ClInclude>
     <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Drawing.h">
       <Filter>Project Files\Drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Visuals.h">
+      <Filter>Project Files\Features</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Color.h">
+      <Filter>Project Files\Drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Vector.h">
+      <Filter>Project Files\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\dt_recv.h">
+      <Filter>Project Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\SDKDefinitions.h">
+      <Filter>Project Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\dt_common.h">
+      <Filter>Project Files\SDK</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

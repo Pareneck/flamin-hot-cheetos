@@ -35,7 +35,7 @@ std::wstring GetWide(const std::string& strText)
 	return wstrWide;
 }
 
-void CDrawing::DrawString(unsigned long ulFont, bool bCenter, int x, int y, int r, int g, int b, int a, const char* pchInput, ...)
+void CDrawing::DrawString(unsigned long ulFont, bool bCenter, int x, int y, Color clrString, const char* pchInput, ...)
 {
 	if (!pchInput)
 		return;
@@ -47,10 +47,20 @@ void CDrawing::DrawString(unsigned long ulFont, bool bCenter, int x, int y, int 
 	if (bCenter)
 		x -= GetWidth(ulFont, chBuffer) / 2;
 
-	g_pSurface->DrawSetTextColor(r, g, b, a);
+	g_pSurface->DrawSetTextColor(clrString.r(), clrString.g(), clrString.b(), clrString.a());
 	g_pSurface->DrawSetTextFont(ulFont);
 	g_pSurface->DrawSetTextPos(x, y);
 
 	std::wstring wstrWide = GetWide(std::string(chBuffer));
 	g_pSurface->DrawPrintText(wstrWide.c_str(), wstrWide.length());
+}
+
+void CDrawing::DrawESPBox(int x, int y, int w, int h, Color clrBox, Color clrOutline)
+{
+	g_pSurface->DrawSetColor(clrBox.r(), clrBox.g(), clrBox.b(), clrBox.a());
+	g_pSurface->DrawOutlinedRect(x, y, x + w, y + h);
+
+	g_pSurface->DrawSetColor(clrOutline.r(), clrOutline.g(), clrOutline.b(), clrOutline.a());
+	g_pSurface->DrawOutlinedRect(x + 1, y + 1, x + w - 1, y + h - 1);
+	g_pSurface->DrawOutlinedRect(x - 1, y - 1, x + w + 1, y + h + 1);
 }

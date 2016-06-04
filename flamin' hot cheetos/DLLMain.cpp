@@ -5,7 +5,7 @@
 // to do:
 //  - add in vmt hook manager class [x]
 //    - finish hooking painttraverse [x]
-//      - do esp and shit
+//      - do esp and shit [x]
 //    - hook other shit like createmove
 //      - do aimbot and shit
 //  - make this project a little prettier
@@ -20,7 +20,7 @@ void __stdcall InitRoutine(LPARAM hModule)
 	Hooks::Initialize();
 
 	while (!bUnload)
-		Sleep(2000);
+		Sleep(1000);
 
 	Hooks::UnhookFunctions();
 	FreeLibraryAndExitThread((HMODULE)hModule, 0);

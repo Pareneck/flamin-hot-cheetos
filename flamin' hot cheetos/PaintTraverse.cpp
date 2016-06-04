@@ -16,13 +16,22 @@ void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool all
 		bOnce = true;
 	}
 
-	const char* pcPanel = g_pPanel->GetName(vguiPanel);
-	if (!pcPanel)
+	const char* pchPanel = g_pPanel->GetName(vguiPanel);
+	if (!pchPanel)
 		return;
 
 	// MatSystemTopPanel
-	if (pcPanel[0] == 'M' && pcPanel[3] == 'S' && pcPanel[9] == 'T')
+	if (pchPanel[0] == 'M' && pchPanel[3] == 'S' && pchPanel[9] == 'T')
 	{
-		g_Drawing.DrawString(g_Drawing.m_ESPFont, false, 3, 3, 255, 255, 255, 255, "flamin' hot cheetos");
+		if (g_pEngine->InGame() && g_pEngine->IsConnected())
+		{
+			CBaseEntity* pLocal = g_pEntityList->GetClientEntity(g_pEngine->GetLocalPlayer());
+			if (!pLocal)
+				return;
+
+			g_Visuals.Think(pLocal);
+		}
+
+		g_Drawing.DrawString(g_Drawing.m_ESPFont, false, 3, 3, Color(255, 255, 255), "flamin' hot cheetos");
 	}
 }

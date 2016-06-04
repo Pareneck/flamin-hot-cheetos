@@ -26,3 +26,16 @@ void* CTools::QueryInterface(std::string szModuleName, std::string szInterfaceNa
 
 	return hInterface(szBuffer, nullptr);
 }
+
+bool CTools::IsVisible(Vector& vecStart, Vector& vecEnd, CBaseEntity* pEntity)
+{
+	IEngineTrace::trace_t tr;
+	IEngineTrace::Ray_t ray;
+	IEngineTrace::CTraceFilter filter;
+	filter.pSkip = g_pEntityList->GetClientEntity(g_pEngine->GetLocalPlayer());
+
+	ray.Init(vecStart, vecEnd);
+	g_pEngineTrace->TraceRay(ray, 0x4600400B, &filter, &tr);
+
+	return (tr.pEntity == pEntity || tr.fraction > 0.99f);
+}
