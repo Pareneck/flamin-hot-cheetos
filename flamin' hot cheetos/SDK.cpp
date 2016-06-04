@@ -1,15 +1,17 @@
 #include "SDK.h"
 
+IEngine* g_pEngine = nullptr;
+ISurface* g_pSurface = nullptr;
+IPanel* g_pPanel = nullptr;
+
+//
+
 CTools g_Tools;
 
-void* CTools::GetInterface(std::string szModuleName, std::string szInterfaceName, bool bSkip)
+void* CTools::QueryInterface(std::string szModuleName, std::string szInterfaceName, bool bSkip)
 {
-	if (szModuleName.empty() || szInterfaceName.empty())
-		return nullptr;
-
-	typedef PVOID(*CreateInterfaceFn)(const char* pszName, int* piReturnCode);
+	typedef void* (*CreateInterfaceFn)(const char* pszName, int* piReturnCode);
 	CreateInterfaceFn hInterface = nullptr;
-
 	while (!hInterface)
 	{
 		hInterface = (CreateInterfaceFn)GetProcAddress(GetModuleHandleA(szModuleName.c_str()), "CreateInterface");
@@ -21,7 +23,7 @@ void* CTools::GetInterface(std::string szModuleName, std::string szInterfaceName
 	for (int i = 0; i < 100; i++)
 	{
 		sprintf_s(szBuffer, "%s%0.3d", szInterfaceName.c_str(), i);
-		PVOID pInterface = hInterface(szBuffer, nullptr);
+		void* pInterface = hInterface(szBuffer, nullptr);
 
 		if (pInterface && pInterface != NULL)
 		{

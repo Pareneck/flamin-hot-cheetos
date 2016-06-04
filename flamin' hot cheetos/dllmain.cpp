@@ -4,13 +4,16 @@
 
 void __stdcall InitRoutine(LPARAM dwModule)
 {
-	std::cout << "Successfully Injected!";
+	g_pEngine = (IEngine*)g_Tools.QueryInterface("engine.dll", "VEngineClient");
+	g_pEngine->ExecuteClientCmd("echo initializing main cheat routine...");
+
+	std::cout << "Successfully Injected!" << std::endl;
 	return;
 }
 
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved)
+BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
-	switch (ul_reason_for_call)
+	switch (dwReason)
 	{
 	case DLL_PROCESS_ATTACH:
 		InitRoutine((DWORD)hModule);
