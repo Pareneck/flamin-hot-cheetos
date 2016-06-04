@@ -1,17 +1,12 @@
 #include "SDK.h"
 
-IEngine* g_pEngine = nullptr;
-ISurface* g_pSurface = nullptr;
-IPanel* g_pPanel = nullptr;
-
-//
-
 CTools g_Tools;
 
-void* CTools::QueryInterface(std::string szModuleName, std::string szInterfaceName, bool bSkip)
+void* CTools::QueryInterface(std::string szModuleName, std::string szInterfaceName)
 {
 	typedef void* (*CreateInterfaceFn)(const char* pszName, int* piReturnCode);
 	CreateInterfaceFn hInterface = nullptr;
+
 	while (!hInterface)
 	{
 		hInterface = (CreateInterfaceFn)GetProcAddress(GetModuleHandleA(szModuleName.c_str()), "CreateInterface");
@@ -25,12 +20,8 @@ void* CTools::QueryInterface(std::string szModuleName, std::string szInterfaceNa
 		sprintf_s(szBuffer, "%s%0.3d", szInterfaceName.c_str(), i);
 		void* pInterface = hInterface(szBuffer, nullptr);
 
-		if (pInterface && pInterface != NULL)
-		{
-			if (bSkip) sprintf_s(szBuffer, "%s%0.3d", szInterfaceName.c_str(), i + 1);
-			Sleep(5);
+		if (pInterface && pInterface != nullptr)
 			break;
-		}
 	}
 
 	return hInterface(szBuffer, nullptr);

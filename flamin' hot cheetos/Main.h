@@ -6,3 +6,5 @@
 #include <string>
 
 #include "SDK.h"
+
+#include "Interfaces.h"

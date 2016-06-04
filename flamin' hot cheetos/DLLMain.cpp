@@ -2,12 +2,22 @@
 
 /* flamin' hot cheetos - rebuild */
 
+// to do:
+//  - add in vmt hook manager class
+//    - finish hooking painttraverse
+//      - do esp and shit
+//    - hook other shit like createmove
+//      - do aimbot and shit
+//  - make this project a little prettier
+//    - better naming notations (?)
+//    - no fucking clue
+
 void __stdcall InitRoutine(LPARAM dwModule)
 {
-	g_pEngine = (IEngine*)g_Tools.QueryInterface("engine.dll", "VEngineClient");
-	g_pEngine->ExecuteClientCmd("echo initializing main cheat routine...");
+	Interfaces::Initialize();
 
 	std::cout << "Successfully Injected!" << std::endl;
+	FreeLibraryAndExitThread((HMODULE)dwModule, 0);
 	return;
 }
 
@@ -25,4 +35,3 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 
 	return TRUE;
 }
-

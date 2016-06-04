@@ -143,11 +143,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\Interfaces.h" />
+    <ClInclude Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\PaintTraverse.h" />
     <ClInclude Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\SDK.h" />
+    <ClInclude Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\VMTManager.h" />
     <ClInclude Include="Main.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\DLLMain.cpp" />
+    <ClCompile Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\Interfaces.cpp" />
+    <ClCompile Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\PaintTraverse.cpp" />
     <ClCompile Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\SDK.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
