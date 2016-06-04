@@ -4,7 +4,12 @@ void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool all
 {
 	// call original function
 
-	if (!strcmp(g_pPanel->GetName(vguiPanel), "MatSystemTopPanel"))
+	const char* pszPanel = g_pPanel->GetName(vguiPanel);
+	if (!pszPanel)
+		return;
+
+	// MatSystemTopPanel
+	if (pszPanel[0] == 'M' && pszPanel[3] == 'S' && pszPanel[9] == 'T')
 	{
 		// draw shit
 	}
