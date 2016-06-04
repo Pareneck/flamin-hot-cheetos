@@ -4,7 +4,7 @@ CTools g_Tools;
 
 void* CTools::QueryInterface(std::string szModuleName, std::string szInterfaceName)
 {
-	typedef void* (*CreateInterfaceFn)(const char* pszName, int* piReturnCode);
+	typedef void* (*CreateInterfaceFn)(const char* pchName, int* piReturnCode);
 	CreateInterfaceFn hInterface = nullptr;
 
 	while (!hInterface)

@@ -13,45 +13,60 @@
     <Filter Include="Project Files\Hooks">
       <UniqueIdentifier>{55e019a4-1e76-452f-8616-b54862f5733c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project Files\VMT">
-      <UniqueIdentifier>{163c95f8-d8ea-4cfc-89ff-22e6b2e3be4d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Project Files\Hooks\PaintTraverse">
       <UniqueIdentifier>{b929bea5-7a7b-4857-a0b3-7d4161b2382d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Project Files\Interfaces">
       <UniqueIdentifier>{e2dd1540-5714-4178-b50f-4f1686272104}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\VFT">
+      <UniqueIdentifier>{163c95f8-d8ea-4cfc-89ff-22e6b2e3be4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Drawing">
+      <UniqueIdentifier>{355458a4-b029-403a-8083-01acfc696e7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\DLLMain.cpp">
+    <ClCompile Include="SDK.cpp">
+      <Filter>Project Files\SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="DLLMain.cpp">
       <Filter>Project Files\Main</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\SDK.cpp">
-      <Filter>Project Files\SDK</Filter>
+    <ClCompile Include="Interfaces.cpp">
+      <Filter>Project Files\Interfaces</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\PaintTraverse.cpp">
+    <ClCompile Include="PaintTraverse.cpp">
       <Filter>Project Files\Hooks\PaintTraverse</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\Interfaces.cpp">
-      <Filter>Project Files\Interfaces</Filter>
+    <ClCompile Include="Hooks.cpp">
+      <Filter>Project Files\Hooks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Drawing.cpp">
+      <Filter>Project Files\Drawing</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\VMTManager.h">
-      <Filter>Project Files\VMT</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\SDK.h">
-      <Filter>Project Files\SDK</Filter>
-    </ClInclude>
     <ClInclude Include="Main.h">
       <Filter>Project Files\Main</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\PaintTraverse.h">
+    <ClInclude Include="SDK.h">
+      <Filter>Project Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="Interfaces.h">
+      <Filter>Project Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="PaintTraverse.h">
       <Filter>Project Files\Hooks\PaintTraverse</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\flamin%27 hot cheetos\flamin%27 hot cheetos\Interfaces.h">
-      <Filter>Project Files\Interfaces</Filter>
+    <ClInclude Include="Hooks.h">
+      <Filter>Project Files\Hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="VFTManager.h">
+      <Filter>Project Files\VFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Drawing.h">
+      <Filter>Project Files\Drawing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
