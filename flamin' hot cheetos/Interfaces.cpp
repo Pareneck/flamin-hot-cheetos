@@ -11,13 +11,13 @@ namespace Interfaces
 {
 	void Initialize()
 	{
-		g_pEngine = (IEngineClient*)g_Tools.QueryInterface("engine.dll", "VEngineClient");
-		g_pSurface = (ISurface*)g_Tools.QueryInterface("vguimatsurface.dll", "VGUI_Surface");
-		g_pPanel = (IPanel*)g_Tools.QueryInterface("vgui2.dll", "VGUI_Panel");
-		g_pEntityList = (IClientEntityList*)g_Tools.QueryInterface("client.dll", "VClientEntityList");
-		g_pDebugOverlay = (IVDebugOverlay*)g_Tools.QueryInterface("engine.dll", "VDebugOverlay");
-		g_pEngineTrace = (IEngineTrace*)g_Tools.QueryInterface("engine.dll", "EngineTraceClient");
+		g_pEngine = (IEngineClient*)g_Tools.QueryInterface(charenc("engine.dll"), charenc("VEngineClient"));
+		g_pSurface = (ISurface*)g_Tools.QueryInterface(charenc("vguimatsurface.dll"), charenc("VGUI_Surface"));
+		g_pPanel = (IPanel*)g_Tools.QueryInterface(charenc("vgui2.dll"), charenc("VGUI_Panel"));
+		g_pEntityList = (IClientEntityList*)g_Tools.QueryInterface(charenc("client.dll"), charenc("VClientEntityList"));
+		g_pDebugOverlay = (IVDebugOverlay*)g_Tools.QueryInterface(charenc("engine.dll"), charenc("VDebugOverlay"));
+		g_pEngineTrace = (IEngineTrace*)g_Tools.QueryInterface(charenc("engine.dll"), charenc("EngineTraceClient"));
 
-		g_pEngine->ExecuteClientCmd("echo [fhc] successfully initialized interfaces");
+		g_pEngine->ExecuteClientCmd(charenc("echo [fhc] successfully initialized interfaces"));
 	}
 }

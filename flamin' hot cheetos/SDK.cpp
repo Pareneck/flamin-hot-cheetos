@@ -9,7 +9,7 @@ void* CTools::QueryInterface(std::string szModuleName, std::string szInterfaceNa
 
 	while (!hInterface)
 	{
-		hInterface = (CreateInterfaceFn)GetProcAddress(GetModuleHandleA(szModuleName.c_str()), "CreateInterface");
+		hInterface = (CreateInterfaceFn)GetProcAddress(GetModuleHandleA(szModuleName.c_str()), charenc("CreateInterface"));
 		Sleep(5);
 	}
 

@@ -31,6 +31,15 @@
     <Filter Include="Project Files\Vector">
       <UniqueIdentifier>{8825a124-88f8-491e-bfa8-3f2773f17b80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\Menu">
+      <UniqueIdentifier>{43ef8e04-252f-4ac3-a361-125d487c98a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Control Variables">
+      <UniqueIdentifier>{b5ddd6d5-e796-49b0-a79f-d847b5f83a3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Encryption">
+      <UniqueIdentifier>{a964d8d7-a2b7-4210-bd31-0bd5700284b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK.cpp">
@@ -53,6 +62,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Visuals.cpp">
       <Filter>Project Files\Features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Menu.cpp">
+      <Filter>Project Files\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Control Variables.cpp">
+      <Filter>Project Files\Control Variables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +109,21 @@
     </ClInclude>
     <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\dt_common.h">
       <Filter>Project Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Menu.h">
+      <Filter>Project Files\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Control Variables.h">
+      <Filter>Project Files\Control Variables</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\cx_fnv1.h">
+      <Filter>Project Files\Encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\cx_pcg32.h">
+      <Filter>Project Files\Encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\cx_strenc.h">
+      <Filter>Project Files\Encryption</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -52,5 +52,6 @@ void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity)
 	m_flHeight = m_vScreenPosFeet.y - m_vScreenPosHead.y;
 	m_flWidth = m_flHeight / 4.f;
 
-	g_Drawing.DrawESPBox(m_vScreenPosHead.x - m_flWidth, m_vScreenPosHead.y + 1, m_flWidth * 2, m_flHeight, m_clrESP, Color(0, 0, 0));
+	if (CVars::g_bESPDrawBox)
+		g_Drawing.DrawESPBox(m_vScreenPosHead.x - m_flWidth, m_vScreenPosHead.y + 1, m_flWidth * 2, m_flHeight, m_clrESP, Color(0, 0, 0));
 }

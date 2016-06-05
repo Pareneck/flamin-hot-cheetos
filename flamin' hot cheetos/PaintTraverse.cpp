@@ -29,9 +29,12 @@ void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool all
 			if (!pLocal)
 				return;
 
-			g_Visuals.Think(pLocal);
+			if (CVars::g_bESPEnabled)
+				g_Visuals.Think(pLocal);
 		}
 
-		g_Drawing.DrawString(g_Drawing.m_ESPFont, false, 3, 3, Color(255, 255, 255), "flamin' hot cheetos");
+		g_Menu.Think();
+
+		g_Drawing.DrawString(g_Drawing.m_ESPFont, false, 3, 3, Color(255, 255, 255), charenc("flamin' hot cheetos"));
 	}
 }

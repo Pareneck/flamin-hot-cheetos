@@ -4,13 +4,17 @@ CDrawing g_Drawing;
 
 CDrawing::CDrawing()
 {
+	m_MenuFont = 0;
 	m_ESPFont = 0;
 }
 
 void CDrawing::InitializeFonts()
 {
+	m_MenuFont = g_pSurface->CreateFontA();
+	g_pSurface->SetFontGlyphSet(m_MenuFont, charenc("Verdana"), 13, 20, 0, 0, 0x10);
+
 	m_ESPFont = g_pSurface->CreateFontA();
-	g_pSurface->SetFontGlyphSet(m_ESPFont, "Tahoma", 13, 600, 0, 0, 0);
+	g_pSurface->SetFontGlyphSet(m_ESPFont, charenc("Tahoma"), 13, 600, 0, 0, 0);
 }
 
 int GetWidth(unsigned long ulFont, const char* pchInput, ...)
@@ -55,10 +59,27 @@ void CDrawing::DrawString(unsigned long ulFont, bool bCenter, int x, int y, Colo
 	g_pSurface->DrawPrintText(wstrWide.c_str(), wstrWide.length());
 }
 
+void CDrawing::DrawLine(int x1, int y1, int x2, int y2, Color clrColor)
+{
+	g_pSurface->DrawSetColor(clrColor.r(), clrColor.g(), clrColor.b(), clrColor.a());
+	g_pSurface->DrawLine(x1, y1, x2, y2);
+}
+
+void CDrawing::DrawFilledRect(int x, int y, int w, int h, Color clrColor)
+{
+	g_pSurface->DrawSetColor(clrColor.r(), clrColor.g(), clrColor.b(), clrColor.a());
+	g_pSurface->DrawFilledRect(x, y, x + w, y + h);
+}
+
+void CDrawing::DrawOutlinedRect(int x, int y, int w, int h, Color clrColor)
+{
+	g_pSurface->DrawSetColor(clrColor.r(), clrColor.g(), clrColor.b(), clrColor.a());
+	g_pSurface->DrawOutlinedRect(x, y, x + w, y + h);
+}
+
 void CDrawing::DrawESPBox(int x, int y, int w, int h, Color clrBox, Color clrOutline)
 {
-	g_pSurface->DrawSetColor(clrBox.r(), clrBox.g(), clrBox.b(), clrBox.a());
-	g_pSurface->DrawOutlinedRect(x, y, x + w, y + h);
+	this->DrawOutlinedRect(x, y, w, h, clrBox);
 
 	g_pSurface->DrawSetColor(clrOutline.r(), clrOutline.g(), clrOutline.b(), clrOutline.a());
 	g_pSurface->DrawOutlinedRect(x + 1, y + 1, x + w - 1, y + h - 1);
