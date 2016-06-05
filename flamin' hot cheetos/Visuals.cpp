@@ -60,17 +60,26 @@ void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info
 		g_Drawing.DrawESPBox(m_vScreenPosHead.x - m_fWidth, m_vScreenPosHead.y + 1, m_fWidth * 2, m_fHeight, m_clrESP, Color(0, 0, 0));
 
 	if (CVars::g_bESPDrawName)
-		g_Drawing.DrawString(g_Drawing.m_ESPFont, true, m_vScreenPosHead.x, m_vScreenPosHead.y - 15, Color(255, 255, 255), pInfo.m_szPlayerName);
+		g_Drawing.DrawString(g_Drawing.m_ESPFont, true, m_vScreenPosHead.x, m_vScreenPosHead.y - 14, Color(255, 255, 255), pInfo.m_szPlayerName);
 
 	if (CVars::g_bESPDrawWeapon)
 	{
 		CBaseCombatWeapon* pWeapon = g_Tools.GetActiveWeapon(pEntity);
 		if (pWeapon)
-			g_Drawing.DrawString(g_Drawing.m_ESPFont, true, m_vScreenPosHead.x, m_vScreenPosFeet.y, Color(255, 255, 255), pWeapon->GetWeaponName());
+		{
+			char chBuffer[32];
+
+			if (!pWeapon->IsKnife() && !pWeapon->IsOther())
+				sprintf_s(chBuffer, sizeof(chBuffer), "%s | %i", pWeapon->GetWeaponName(), pWeapon->GetClip1());
+			else
+				sprintf_s(chBuffer, sizeof(chBuffer), "%s", pWeapon->GetWeaponName());
+
+			g_Drawing.DrawString(g_Drawing.m_ESPFont, true, m_vScreenPosHead.x, m_vScreenPosFeet.y + 3, Color(255, 255, 255), chBuffer);
+		}
 	}
 
 	int iPlace = 0;
 
 	if (CVars::g_bESPDrawCallout)
-		g_Drawing.DrawString(g_Drawing.m_ESPFont, true, m_vScreenPosHead.x + m_fWidth + 4, m_vScreenPosHead.y - 2 + (iPlace++ * 11), Color(255, 255, 255), pEntity->GetLastPlaceName());
+		g_Drawing.DrawString(g_Drawing.m_ESPFont, false, m_vScreenPosHead.x + m_fWidth + 5, m_vScreenPosHead.y - 3 + (iPlace++ * 11), Color(255, 255, 255), pEntity->GetLastPlaceName());
 }

@@ -132,119 +132,181 @@ public:
 	{
 		return *(int*)((DWORD)this + 0x2F88);
 	}
+	int GetClip1(void)
+	{
+		return *(int*)((DWORD)this + 0x31F4);
+	}
 	const char* GetWeaponName(void)
 	{
 		switch (this->GetItemDefinitionIndex())
 		{
 		case ITEM_NONE:
-			return charenc("None"); break;
+			return "None"; break;
 		case WEAPON_DEAGLE:
-			return charenc("Deagle"); break;
+			return "Deagle"; break;
 		case WEAPON_DUALS:
-			return charenc("Dualies"); break;
+			return "Dualies"; break;
 		case WEAPON_FIVE7:
-			return charenc("Five-Seven"); break;
+			return "Five-Seven"; break;
 		case WEAPON_GLOCK:
-			return charenc("Glock"); break;
+			return "Glock"; break;
 		case WEAPON_AK47:
-			return charenc("AK-47"); break;
+			return "AK-47"; break;
 		case WEAPON_AUG:
-			return charenc("AUG"); break;
+			return "AUG"; break;
 		case WEAPON_AWP:
-			return charenc("AWP"); break;
+			return "AWP"; break;
 		case WEAPON_FAMAS:
-			return charenc("Famas"); break;
+			return "Famas"; break;
 		case WEAPON_G3SG1:
-			return charenc("G3SG1"); break;
+			return "G3SG1"; break;
 		case WEAPON_GALIL:
-			return charenc("Galil"); break;
+			return "Galil"; break;
 		case WEAPON_M249:
-			return charenc("M249"); break;
+			return "M249"; break;
 		case WEAPON_M4A1:
-			return charenc("M4A4"); break;
+			return "M4A4"; break;
 		case WEAPON_MAC10:
-			return charenc("MAC-10"); break;
+			return "MAC-10"; break;
 		case WEAPON_P90:
-			return charenc("P90"); break;
+			return "P90"; break;
 		case WEAPON_UMP45:
-			return charenc("UMP-45"); break;
+			return "UMP-45"; break;
 		case WEAPON_XM1014:
-			return charenc("XM1014"); break;
+			return "XM1014"; break;
 		case WEAPON_BIZON:
-			return charenc("Bizon"); break;
+			return "Bizon"; break;
 		case WEAPON_MAG7:
-			return charenc("MAG-7"); break;
+			return "MAG-7"; break;
 		case WEAPON_NEGEV:
-			return charenc("Negev"); break;
+			return "Negev"; break;
 		case WEAPON_SAWEDOFF:
-			return charenc("Sawed-Off"); break;
+			return "Sawed-Off"; break;
 		case WEAPON_TEC9:
-			return charenc("TEC-9"); break;
+			return "TEC-9"; break;
 		case WEAPON_TASER:
-			return charenc("Zeus"); break;
+			return "Zeus"; break;
 		case WEAPON_P2000:
-			return charenc("P2000"); break;
+			return "P2000"; break;
 		case WEAPON_MP7:
-			return charenc("MP7"); break;
+			return "MP7"; break;
 		case WEAPON_MP9:
-			return charenc("MP9"); break;
+			return "MP9"; break;
 		case WEAPON_NOVA:
-			return charenc("Nova"); break;
+			return "Nova"; break;
 		case WEAPON_P250:
-			return charenc("P250"); break;
+			return "P250"; break;
 		case WEAPON_SCAR20:
-			return charenc("SCAR-20"); break;
+			return "SCAR-20"; break;
 		case WEAPON_SG553:
-			return charenc("SG-553"); break;
+			return "SG-553"; break;
 		case WEAPON_SCOUT:
-			return charenc("Scout"); break;
+			return "Scout"; break;
 		case WEAPON_REVOLVER:
-			return charenc("Revolver"); break;
+			return "Revolver"; break;
 		case WEAPON_KNIFE_CT:
-			return charenc("Knife"); break;
+			return "Knife"; break;
 		case WEAPON_KNIFE_T:
-			return charenc("Knife"); break;
+			return "Knife"; break;
 		case WEAPON_KNIFE_GUT:
-			return charenc("Gut Knife"); break;
+			return "Gut Knife"; break;
 		case WEAPON_KNIFE_FLIP:
-			return charenc("Flip Knife"); break;
+			return "Flip Knife"; break;
 		case WEAPON_KNIFE_BAYONET:
-			return charenc("Bayonet"); break;
+			return "Bayonet"; break;
 		case WEAPON_KNIFE_KARAMBIT:
-			return charenc("Karambit"); break;
+			return "Karambit"; break;
 		case WEAPON_KNIFE_M9BAYONET:
-			return charenc("M9 Bayonet"); break;
+			return "M9 Bayonet"; break;
 		case WEAPON_KNIFE_BUTTERFLY:
-			return charenc("Butterfly Knife"); break;
+			return "Butterfly Knife"; break;
 		case WEAPON_KNIFE_FALCHION:
-			return charenc("Falchion Knife"); break;
+			return "Falchion Knife"; break;
 		case WEAPON_KNIFE_HUNTSMAN:
-			return charenc("Huntsman Knife"); break;
+			return "Huntsman Knife"; break;
 		case WEAPON_KNIFE_BOWIE:
-			return charenc("Bowie Knife"); break;
+			return "Bowie Knife"; break;
 		case WEAPON_FLASH:
-			return charenc("Flashbang"); break;
+			return "Flashbang"; break;
 		case WEAPON_HE:
-			return charenc("HE Grenade"); break;
+			return "HE Grenade"; break;
 		case WEAPON_SMOKE:
-			return charenc("Smoke"); break;
+			return "Smoke"; break;
 		case WEAPON_MOLOTOV:
-			return charenc("Molotov"); break;
+			return "Molotov"; break;
 		case WEAPON_DECOY:
-			return charenc("Decoy"); break;
+			return "Decoy"; break;
 		case WEAPON_INC:
-			return charenc("Inc Grenade"); break;
+			return "Inc Grenade"; break;
 		case WEAPON_M4A1S:
-			return charenc("M4A1-S"); break;
+			return "M4A1-S"; break;
 		case WEAPON_USPS:
-			return charenc("USP-S"); break;
+			return "USP-S"; break;
 		case WEAPON_CZ75:
-			return charenc("CZ-75"); break;
+			return "CZ-75"; break;
 		case WEAPON_C4:
-			return charenc("C4"); break;
+			return "C4"; break;
 		}
 
 		return "";
+	}
+	bool IsKnife(void)
+	{
+		switch (this->GetItemDefinitionIndex())
+		{
+		case WEAPON_KNIFE_CT:
+			return true;
+		case WEAPON_KNIFE_T:
+			return true;
+		case WEAPON_KNIFE_GUT:
+			return true;
+		case WEAPON_KNIFE_FLIP:
+			return true;
+		case WEAPON_KNIFE_BAYONET:
+			return true;
+		case WEAPON_KNIFE_M9BAYONET:
+			return true;
+		case WEAPON_KNIFE_KARAMBIT:
+			return true;
+		case WEAPON_KNIFE_HUNTSMAN:
+			return true;
+		case WEAPON_KNIFE_BUTTERFLY:
+			return true;
+		case WEAPON_KNIFE_BOWIE:
+			return true;
+		case WEAPON_KNIFE_FALCHION:
+			return true;
+		case WEAPON_KNIFE_DAGGER:
+			return true;
+		default:
+			return false;
+		}
+	}
+	bool IsOther(void)
+	{
+		switch (this->GetItemDefinitionIndex())
+		{
+		case ITEM_NONE:
+			return true;
+		case WEAPON_TASER:
+			return true;
+		case WEAPON_FLASH:
+			return true;
+		case WEAPON_HE:
+			return true;
+		case WEAPON_SMOKE:
+			return true;
+		case WEAPON_MOLOTOV:
+			return true;
+		case WEAPON_DECOY:
+			return true;
+		case WEAPON_INC:
+			return true;
+		case WEAPON_C4:
+			return true;
+		default:
+			return false;
+		}
 	}
 };
 

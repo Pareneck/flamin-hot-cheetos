@@ -4,17 +4,20 @@ CDrawing g_Drawing;
 
 CDrawing::CDrawing(void)
 {
-	m_MenuFont = 0;
+	m_MenuFont = 0, m_MenuTitle = 0;
 	m_ESPFont = 0;
 }
 
 void CDrawing::InitializeFonts(void)
 {
 	m_MenuFont = g_pSurface->CreateFontA();
-	g_pSurface->SetFontGlyphSet(m_MenuFont, charenc("Verdana"), 13, 20, 0, 0, 0x10);
+	g_pSurface->SetFontGlyphSet(m_MenuFont, charenc("Verdana"), 13, 20, 0, 0, FONTFLAG_ANTIALIAS);
+
+	m_MenuTitle = g_pSurface->CreateFontA();
+	g_pSurface->SetFontGlyphSet(m_MenuTitle, charenc("Tahoma"), 13, 600, 0, 0, FONTFLAG_ANTIALIAS);
 
 	m_ESPFont = g_pSurface->CreateFontA();
-	g_pSurface->SetFontGlyphSet(m_ESPFont, charenc("Tahoma"), 13, 600, 0, 0, 0);
+	g_pSurface->SetFontGlyphSet(m_ESPFont, charenc("Tahoma"), 13, 1250, 0, 0, FONTFLAG_DROPSHADOW);
 }
 
 int GetWidth(unsigned long ulFont, const char* pchInput, ...)

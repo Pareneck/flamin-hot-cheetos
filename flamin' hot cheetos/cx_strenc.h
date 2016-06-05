@@ -96,6 +96,15 @@ namespace cx
 	}
 }
 
+// sprintf_s fix
+static auto w_sprintf_s = [](char* buf, size_t buf_size, const char* fmt, ...)
+{
+	va_list args;
+	va_start(args, fmt);
+	vsprintf_s(buf, buf_size, fmt, args);
+	va_end(args);
+};
+
 // a macro will allow appropriate seeding
 #define CX_ENCSTR_RNGSEED uint64_t{cx::fnv1(__FILE__ __DATE__ __TIME__) + __LINE__}
 #define cx_make_encrypted_string cx::make_encrypted_string<CX_ENCSTR_RNGSEED>

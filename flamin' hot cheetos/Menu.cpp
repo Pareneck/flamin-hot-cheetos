@@ -19,8 +19,6 @@ CMenu::CMenu(void)
 
 void CMenu::Think()
 {
-	static const char* pchCommand = charenc("cl_mouseenable %i");
-
 	if (this->IsMenuKey(VK_INSERT))
 	{
 		m_bCursor = !m_bCursor;
@@ -28,7 +26,7 @@ void CMenu::Think()
 		if (g_pEngine->InGame())
 		{
 			char chBuffer[32];
-			sprintf(chBuffer, pchCommand, !m_bCursor);
+			w_sprintf_s(chBuffer, sizeof(chBuffer), charenc("cl_mouseenable %i"), !m_bCursor);
 			g_pEngine->ExecuteClientCmd(chBuffer);
 		}
 	}
@@ -294,7 +292,7 @@ void CMenu::DrawBorder(int x, int y, int w, int h, const char* pchText)
 	if (this->MouseOver(x + 1, y + 1, w - 2, 20))
 		g_Drawing.DrawFilledRect(x + 3, y + 3, w - 6, 16, Color(80, 80, 80, 90));
 
-	g_Drawing.DrawString(g_Drawing.m_ESPFont, true, x + w / 2, y + 5, Color(255, 255, 255), pchText);
+	g_Drawing.DrawString(g_Drawing.m_MenuTitle, true, x + w / 2, y + 5, Color(255, 255, 255), pchText);
 
 	g_Drawing.DrawFilledRect(x + 1, y + 22, w - 2, h - 23, Color(50, 50, 50));
 	g_Drawing.DrawLine(x + 1, y + 22, x + w - 2, y + 22, Color(130, 130, 130, 50));

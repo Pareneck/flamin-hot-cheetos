@@ -20,7 +20,7 @@ public:
 	void DrawESPBox(int x, int y, int w, int h, Color clrBox, Color clrOutline);
 
 public:
-	unsigned long m_MenuFont;
+	unsigned long m_MenuFont, m_MenuTitle;
 	unsigned long m_ESPFont;
 };
 

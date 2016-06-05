@@ -35,6 +35,6 @@ void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool all
 
 		g_Menu.Think();
 
-		g_Drawing.DrawString(g_Drawing.m_ESPFont, false, 3, 3, Color(255, 255, 255), charenc("flamin' hot cheetos"));
+		g_Drawing.DrawString(g_Drawing.m_MenuTitle, false, 3, 3, Color(255, 255, 255), charenc("flamin' hot cheetos"));
 	}
 }
