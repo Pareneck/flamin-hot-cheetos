@@ -18,6 +18,6 @@ namespace Interfaces
 		g_pDebugOverlay = (IVDebugOverlay*)g_Tools.QueryInterface(charenc("engine.dll"), charenc("VDebugOverlay"));
 		g_pEngineTrace = (IEngineTrace*)g_Tools.QueryInterface(charenc("engine.dll"), charenc("EngineTraceClient"));
 
-		g_pEngine->ExecuteClientCmd(charenc("echo [fhc] successfully initialized interfaces"));
+		g_pEngine->ExecuteClientCmd(charenc("echo [successfully initialized interfaces]"));
 	}
 }

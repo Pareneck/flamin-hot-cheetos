@@ -57,10 +57,10 @@ void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info
 	}
 
 	if (CVars::g_bESPDrawBox)
-		g_Drawing.DrawESPBox(m_vScreenPosHead.x - m_fWidth, m_vScreenPosHead.y + 1.f, m_fWidth * 2.f, m_fHeight, m_clrESP, Color(0, 0, 0));
+		g_Drawing.DrawESPBox(m_vScreenPosHead.x - m_fWidth, m_vScreenPosHead.y + 1, m_fWidth * 2, m_fHeight, m_clrESP, Color(0, 0, 0));
 
 	if (CVars::g_bESPDrawName)
-		g_Drawing.DrawString(g_Drawing.m_ESPFont, true, m_vScreenPosHead.x, m_vScreenPosHead.y - 14, Color(255, 255, 255), pInfo.m_szPlayerName);
+		g_Drawing.DrawString(g_Drawing.m_ESPFont, true, m_vScreenPosHead.x, m_vScreenPosHead.y - 15, Color(255, 255, 255), pInfo.m_szPlayerName);
 
 	if (CVars::g_bESPDrawWeapon)
 	{
@@ -72,5 +72,5 @@ void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info
 	int iPlace = 0;
 
 	if (CVars::g_bESPDrawCallout)
-		g_Drawing.DrawString(g_Drawing.m_ESPFont, true, m_vScreenPosHead.x + m_fWidth + 3, m_vScreenPosHead.y - 3 + (iPlace++ * 11), Color(255, 255, 255), pEntity->GetLastPlaceName());
+		g_Drawing.DrawString(g_Drawing.m_ESPFont, true, m_vScreenPosHead.x + m_fWidth + 4, m_vScreenPosHead.y - 2 + (iPlace++ * 11), Color(255, 255, 255), pEntity->GetLastPlaceName());
 }

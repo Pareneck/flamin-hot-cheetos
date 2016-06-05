@@ -68,7 +68,7 @@ public:
 	}
 	const char* GetLastPlaceName(void)
 	{
-		return (char*)((DWORD)this + 0x0);
+		return (char*)((DWORD)this + 0x3598);
 	}
 	Vector GetViewOffset(void)
 	{
@@ -88,7 +88,7 @@ public:
 		{
 			MOV ECX, this
 			MOV EAX, DWORD PTR DS : [ECX]
-			CALL DWORD PTR DS : [EAX + 0x28]
+				CALL DWORD PTR DS : [EAX + 0x28]
 		}
 	}
 	int GetIndex(void)
@@ -97,8 +97,8 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, DWORD PTR DS : [EDI + 0x8]
-			MOV EDX, DWORD PTR DS : [ECX]
-			CALL DWORD PTR DS : [EDX + 0x28]
+				MOV EDX, DWORD PTR DS : [ECX]
+				CALL DWORD PTR DS : [EDX + 0x28]
 		}
 	}
 	bool IsDormant(void)
@@ -107,8 +107,8 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, [EDI + 0x8]
-			MOV EDX, DWORD PTR DS : [ecx]
-			CALL[EDX + 0x24]
+				MOV EDX, DWORD PTR DS : [ecx]
+				CALL[EDX + 0x24]
 		}
 	}
 	IVClientClass* GetClientClass(void)
