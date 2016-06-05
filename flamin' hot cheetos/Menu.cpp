@@ -2,7 +2,7 @@
 
 CMenu g_Menu;
 
-CMenu::CMenu()
+CMenu::CMenu(void)
 {
 	m_bCursor = false;
 
@@ -19,6 +19,8 @@ CMenu::CMenu()
 
 void CMenu::Think()
 {
+	static const char* pchCommand = charenc("cl_mouseenable %i");
+
 	if (this->IsMenuKey(VK_INSERT))
 	{
 		m_bCursor = !m_bCursor;
@@ -26,7 +28,6 @@ void CMenu::Think()
 		if (g_pEngine->InGame())
 		{
 			char chBuffer[32];
-			const char* pchCommand = charenc("cl_mouseenable %i");
 			sprintf(chBuffer, pchCommand, !m_bCursor);
 			g_pEngine->ExecuteClientCmd(chBuffer);
 		}
@@ -42,7 +43,7 @@ void CMenu::DrawMouseCursor()
 	if (!m_bCursor)
 		return;
 
-	g_pSurface->SurfaceGetCursorPos(m_iCursorPosition[0], m_iCursorPosition[1]);
+	g_pSurface->GetCursorPos(m_iCursorPosition[0], m_iCursorPosition[1]);
 
 	g_Drawing.DrawFilledRect(m_iCursorPosition[0] + 1, m_iCursorPosition[1], 1, 17, Color(3, 6, 26));
 

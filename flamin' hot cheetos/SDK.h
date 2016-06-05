@@ -247,12 +247,12 @@ public:
 		typedef void(__thiscall* fnOriginal)(void*, unsigned long font, const wchar_t *text, int &wide, int &tall);
 		GetVirtualFunction<fnOriginal>(this, 79)(this, font, text, wide, tall);
 	}
-	void SurfaceGetCursorPos(int& x, int& y)
+	void GetCursorPos(int& x, int& y)
 	{
 		typedef void(__thiscall* fnOriginal)(void*, int &, int &);
 		GetVirtualFunction<fnOriginal>(this, 100)(this, x, y);
 	}
-	void SurfaceSetCursorPos(int x, int y)
+	void SetCursorPos(int x, int y)
 	{
 		typedef void(__thiscall* fnOriginal)(void*, int, int);
 		GetVirtualFunction<fnOriginal>(this, 101)(this, x, y);

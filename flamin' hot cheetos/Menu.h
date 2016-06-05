@@ -24,10 +24,11 @@ __forceinline float clamp(float fValue, float fMinValue, float fMaxValue)
 class CMenu
 {
 public:
-	CMenu();
+	CMenu(void);
 
 	void Think();
 
+private:
 	void DrawMouseCursor();
 
 	void GetMouseStatus();

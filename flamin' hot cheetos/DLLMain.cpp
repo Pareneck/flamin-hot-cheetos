@@ -5,14 +5,14 @@
 // to do:
 //  - add in vmt hook manager class [x]
 //    - finish hooking painttraverse [x]
-//      - do esp and shit [x]
+//      - do a bunch of shit
 //    - hook other shit like createmove
 //      - do aimbot and shit
 //  - make this project a little prettier
 //    - better naming notation (?)
-//    - no fucking clue
+//    - I have trouble deciding whether I should make x variable a class member
 
-bool bUnload = false;;
+bool bUnload = false;
 
 void __stdcall InitRoutine(LPARAM hModule)
 {

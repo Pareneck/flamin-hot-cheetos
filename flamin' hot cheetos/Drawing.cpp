@@ -2,13 +2,13 @@
 
 CDrawing g_Drawing;
 
-CDrawing::CDrawing()
+CDrawing::CDrawing(void)
 {
 	m_MenuFont = 0;
 	m_ESPFont = 0;
 }
 
-void CDrawing::InitializeFonts()
+void CDrawing::InitializeFonts(void)
 {
 	m_MenuFont = g_pSurface->CreateFontA();
 	g_pSurface->SetFontGlyphSet(m_MenuFont, charenc("Verdana"), 13, 20, 0, 0, 0x10);

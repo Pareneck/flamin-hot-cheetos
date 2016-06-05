@@ -4,6 +4,7 @@ CVisuals g_Visuals;
 
 void CVisuals::Think(CBaseEntity* pLocal)
 {
+	// GetHighestEntityIndex() if you plan to make use of non-player entities, GetMaxClients() if just drawing players
 	for (int i = 1; i <= g_pEntityList->GetHighestEntityIndex(); i++)
 	{
 		if (i == pLocal->GetIndex())
@@ -25,6 +26,17 @@ void CVisuals::Think(CBaseEntity* pLocal)
 
 void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity)
 {
+	if (pEntity->GetFlags() & (int)Flags::FL_DUCKING)
+		m_vOrigin = pEntity->GetAbsOrigin() + Vector(0.f, 0.f, 52.f);
+	else
+		m_vOrigin = pEntity->GetAbsOrigin() + Vector(0.f, 0.f, 72.f);
+
+	if (!g_pDebugOverlay->ScreenPosition(m_vOrigin, m_vScreenPosHead) != 1 || !g_pDebugOverlay->ScreenPosition(pEntity->GetAbsOrigin(), m_vScreenPosFeet) != 1)
+		return;
+
+	m_fHeight = m_vScreenPosFeet.y - m_vScreenPosHead.y;
+	m_fWidth = m_fHeight / 4.f;
+
 	bool bVisible = g_Tools.IsVisible(pLocal->GetEyePosition(), pEntity->GetEyePosition(), pEntity);
 	if (bVisible)
 	{
@@ -38,20 +50,9 @@ void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity)
 		if (pEntity->GetTeamNum() == 2)
 			m_clrESP = Color(255, 255, 0);
 		else if (pEntity->GetTeamNum() == 3)
-			m_clrESP = Color(0, 255, 255);
+			m_clrESP = Color(0, 255, 0);
 	}
 
-	if (pEntity->GetFlags() & (int)Flags::FL_DUCKING)
-		m_vOrigin = pEntity->GetAbsOrigin() + Vector(0.f, 0.f, 52.f);
-	else
-		m_vOrigin = pEntity->GetAbsOrigin() + Vector(0.f, 0.f, 72.f);
-
-	if (!g_pDebugOverlay->ScreenPosition(m_vOrigin, m_vScreenPosHead) != 1 || !g_pDebugOverlay->ScreenPosition(pEntity->GetAbsOrigin(), m_vScreenPosFeet) != 1)
-		return;
-
-	m_flHeight = m_vScreenPosFeet.y - m_vScreenPosHead.y;
-	m_flWidth = m_flHeight / 4.f;
-
 	if (CVars::g_bESPDrawBox)
-		g_Drawing.DrawESPBox(m_vScreenPosHead.x - m_flWidth, m_vScreenPosHead.y + 1, m_flWidth * 2, m_flHeight, m_clrESP, Color(0, 0, 0));
+		g_Drawing.DrawESPBox(m_vScreenPosHead.x - m_fWidth, m_vScreenPosHead.y + 1.f, m_fWidth * 2.f, m_fHeight, m_clrESP, Color(0, 0, 0));
 }

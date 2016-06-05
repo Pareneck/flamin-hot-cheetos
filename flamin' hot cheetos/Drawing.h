@@ -8,9 +8,9 @@
 class CDrawing
 {
 public:
-	CDrawing();
+	CDrawing(void);
 
-	void InitializeFonts();
+	void InitializeFonts(void);
 
 	void DrawLine(int x1, int y1, int x2, int y2, Color clrColor);
 	void DrawFilledRect(int x, int y, int w, int h, Color clrColor);
@@ -19,6 +19,7 @@ public:
 	void DrawString(unsigned long ulFont, bool bCenter, int x, int y, Color clrString, const char* pchInput, ...);
 	void DrawESPBox(int x, int y, int w, int h, Color clrBox, Color clrOutline);
 
+public:
 	unsigned long m_MenuFont;
 	unsigned long m_ESPFont;
 };
