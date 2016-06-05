@@ -4,7 +4,8 @@ CVisuals g_Visuals;
 
 void CVisuals::Think(CBaseEntity* pLocal)
 {
-	// GetHighestEntityIndex() if you plan to make use of non-player entities, GetMaxClients() if just drawing players
+	player_info_t pInfo;
+
 	for (int i = 1; i <= g_pEntityList->GetHighestEntityIndex(); i++)
 	{
 		if (i == pLocal->GetIndex())
@@ -13,20 +14,22 @@ void CVisuals::Think(CBaseEntity* pLocal)
 		CBaseEntity* pEntity = g_pEntityList->GetClientEntity(i);
 		if (!pEntity)
 			continue;
-		if (pEntity->IsDormant() || pEntity->GetLifeState() != (int)LifeState::LIFE_ALIVE)
+		if (pEntity->IsDormant() || pEntity->GetLifeState() != LIFE_ALIVE)
 			continue;
-		if (pEntity->GetClientClass()->GetClassID() != (int)ClassID::CCSPlayer)
+		if (pEntity->GetClientClass()->GetClassID() != CCSPlayer)
 			continue;
 		if (pEntity->GetTeamNum() == pLocal->GetTeamNum())
 			continue;
+		if (!g_pEngine->GetPlayerInfo(i, &pInfo))
+			continue;
 
-		this->DrawPlayer(pLocal, pEntity);
+		this->DrawPlayer(pLocal, pEntity, pInfo);
 	}
 }
 
-void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity)
+void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info_t pInfo)
 {
-	if (pEntity->GetFlags() & (int)Flags::FL_DUCKING)
+	if (pEntity->GetFlags() & FL_DUCKING)
 		m_vOrigin = pEntity->GetAbsOrigin() + Vector(0.f, 0.f, 52.f);
 	else
 		m_vOrigin = pEntity->GetAbsOrigin() + Vector(0.f, 0.f, 72.f);
@@ -55,4 +58,19 @@ void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity)
 
 	if (CVars::g_bESPDrawBox)
 		g_Drawing.DrawESPBox(m_vScreenPosHead.x - m_fWidth, m_vScreenPosHead.y + 1.f, m_fWidth * 2.f, m_fHeight, m_clrESP, Color(0, 0, 0));
+
+	if (CVars::g_bESPDrawName)
+		g_Drawing.DrawString(g_Drawing.m_ESPFont, true, m_vScreenPosHead.x, m_vScreenPosHead.y - 14, Color(255, 255, 255), pInfo.m_szPlayerName);
+
+	if (CVars::g_bESPDrawWeapon)
+	{
+		CBaseCombatWeapon* pWeapon = g_Tools.GetActiveWeapon(pEntity);
+		if (pWeapon)
+			g_Drawing.DrawString(g_Drawing.m_ESPFont, true, m_vScreenPosHead.x, m_vScreenPosFeet.y, Color(255, 255, 255), pWeapon->GetWeaponName());
+	}
+
+	int iPlace = 0;
+
+	if (CVars::g_bESPDrawCallout)
+		g_Drawing.DrawString(g_Drawing.m_ESPFont, true, m_vScreenPosHead.x + m_fWidth + 3, m_vScreenPosHead.y - 3 + (iPlace++ * 11), Color(255, 255, 255), pEntity->GetLastPlaceName());
 }

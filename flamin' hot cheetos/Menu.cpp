@@ -343,6 +343,9 @@ void CMenu::DrawMenu()
 
 		this->DrawCheckbox(x + 30, y + 55, 450, CVars::g_bESPEnabled, charenc("Enable ESP"));
 		this->DrawCheckbox(x + 30, y + 80, 450, CVars::g_bESPDrawBox, charenc("Draw Boxes"));
+		this->DrawCheckbox(x + 30, y + 105, 450, CVars::g_bESPDrawName, charenc("Draw Name"));
+		this->DrawCheckbox(x + 30, y + 130, 450, CVars::g_bESPDrawWeapon, charenc("Draw Weapon"));
+		this->DrawCheckbox(x + 30, y + 155, 450, CVars::g_bESPDrawCallout, charenc("Draw Callout"));
 	}
 	else if (iTab == 3)
 	{

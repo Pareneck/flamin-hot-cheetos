@@ -39,3 +39,9 @@ bool CTools::IsVisible(Vector& vecStart, Vector& vecEnd, CBaseEntity* pEntity)
 
 	return (tr.pEntity == pEntity || tr.fraction > 0.99f);
 }
+
+CBaseCombatWeapon* CTools::GetActiveWeapon(CBaseEntity *pEntity)
+{
+	ULONG ulHandle = (ULONG)*(PDWORD)((DWORD)pEntity + 0x2EE8);
+	return (CBaseCombatWeapon*)g_pEntityList->GetClientEntityFromHandle(ulHandle);
+}

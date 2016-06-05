@@ -5,7 +5,7 @@
 
 #include "Main.h"
 #include "dt_recv.h"
-#include "Color.h"
+#include "SDKDefinitions.h"
 
 //----------------------------------------
 // TYPEDEFS
@@ -15,12 +15,10 @@ typedef float matrix3x4[3][4];
 typedef float matrix4x4[4][4];
 
 //----------------------------------------
-// CLASS PROTOTYPES
+// FORWARD DECLARATIONS
 //----------------------------------------
 
-class CBaseEntity;
 class IVClientClass;
-class Color;
 
 //----------------------------------------
 // GET VIRTUAL FUNCTIONS
@@ -42,7 +40,7 @@ inline Fn GetVirtualFunction(const void* inst, size_t index, size_t offset = 0)
 }
 
 //----------------------------------------
-// BASE ENTITY CLASS
+// ENTITY CLASS
 //----------------------------------------
 
 class CBaseEntity
@@ -68,6 +66,10 @@ public:
 	{
 		return *(int*)((DWORD)this + 0x100);
 	}
+	const char* GetLastPlaceName(void)
+	{
+		return (char*)((DWORD)this + 0x0);
+	}
 	Vector GetViewOffset(void)
 	{
 		return *(Vector*)((DWORD)this + 0x104);
@@ -86,7 +88,7 @@ public:
 		{
 			MOV ECX, this
 			MOV EAX, DWORD PTR DS : [ECX]
-				CALL DWORD PTR DS : [EAX + 0x28]
+			CALL DWORD PTR DS : [EAX + 0x28]
 		}
 	}
 	int GetIndex(void)
@@ -95,8 +97,8 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, DWORD PTR DS : [EDI + 0x8]
-				MOV EDX, DWORD PTR DS : [ECX]
-				CALL DWORD PTR DS : [EDX + 0x28]
+			MOV EDX, DWORD PTR DS : [ECX]
+			CALL DWORD PTR DS : [EDX + 0x28]
 		}
 	}
 	bool IsDormant(void)
@@ -105,8 +107,8 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, [EDI + 0x8]
-				MOV EDX, DWORD PTR DS : [ecx]
-				CALL[EDX + 0x24]
+			MOV EDX, DWORD PTR DS : [ecx]
+			CALL[EDX + 0x24]
 		}
 	}
 	IVClientClass* GetClientClass(void)
@@ -114,6 +116,135 @@ public:
 		void* pNetworkable = (void*)(this + 0x8);
 		typedef IVClientClass* (__thiscall* fnOriginal)(void*);
 		return GetVirtualFunction<fnOriginal>(pNetworkable, 2)(pNetworkable);
+	}
+};
+
+//----------------------------------------
+// WEAPON ENTITY CLASS
+//----------------------------------------
+
+class CBaseCombatWeapon : public CBaseEntity
+{
+private:
+	DWORD dwBase;
+public:
+	int GetItemDefinitionIndex(void)
+	{
+		return *(int*)((DWORD)this + 0x2F88);
+	}
+	const char* GetWeaponName(void)
+	{
+		switch (this->GetItemDefinitionIndex())
+		{
+		case ITEM_NONE:
+			return charenc("None"); break;
+		case WEAPON_DEAGLE:
+			return charenc("Deagle"); break;
+		case WEAPON_DUALS:
+			return charenc("Dualies"); break;
+		case WEAPON_FIVE7:
+			return charenc("Five-Seven"); break;
+		case WEAPON_GLOCK:
+			return charenc("Glock"); break;
+		case WEAPON_AK47:
+			return charenc("AK-47"); break;
+		case WEAPON_AUG:
+			return charenc("AUG"); break;
+		case WEAPON_AWP:
+			return charenc("AWP"); break;
+		case WEAPON_FAMAS:
+			return charenc("Famas"); break;
+		case WEAPON_G3SG1:
+			return charenc("G3SG1"); break;
+		case WEAPON_GALIL:
+			return charenc("Galil"); break;
+		case WEAPON_M249:
+			return charenc("M249"); break;
+		case WEAPON_M4A1:
+			return charenc("M4A4"); break;
+		case WEAPON_MAC10:
+			return charenc("MAC-10"); break;
+		case WEAPON_P90:
+			return charenc("P90"); break;
+		case WEAPON_UMP45:
+			return charenc("UMP-45"); break;
+		case WEAPON_XM1014:
+			return charenc("XM1014"); break;
+		case WEAPON_BIZON:
+			return charenc("Bizon"); break;
+		case WEAPON_MAG7:
+			return charenc("MAG-7"); break;
+		case WEAPON_NEGEV:
+			return charenc("Negev"); break;
+		case WEAPON_SAWEDOFF:
+			return charenc("Sawed-Off"); break;
+		case WEAPON_TEC9:
+			return charenc("TEC-9"); break;
+		case WEAPON_TASER:
+			return charenc("Zeus"); break;
+		case WEAPON_P2000:
+			return charenc("P2000"); break;
+		case WEAPON_MP7:
+			return charenc("MP7"); break;
+		case WEAPON_MP9:
+			return charenc("MP9"); break;
+		case WEAPON_NOVA:
+			return charenc("Nova"); break;
+		case WEAPON_P250:
+			return charenc("P250"); break;
+		case WEAPON_SCAR20:
+			return charenc("SCAR-20"); break;
+		case WEAPON_SG553:
+			return charenc("SG-553"); break;
+		case WEAPON_SCOUT:
+			return charenc("Scout"); break;
+		case WEAPON_REVOLVER:
+			return charenc("Revolver"); break;
+		case WEAPON_KNIFE_CT:
+			return charenc("Knife"); break;
+		case WEAPON_KNIFE_T:
+			return charenc("Knife"); break;
+		case WEAPON_KNIFE_GUT:
+			return charenc("Gut Knife"); break;
+		case WEAPON_KNIFE_FLIP:
+			return charenc("Flip Knife"); break;
+		case WEAPON_KNIFE_BAYONET:
+			return charenc("Bayonet"); break;
+		case WEAPON_KNIFE_KARAMBIT:
+			return charenc("Karambit"); break;
+		case WEAPON_KNIFE_M9BAYONET:
+			return charenc("M9 Bayonet"); break;
+		case WEAPON_KNIFE_BUTTERFLY:
+			return charenc("Butterfly Knife"); break;
+		case WEAPON_KNIFE_FALCHION:
+			return charenc("Falchion Knife"); break;
+		case WEAPON_KNIFE_HUNTSMAN:
+			return charenc("Huntsman Knife"); break;
+		case WEAPON_KNIFE_BOWIE:
+			return charenc("Bowie Knife"); break;
+		case WEAPON_FLASH:
+			return charenc("Flashbang"); break;
+		case WEAPON_HE:
+			return charenc("HE Grenade"); break;
+		case WEAPON_SMOKE:
+			return charenc("Smoke"); break;
+		case WEAPON_MOLOTOV:
+			return charenc("Molotov"); break;
+		case WEAPON_DECOY:
+			return charenc("Decoy"); break;
+		case WEAPON_INC:
+			return charenc("Inc Grenade"); break;
+		case WEAPON_M4A1S:
+			return charenc("M4A1-S"); break;
+		case WEAPON_USPS:
+			return charenc("USP-S"); break;
+		case WEAPON_CZ75:
+			return charenc("CZ-75"); break;
+		case WEAPON_C4:
+			return charenc("C4"); break;
+		}
+
+		return "";
 	}
 };
 
@@ -300,6 +431,11 @@ public:
 class IEngineClient
 {
 public:
+	bool GetPlayerInfo(int iIndex, player_info_t* pInfo)
+	{
+		typedef bool(__thiscall* fnOriginal)(void*, int, player_info_t*);
+		return GetVirtualFunction<fnOriginal>(this, 8)(this, iIndex, pInfo);
+	}
 	int GetLocalPlayer(void)
 	{
 		typedef int(__thiscall* fnOriginal)(void*);
@@ -518,6 +654,7 @@ class CTools
 public:
 	void* QueryInterface(std::string szModuleName, std::string szInterfaceName);
 	bool IsVisible(Vector& vecStart, Vector& vecEnd, CBaseEntity* pEntity);
+	CBaseCombatWeapon* GetActiveWeapon(CBaseEntity* pEntity);
 };
 
 extern CTools g_Tools;

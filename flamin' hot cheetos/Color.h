@@ -1,9 +1,7 @@
 #ifndef COLOR_H
 #define COLOR_H
 
-#ifdef _MSC_VER
 #pragma once
-#endif
 
 class Color
 {

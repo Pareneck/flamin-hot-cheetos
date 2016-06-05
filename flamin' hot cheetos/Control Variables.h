@@ -9,6 +9,9 @@ namespace CVars
 {
 	extern bool g_bESPEnabled;
 	extern bool g_bESPDrawBox;
+	extern bool g_bESPDrawName;
+	extern bool g_bESPDrawWeapon;
+	extern bool g_bESPDrawCallout;
 }
 
 #endif

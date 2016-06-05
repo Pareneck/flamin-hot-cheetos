@@ -18,16 +18,16 @@
 #include "SDK.h"
 #include "SDKDefinitions.h"
 
-#include "Interfaces.h"
-#include "Hooks.h"
-
 #include "Color.h"
 #include "Drawing.h"
 
-#include "Control Variables.h"
+#include "Interfaces.h"
+#include "Hooks.h"
 
-#include "Visuals.h"
 #include "Menu.h"
+#include "Visuals.h"
+
+#include "Control Variables.h"
 
 extern bool bUnload;
 
