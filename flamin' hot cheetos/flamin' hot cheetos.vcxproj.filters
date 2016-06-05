@@ -57,17 +57,17 @@
     <ClCompile Include="Hooks.cpp">
       <Filter>Project Files\Hooks</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Drawing.cpp">
+    <ClCompile Include="Drawing.cpp">
       <Filter>Project Files\Drawing</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Visuals.cpp">
-      <Filter>Project Files\Features</Filter>
+    <ClCompile Include="Control Variables.cpp">
+      <Filter>Project Files\Control Variables</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Menu.cpp">
+    <ClCompile Include="Menu.cpp">
       <Filter>Project Files\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Control Variables.cpp">
-      <Filter>Project Files\Control Variables</Filter>
+    <ClCompile Include="Visuals.cpp">
+      <Filter>Project Files\Features</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -89,41 +89,41 @@
     <ClInclude Include="VFTManager.h">
       <Filter>Project Files\VFT</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Drawing.h">
+    <ClInclude Include="cx_strenc.h">
+      <Filter>Project Files\Encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="cx_fnv1.h">
+      <Filter>Project Files\Encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="cx_pcg32.h">
+      <Filter>Project Files\Encryption</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.h">
       <Filter>Project Files\Drawing</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Visuals.h">
-      <Filter>Project Files\Features</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Color.h">
+    <ClInclude Include="Drawing.h">
       <Filter>Project Files\Drawing</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Vector.h">
-      <Filter>Project Files\Vector</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\dt_recv.h">
-      <Filter>Project Files\SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\SDKDefinitions.h">
-      <Filter>Project Files\SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\dt_common.h">
-      <Filter>Project Files\SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Menu.h">
-      <Filter>Project Files\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Control Variables.h">
+    <ClInclude Include="Control Variables.h">
       <Filter>Project Files\Control Variables</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\cx_fnv1.h">
-      <Filter>Project Files\Encryption</Filter>
+    <ClInclude Include="Menu.h">
+      <Filter>Project Files\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\cx_pcg32.h">
-      <Filter>Project Files\Encryption</Filter>
+    <ClInclude Include="SDKDefinitions.h">
+      <Filter>Project Files\SDK</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\cx_strenc.h">
-      <Filter>Project Files\Encryption</Filter>
+    <ClInclude Include="dt_common.h">
+      <Filter>Project Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="dt_recv.h">
+      <Filter>Project Files\SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="Visuals.h">
+      <Filter>Project Files\Features</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Project Files\Vector</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

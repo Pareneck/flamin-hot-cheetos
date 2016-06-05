@@ -143,18 +143,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Color.h" />
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Control Variables.h" />
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\cx_fnv1.h" />
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\cx_pcg32.h" />
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\cx_strenc.h" />
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Drawing.h" />
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\dt_common.h" />
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\dt_recv.h" />
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Menu.h" />
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\SDKDefinitions.h" />
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Vector.h" />
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Visuals.h" />
+    <ClInclude Include="Color.h" />
+    <ClInclude Include="Control Variables.h" />
+    <ClInclude Include="cx_fnv1.h" />
+    <ClInclude Include="cx_pcg32.h" />
+    <ClInclude Include="cx_strenc.h" />
+    <ClInclude Include="Drawing.h" />
+    <ClInclude Include="dt_common.h" />
+    <ClInclude Include="dt_recv.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="SDKDefinitions.h" />
+    <ClInclude Include="Vector.h" />
+    <ClInclude Include="Visuals.h" />
     <ClInclude Include="Hooks.h" />
     <ClInclude Include="Interfaces.h" />
     <ClInclude Include="PaintTraverse.h" />
@@ -163,10 +163,10 @@
     <ClInclude Include="Main.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Control Variables.cpp" />
-    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Drawing.cpp" />
-    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Menu.cpp" />
-    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Visuals.cpp" />
+    <ClCompile Include="Control Variables.cpp" />
+    <ClCompile Include="Drawing.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Visuals.cpp" />
     <ClCompile Include="Hooks.cpp" />
     <ClCompile Include="DLLMain.cpp" />
     <ClCompile Include="Interfaces.cpp" />
