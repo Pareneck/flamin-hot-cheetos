@@ -7,6 +7,7 @@
 #include "VFTManager.h"
 
 #include "PaintTraverse.h"
+#include "CreateMove.h"
 
 namespace Hooks
 {

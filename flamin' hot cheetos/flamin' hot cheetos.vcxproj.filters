@@ -40,6 +40,9 @@
     <Filter Include="Project Files\Encryption">
       <UniqueIdentifier>{a964d8d7-a2b7-4210-bd31-0bd5700284b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\Hooks\CreateMove">
+      <UniqueIdentifier>{f688a0f0-516d-4396-82c4-618261ed854d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK.cpp">
@@ -68,6 +71,12 @@
     </ClCompile>
     <ClCompile Include="Visuals.cpp">
       <Filter>Project Files\Features</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\CreateMove.cpp">
+      <Filter>Project Files\Hooks\CreateMove</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\checksum_crc.cpp">
+      <Filter>Project Files\SDK</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="Vector.h">
       <Filter>Project Files\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\CreateMove.h">
+      <Filter>Project Files\Hooks\CreateMove</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\checksum_crc.h">
+      <Filter>Project Files\SDK</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

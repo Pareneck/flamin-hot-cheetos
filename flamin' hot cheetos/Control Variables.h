@@ -12,6 +12,8 @@ namespace CVars
 	extern bool g_bESPDrawName;
 	extern bool g_bESPDrawWeapon;
 	extern bool g_bESPDrawCallout;
+
+	extern bool g_bMiscBunnyhop;
 }
 
 #endif

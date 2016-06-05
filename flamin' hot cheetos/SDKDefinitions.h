@@ -3,23 +3,6 @@
 
 #pragma once
 
-enum FontFlags
-{
-	FONTFLAG_NONE,
-	FONTFLAG_ITALIC = 0x001,
-	FONTFLAG_UNDERLINE = 0x002,
-	FONTFLAG_STRIKEOUT = 0x004,
-	FONTFLAG_SYMBOL = 0x008,
-	FONTFLAG_ANTIALIAS = 0x010,
-	FONTFLAG_GAUSSIANBLUR = 0x020,
-	FONTFLAG_ROTARY = 0x040,
-	FONTFLAG_DROPSHADOW = 0x080,
-	FONTFLAG_ADDITIVE = 0x100,
-	FONTFLAG_OUTLINE = 0x200,
-	FONTFLAG_CUSTOM = 0x400,
-	FONTFLAG_BITMAP = 0x800,
-};
-
 typedef struct player_info_s
 {
 private:
@@ -40,6 +23,56 @@ private:
 	int __pad1;
 } player_info_t;
 
+#define USERCMDOFFSET 0xEC
+#define VERIFIEDCMDOFFSET 0xF0
+#define MULTIPLAYER_BACKUP 150
+
+enum Buttons
+{
+	IN_ATTACK = (1 << 0),
+	IN_JUMP = (1 << 1),
+	IN_DUCK = (1 << 2),
+	IN_FORWARD = (1 << 3),
+	IN_BACK = (1 << 4),
+	IN_USE = (1 << 5),
+	IN_CANCEL = (1 << 6),
+	IN_LEFT = (1 << 7),
+	IN_RIGHT = (1 << 8),
+	IN_MOVELEFT = (1 << 9),
+	IN_MOVERIGHT = (1 << 10),
+	IN_ATTACK2 = (1 << 11),
+	IN_RUN = (1 << 12),
+	IN_RELOAD = (1 << 13),
+	IN_ALT1 = (1 << 14),
+	IN_ALT2 = (1 << 15),
+	IN_SCORE = (1 << 16),
+	IN_SPEED = (1 << 17),
+	IN_WALK = (1 << 18),
+	IN_ZOOM = (1 << 19),
+	IN_WEAPON1 = (1 << 20),
+	IN_WEAPON2 = (1 << 21),
+	IN_BULLRUSH = (1 << 22),
+	IN_GRENADE1 = (1 << 23),
+	IN_GRENADE2 = (1 << 24),
+};
+
+enum FontFlags
+{
+	FONTFLAG_NONE,
+	FONTFLAG_ITALIC = 0x001,
+	FONTFLAG_UNDERLINE = 0x002,
+	FONTFLAG_STRIKEOUT = 0x004,
+	FONTFLAG_SYMBOL = 0x008,
+	FONTFLAG_ANTIALIAS = 0x010,
+	FONTFLAG_GAUSSIANBLUR = 0x020,
+	FONTFLAG_ROTARY = 0x040,
+	FONTFLAG_DROPSHADOW = 0x080,
+	FONTFLAG_ADDITIVE = 0x100,
+	FONTFLAG_OUTLINE = 0x200,
+	FONTFLAG_CUSTOM = 0x400,
+	FONTFLAG_BITMAP = 0x800,
+};
+
 enum Flag
 {
 	FL_ONGROUND = (1 << 0),
@@ -50,14 +83,14 @@ enum Flag
 	FL_FROZEN = (1 << 5),
 	FL_ATCONTROLS = (1 << 6),
 	FL_CLIENT = (1 << 7),
-	FL_FAKECLIENT = (1 << 8)
+	FL_FAKECLIENT = (1 << 8),
 };
 
 enum LifeState
 {
 	LIFE_ALIVE = 0,
 	LIFE_DYING = 1,
-	LIFE_DEAD = 2
+	LIFE_DEAD = 2,
 };
 
 enum Weapon
@@ -115,7 +148,7 @@ enum Weapon
 	WEAPON_KNIFE_FALCHION = 512,
 	WEAPON_KNIFE_BOWIE = 514,
 	WEAPON_KNIFE_BUTTERFLY = 515,
-	WEAPON_KNIFE_DAGGER = 516
+	WEAPON_KNIFE_DAGGER = 516,
 };
 
 enum ClassID
@@ -368,7 +401,7 @@ enum ClassID
 	RocketTrail,
 	SmokeTrail,
 	SporeExplosion,
-	SporeTrail
+	SporeTrail,
 };
 
 #endif

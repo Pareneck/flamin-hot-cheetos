@@ -349,6 +349,8 @@ void CMenu::DrawMenu()
 	{
 		g_Drawing.DrawFilledRect(x + 193, y + 30, 83, 15, Color(5, 120, 210));
 		g_Drawing.DrawString(g_Drawing.m_MenuFont, true, x + 233, y + 32, Color(255, 255, 255), charenc("Misc"));
+
+		this->DrawCheckbox(x + 30, y + 55, 450, CVars::g_bMiscBunnyhop, charenc("Bunnyhop"));
 	}
 
 	g_Drawing.DrawFilledRect(x + 1, y + 45, w - 2, 2, Color(5, 120, 210));

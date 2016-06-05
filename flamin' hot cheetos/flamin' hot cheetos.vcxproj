@@ -143,6 +143,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\checksum_crc.h" />
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\CreateMove.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Control Variables.h" />
     <ClInclude Include="cx_fnv1.h" />
@@ -163,6 +165,8 @@
     <ClInclude Include="Main.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\checksum_crc.cpp" />
+    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\CreateMove.cpp" />
     <ClCompile Include="Control Variables.cpp" />
     <ClCompile Include="Drawing.cpp" />
     <ClCompile Include="Menu.cpp" />
