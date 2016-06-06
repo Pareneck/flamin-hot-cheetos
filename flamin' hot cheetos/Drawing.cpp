@@ -10,13 +10,13 @@ CDrawing::CDrawing(void)
 
 void CDrawing::InitializeFonts(void)
 {
-	m_MenuFont = g_pSurface->CreateFontA();
+	m_MenuFont = g_pSurface->CreateFont();
 	g_pSurface->SetFontGlyphSet(m_MenuFont, charenc("Verdana"), 13, 20, 0, 0, FONTFLAG_ANTIALIAS);
 
-	m_MenuTitle = g_pSurface->CreateFontA();
+	m_MenuTitle = g_pSurface->CreateFont();
 	g_pSurface->SetFontGlyphSet(m_MenuTitle, charenc("Tahoma"), 13, 600, 0, 0, FONTFLAG_ANTIALIAS);
 
-	m_ESPFont = g_pSurface->CreateFontA();
+	m_ESPFont = g_pSurface->CreateFont();
 	g_pSurface->SetFontGlyphSet(m_ESPFont, charenc("Tahoma"), 13, 1250, 0, 0, FONTFLAG_DROPSHADOW);
 }
 
