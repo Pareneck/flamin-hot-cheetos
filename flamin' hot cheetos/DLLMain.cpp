@@ -9,10 +9,10 @@
 //  - add in vmt hook manager class [x]
 //    - finish hooking painttraverse [x]
 //      - do a bunch of shit
-//    - hook other shit like createmove
+//    - hook other shit like createmove [x]
 //      - do aimbot and shit
 //  - make this project a little prettier
-//    - better naming notation (?)
+//    - better naming notation (?) -- NOTE: Hungarian notation isn't extremely useful anymore, since the compiler can detect the variable type (wasn't the case back then)
 //    - I have trouble deciding whether I should make x variable a class member
 //------------------------------------------------------------------------------------------
 

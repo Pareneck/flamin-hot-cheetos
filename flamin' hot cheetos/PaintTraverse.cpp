@@ -1,6 +1,6 @@
 #include "PaintTraverse.h"
 
-PaintTraverse_t g_fnPaintTraverse = 0;
+PaintTraverse_t g_fnPaintTraverse;
 
 void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool allowForce)
 {
