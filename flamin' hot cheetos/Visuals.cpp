@@ -108,10 +108,10 @@ void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info
 	}
 
 	if (CVars::g_bESPDrawBox)
-		g_Drawing.DrawESPBox(x - w, y + 1, w * 2, h, m_clrESP, Color(0, 0, 0));
+		g_Drawing.DrawESPBox(x, y, w, h, m_clrESP, Color(0, 0, 0));
 
 	if (CVars::g_bESPDrawName)
-		g_Drawing.DrawString(g_Drawing.m_ESPFont, true, x, y - 14, Color(255, 255, 255), pInfo.m_szPlayerName);
+		g_Drawing.DrawString(g_Drawing.m_ESPFont, true, x + w / 2, y - 16, Color(255, 255, 255), pInfo.m_szPlayerName);
 
 	if (CVars::g_bESPDrawWeapon)
 	{
@@ -125,12 +125,12 @@ void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info
 			else
 				sprintf_s(chBuffer, sizeof chBuffer, "%s", pWeapon->GetWeaponName());
 
-			g_Drawing.DrawString(g_Drawing.m_ESPFont, true, x, y + 3, Color(255, 255, 255), chBuffer);
+			g_Drawing.DrawString(g_Drawing.m_ESPFont, true, x + w / 2, top + 2, Color(255, 255, 255), chBuffer);
 		}
 	}
 
 	int iPlace = 0;
 
 	if (CVars::g_bESPDrawCallout)
-		g_Drawing.DrawString(g_Drawing.m_ESPFont, false, x + w + 5, y - 3 + (iPlace++ * 11), Color(255, 255, 255), pEntity->GetLastPlaceName());
+		g_Drawing.DrawString(g_Drawing.m_ESPFont, false, x + w + 5, y - 4 + (iPlace++ * 11), Color(255, 255, 255), pEntity->GetLastPlaceName());
 }
