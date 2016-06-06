@@ -125,6 +125,12 @@ public:
 		typedef IVClientClass* (__thiscall* fnOriginal)(void*);
 		return GetVirtualFunction<fnOriginal>(pNetworkable, 2)(pNetworkable);
 	}
+	void GetRenderBounds(Vector& mins, Vector& maxs)
+	{
+		void* pRenderable = (void*)(this + 0x4);
+		typedef void(__thiscall* fnOriginal)(void*, Vector&, Vector&);
+		GetVirtualFunction<fnOriginal>(pRenderable, 17)(pRenderable, mins, maxs);
+	}
 };
 
 //----------------------------------------
@@ -805,6 +811,8 @@ public:
 	void* QueryInterface(std::string szModuleName, std::string szInterfaceName);
 	bool IsVisible(Vector& vecStart, Vector& vecEnd, CBaseEntity* pEntity);
 	CBaseCombatWeapon* GetActiveWeapon(CBaseEntity* pEntity);
+	bool WorldToScreen(Vector& vWorld, Vector& vScreen);
+	void VectorTransform(const Vector& in1, const matrix3x4& in2, Vector& out);
 }; extern CTools g_Tools;
 
 #endif

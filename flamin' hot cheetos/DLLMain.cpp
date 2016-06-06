@@ -14,6 +14,7 @@
 //  - make this project a little prettier
 //    - better naming notation (?) -- NOTE: Hungarian notation isn't extremely useful anymore, since the compiler can detect the variable type (wasn't the case back then)
 //    - I have trouble deciding whether I should make x variable a class member
+//  - figure out this 'undefined class' shit (circular header includes?)
 //------------------------------------------------------------------------------------------
 
 bool bUnload = false;
