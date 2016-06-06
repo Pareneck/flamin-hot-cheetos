@@ -43,6 +43,12 @@
     <Filter Include="Project Files\Hooks\CreateMove">
       <UniqueIdentifier>{f688a0f0-516d-4396-82c4-618261ed854d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\Features\Miscellaneous">
+      <UniqueIdentifier>{2082e8fd-7f59-4e92-9e86-5f890719f8e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Features\Visuals">
+      <UniqueIdentifier>{affbfb51-3981-4843-8419-753757fa2d6b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK.cpp">
@@ -69,14 +75,17 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Project Files\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="Visuals.cpp">
-      <Filter>Project Files\Features</Filter>
-    </ClCompile>
     <ClCompile Include="checksum_crc.cpp">
       <Filter>Project Files\SDK</Filter>
     </ClCompile>
     <ClCompile Include="CreateMove.cpp">
       <Filter>Project Files\Hooks\CreateMove</Filter>
+    </ClCompile>
+    <ClCompile Include="Visuals.cpp">
+      <Filter>Project Files\Features\Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Miscellaneous.cpp">
+      <Filter>Project Files\Features\Miscellaneous</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,9 +137,6 @@
     <ClInclude Include="dt_recv.h">
       <Filter>Project Files\SDK</Filter>
     </ClInclude>
-    <ClInclude Include="Visuals.h">
-      <Filter>Project Files\Features</Filter>
-    </ClInclude>
     <ClInclude Include="Vector.h">
       <Filter>Project Files\Vector</Filter>
     </ClInclude>
@@ -139,6 +145,12 @@
     </ClInclude>
     <ClInclude Include="CreateMove.h">
       <Filter>Project Files\Hooks\CreateMove</Filter>
+    </ClInclude>
+    <ClInclude Include="Visuals.h">
+      <Filter>Project Files\Features\Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Miscellaneous.h">
+      <Filter>Project Files\Features\Miscellaneous</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

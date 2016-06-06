@@ -19,10 +19,7 @@ void __stdcall CreateMove(int sequence_number, float input_sample_frametime, boo
 	if (pLocal)
 	{
 		if (CVars::g_bMiscBunnyhop)
-		{
-			if ((pUserCmd->buttons & IN_JUMP) && !(pLocal->GetFlags() & FL_ONGROUND))
-				pUserCmd->buttons &= ~IN_JUMP;
-		}
+			g_Misc.Bunnyhop(pLocal, pUserCmd);
 	}
 
 	pVerified->m_cmd = *pUserCmd;

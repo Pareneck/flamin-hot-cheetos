@@ -19,6 +19,9 @@ typedef float matrix4x4[4][4];
 // FORWARD DECLARATIONS
 //----------------------------------------
 
+class CBaseEntity;
+class CBaseCombatWeapon;
+class CInput;
 class IVClientClass;
 
 //----------------------------------------
@@ -798,8 +801,6 @@ public:
 	void* QueryInterface(std::string szModuleName, std::string szInterfaceName);
 	bool IsVisible(Vector& vecStart, Vector& vecEnd, CBaseEntity* pEntity);
 	CBaseCombatWeapon* GetActiveWeapon(CBaseEntity* pEntity);
-};
-
-extern CTools g_Tools;
+}; extern CTools g_Tools;
 
 #endif

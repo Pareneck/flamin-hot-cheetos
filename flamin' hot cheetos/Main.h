@@ -24,10 +24,11 @@
 #include "Interfaces.h"
 #include "Hooks.h"
 
+#include "Control Variables.h"
+
 #include "Menu.h"
 #include "Visuals.h"
-
-#include "Control Variables.h"
+#include "Miscellaneous.h"
 
 extern bool bUnload;
 
