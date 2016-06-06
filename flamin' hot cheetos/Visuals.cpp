@@ -29,7 +29,7 @@ void CVisuals::Think(CBaseEntity* pLocal)
 
 void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info_t pInfo)
 {
-	const Matrix3x4& trans = *(matrix3x4*)( (DWORD)pEntity + Offsets::m_rgflCoordinateFrame );
+	const matrix3x4& trans = *(matrix3x4*)( (DWORD)pEntity + Offsets::m_rgflCoordinateFrame );
 
 	Vector min, max;
 	pEntity->GetRenderBounds( min, max );
