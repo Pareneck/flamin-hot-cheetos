@@ -29,6 +29,63 @@ void CVisuals::Think(CBaseEntity* pLocal)
 
 void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info_t pInfo)
 {
+	const matrix3x4& trans = *(matrix3x4*)( (DWORD)pEntity + Offsets::m_rgflCoordinateFrame );
+
+	Vector min, max;
+	pEntity->GetRenderBounds( min, max );
+
+	Vector pointList[] = {
+		Vector( min.x, min.y, min.z ),
+		Vector( min.x, max.y, min.z ),
+		Vector( max.x, max.y, min.z ),
+		Vector( max.x, min.y, min.z ),
+		Vector( max.x, max.y, max.z ),
+		Vector( min.x, max.y, max.z ),
+		Vector( min.x, min.y, max.z ),
+		Vector( max.x, min.y, max.z )
+	};
+
+	Vector transformed[ 8 ];
+
+	for ( int i = 0; i < 8; i++ )
+		U::VectorTransform( pointList[ i ], trans, transformed[ i ] );
+
+	Vector flb, brt, blb, frt, frb, brb, blt, flt;
+
+	if ( !WorldToScreen( transformed[ 3 ], flb ) ||
+		!WorldToScreen( transformed[ 0 ], blb ) ||
+		!WorldToScreen( transformed[ 2 ], frb ) ||
+		!WorldToScreen( transformed[ 6 ], blt ) ||
+		!WorldToScreen( transformed[ 5 ], brt ) ||
+		!WorldToScreen( transformed[ 4 ], frt ) ||
+		!WorldToScreen( transformed[ 1 ], brb ) ||
+		!WorldToScreen( transformed[ 7 ], flt ) )
+		return;
+
+	Vector arr[] = { flb, brt, blb, frt, frb, brb, blt, flt };
+
+	float left = flb.x;
+	float top = flb.y;
+	float right = flb.x;
+	float bottom = flb.y;
+
+	for ( int i = 0; i < 8; i++ )
+	{
+		if ( left > arr[ i ].x )
+			left = arr[ i ].x;
+		if ( top < arr[ i ].y )
+			top = arr[ i ].y;
+		if ( right < arr[ i ].x )
+			right = arr[ i ].x;
+		if ( bottom > arr[ i ].y )
+			bottom = arr[ i ].y;
+	}
+
+	float x = left;
+	float y = bottom;
+	float w = right - left;
+	float h = top - bottom;
+
 	if (pEntity->GetFlags() & FL_DUCKING)
 		m_vOrigin = pEntity->GetAbsOrigin() + Vector(0.f, 0.f, 52.f);
 	else
@@ -70,9 +127,9 @@ void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info
 			char chBuffer[32];
 
 			if (!pWeapon->IsKnife() && !pWeapon->IsOther())
-				sprintf_s(chBuffer, sizeof(chBuffer), "%s | %i", pWeapon->GetWeaponName(), pWeapon->GetClip1());
+				sprintf_s(chBuffer, sizeof chBuffer, "%s | %i", pWeapon->GetWeaponName(), pWeapon->GetClip1());
 			else
-				sprintf_s(chBuffer, sizeof(chBuffer), "%s", pWeapon->GetWeaponName());
+				sprintf_s(chBuffer, sizeof chBuffer, "%s", pWeapon->GetWeaponName());
 
 			g_Drawing.DrawString(g_Drawing.m_ESPFont, true, m_vScreenPosHead.x, m_vScreenPosFeet.y + 3, Color(255, 255, 255), chBuffer);
 		}

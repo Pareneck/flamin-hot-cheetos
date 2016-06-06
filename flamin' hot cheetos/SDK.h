@@ -1,6 +1,10 @@
 #ifndef SDK_H
 #define SDK_H
 
+#ifdef CreateFont
+#undef CreateFont
+#endif
+
 #pragma once
 
 #include "Main.h"

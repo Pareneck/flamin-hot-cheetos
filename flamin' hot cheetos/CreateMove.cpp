@@ -1,6 +1,6 @@
 #include "CreateMove.h"
 
-CreateMove_t g_fnCreateMove = 0;
+CreateMove_t g_fnCreateMove;
 
 void __stdcall CreateMove(int sequence_number, float input_sample_frametime, bool active)
 {
