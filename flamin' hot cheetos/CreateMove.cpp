@@ -1,10 +1,10 @@
 #include "CreateMove.h"
 
-CreateMove_t g_fnCreateMove;
+CreateMove_t originalCreateMove;
 
 void __stdcall CreateMove(int sequence_number, float input_sample_frametime, bool active)
 {
-	g_fnCreateMove(g_pClient, sequence_number, input_sample_frametime, active);
+	originalCreateMove(g_pClient, sequence_number, input_sample_frametime, active);
 
 	CInput::CUserCmd* pUserCmd = g_pInput->GetUserCmd(0, sequence_number);
 	if (!pUserCmd)
@@ -18,7 +18,7 @@ void __stdcall CreateMove(int sequence_number, float input_sample_frametime, boo
 	CBaseEntity* pLocal = g_pEntityList->GetClientEntity(g_pEngine->GetLocalPlayer());
 	if (pLocal)
 	{
-		if (CVars::g_bMiscBunnyhop)
+		if (cvar::misc_bunnyhop)
 		{
 			// g_Misc.Bunnyhop(pLocal, pUserCmd);
 

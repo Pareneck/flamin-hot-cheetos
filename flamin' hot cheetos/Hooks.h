@@ -9,10 +9,10 @@
 #include "PaintTraverse.h"
 #include "CreateMove.h"
 
-namespace Hooks
+namespace hooks
 {
-	void Initialize();
-	void UnhookFunctions();
+	void initialize();
+	void restore();
 }
 
 #endif

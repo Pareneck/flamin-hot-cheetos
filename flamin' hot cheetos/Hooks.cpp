@@ -1,25 +1,25 @@
 #include "Hooks.h"
 
-namespace Hooks
+namespace hooks
 {
-	std::unique_ptr<CVFTManager> g_pClientHook = nullptr;
-	std::unique_ptr<CVFTManager> g_pPanelHook = nullptr;
+	std::unique_ptr<VFTManager> clientHook = nullptr;
+	std::unique_ptr<VFTManager> panelHook = nullptr;
 
-	void Initialize()
+	void initialize()
 	{
-		g_pPanelHook = std::make_unique<CVFTManager>((DWORD**)g_pPanel, true);
-		g_fnPaintTraverse = g_pPanelHook->Hook(41, (PaintTraverse_t)PaintTraverse);
+		panelHook = std::make_unique<VFTManager>((DWORD**)g_pPanel, true);
+		originalPaintTraverse = panelHook->hook(41, (PaintTraverse_t)PaintTraverse);
 
-		g_pClientHook = std::make_unique<CVFTManager>((DWORD**)g_pClient, true);
-		g_fnCreateMove = g_pClientHook->Hook(21, (CreateMove_t)CreateMove);
+		clientHook = std::make_unique<VFTManager>((DWORD**)g_pClient, true);
+		originalCreateMove = clientHook->hook(21, (CreateMove_t)CreateMove);
 
 		g_pEngine->ExecuteClientCmd(charenc("echo [successfully hooked functions]"));
 	}
 
-	void UnhookFunctions()
+	void restore()
 	{
-		g_pPanelHook->RestoreTable();
-		g_pClientHook->RestoreTable();
+		panelHook->restoreTable();
+		clientHook->restoreTable();
 		Sleep(100);
 
 		g_pEngine->ExecuteClientCmd(charenc("cl_mouseenable 1"));

@@ -8,20 +8,20 @@
 // why the hell do I have to make forward declarations
 class CBaseEntity;
 
-class CVisuals
+class Visuals
 {
 public:
-	CVisuals(void);
+	Visuals(void);
 
-	void Think(CBaseEntity* pLocal);
-
-private:
-	void DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info_t pInfo);
+	void think(CBaseEntity* pLocal);
 
 private:
-	Color m_clrESP;
+	void drawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info_t playerInfo);
+
+private:
+	Color espColor_;
 };
 
-extern CVisuals g_Visuals;
+extern Visuals visuals;
 
 #endif

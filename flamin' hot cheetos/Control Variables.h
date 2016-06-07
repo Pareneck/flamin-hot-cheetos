@@ -5,15 +5,15 @@
 
 #include "Main.h"
 
-namespace CVars
+namespace cvar
 {
-	extern bool g_bESPEnabled;
-	extern bool g_bESPDrawBox;
-	extern bool g_bESPDrawName;
-	extern bool g_bESPDrawWeapon;
-	extern bool g_bESPDrawCallout;
+	extern bool esp_enabled;
+	extern bool esp_draw_box;
+	extern bool esp_draw_name;
+	extern bool esp_draw_weapon;
+	extern bool esp_draw_callout;
 
-	extern bool g_bMiscBunnyhop;
+	extern bool misc_bunnyhop;
 }
 
 #endif

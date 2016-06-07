@@ -1,12 +1,12 @@
 #include "Control Variables.h"
 
-namespace CVars
+namespace cvar
 {
-	bool g_bESPEnabled = true;
-	bool g_bESPDrawBox = true;
-	bool g_bESPDrawName = true;
-	bool g_bESPDrawWeapon = true;
-	bool g_bESPDrawCallout = true;
+	bool esp_enabled = true;
+	bool esp_draw_box = true;
+	bool esp_draw_name = true;
+	bool esp_draw_weapon = true;
+	bool esp_draw_callout = true;
 
-	bool g_bMiscBunnyhop = true;
+	bool misc_bunnyhop = true;
 }

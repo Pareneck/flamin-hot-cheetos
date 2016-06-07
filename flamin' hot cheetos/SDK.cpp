@@ -1,54 +1,54 @@
 #include "SDK.h"
 
-CTools g_Tools;
+Tools tools;
 
-void* CTools::QueryInterface(std::string szModuleName, std::string szInterfaceName)
+void* Tools::getInterface(std::string moduleName, std::string interfaceName)
 {
-	typedef void* (*CreateInterfaceFn)(const char* pchName, int* piReturnCode);
-	CreateInterfaceFn hInterface = nullptr;
+	typedef void* (*CreateInterfaceFn)(const char* name, int* returnCode);
+	CreateInterfaceFn CreateInterface = nullptr;
 
-	while (!hInterface)
+	while (!CreateInterface)
 	{
-		hInterface = (CreateInterfaceFn)GetProcAddress(GetModuleHandleA(szModuleName.c_str()), charenc("CreateInterface"));
+		CreateInterface = (CreateInterfaceFn)GetProcAddress(GetModuleHandleA(moduleName.c_str()), charenc("CreateInterface"));
 		Sleep(5);
 	}
 
-	char szBuffer[256];
+	char buffer[256];
 
 	for (int i = 0; i < 100; i++)
 	{
-		sprintf_s(szBuffer, "%s%0.3d", szInterfaceName.c_str(), i);
-		void* pInterface = hInterface(szBuffer, nullptr);
+		sprintf_s(buffer, "%s%0.3d", interfaceName.c_str(), i);
+		void* interface = CreateInterface(buffer, nullptr);
 
-		if (pInterface && pInterface != nullptr)
+		if (interface && interface != nullptr)
 			break;
 	}
 
-	return hInterface(szBuffer, nullptr);
+	return CreateInterface(buffer, nullptr);
 }
 
-bool CTools::IsVisible(Vector& vecStart, Vector& vecEnd, CBaseEntity* pEntity)
+bool Tools::isVisible(Vector& start, Vector& end, CBaseEntity* pEntity)
 {
 	IEngineTrace::trace_t tr;
 	IEngineTrace::Ray_t ray;
 	IEngineTrace::CTraceFilter filter;
 	filter.pSkip = g_pEntityList->GetClientEntity(g_pEngine->GetLocalPlayer());
 
-	ray.Init(vecStart, vecEnd);
+	ray.Init(start, end);
 	g_pEngineTrace->TraceRay(ray, 0x4600400B, &filter, &tr);
 
 	return (tr.pEntity == pEntity || tr.fraction > 0.99f);
 }
 
-CBaseCombatWeapon* CTools::GetActiveWeapon(CBaseEntity* pEntity)
+CBaseCombatWeapon* Tools::getActiveWeapon(CBaseEntity* pEntity)
 {
-	ULONG ulHandle = (ULONG)*(PDWORD)((DWORD)pEntity + 0x2EE8);
-	return (CBaseCombatWeapon*)g_pEntityList->GetClientEntityFromHandle(ulHandle);
+	ULONG weaponHandle = (ULONG)*(DWORD*)((DWORD)pEntity + 0x2EE8);
+	return (CBaseCombatWeapon*)g_pEntityList->GetClientEntityFromHandle(weaponHandle);
 }
 
-bool CTools::WorldToScreen(Vector& vWorld, Vector& vScreen)
+bool Tools::WorldToScreen(Vector& world, Vector& screen)
 {
-	return (g_pDebugOverlay->ScreenPosition(vWorld, vScreen) != 1);
+	return (g_pDebugOverlay->ScreenPosition(world, screen) != 1);
 }
 
 float DotProductFloat(const float* v1, const float* v2)
@@ -64,7 +64,7 @@ void VectorTransformFloat(const float* in1, const matrix3x4& in2, float* out)
 	out[2] = DotProductFloat(in1, in2[2]) + in2[2][3];
 }
 
-void CTools::VectorTransform(const Vector& in1, const matrix3x4& in2, Vector& out)
+void Tools::VectorTransform(const Vector& in1, const matrix3x4& in2, Vector& out)
 {
 	VectorTransformFloat(&in1.x, in2, &out.x);
 }

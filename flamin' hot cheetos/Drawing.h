@@ -5,25 +5,25 @@
 
 #include "Main.h"
 
-class CDrawing
+class Drawing
 {
 public:
-	CDrawing(void);
+	Drawing(void);
 
-	void InitializeFonts(void);
+	void initializeFonts(void);
 
-	void DrawLine(int x1, int y1, int x2, int y2, Color clrColor);
-	void DrawFilledRect(int x, int y, int w, int h, Color clrColor);
-	void DrawOutlinedRect(int x, int y, int w, int h, Color clrColor);
+	void drawLine(int x1, int y1, int x2, int y2, Color color);
+	void drawFilledRect(int x, int y, int w, int h, Color color);
+	void drawOutlinedRect(int x, int y, int w, int h, Color color);
 
-	void DrawString(unsigned long ulFont, bool bCenter, int x, int y, Color clrString, const char* pchInput, ...);
-	void DrawESPBox(int x, int y, int w, int h, Color clrBox, Color clrOutline);
+	void drawString(unsigned long font, bool shouldCenter, int x, int y, Color color, const char* text, ...);
+	void drawOutlinedBox(int x, int y, int w, int h, Color color, Color colorOutline);
 
 public:
-	unsigned long m_MenuFont, m_MenuTitle;
-	unsigned long m_ESPFont;
+	unsigned long menuFont, menuTitleFont;
+	unsigned long espFont;
 };
 
-extern CDrawing g_Drawing;
+extern Drawing drawing;
 
 #endif

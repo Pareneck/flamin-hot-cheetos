@@ -84,7 +84,7 @@
     <ClCompile Include="Visuals.cpp">
       <Filter>Project Files\Features\Visuals</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Miscellaneous.cpp">
+    <ClCompile Include="Miscellaneous.cpp">
       <Filter>Project Files\Features\Miscellaneous</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,7 +149,7 @@
     <ClInclude Include="Visuals.h">
       <Filter>Project Files\Features\Visuals</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Miscellaneous.h">
+    <ClInclude Include="Miscellaneous.h">
       <Filter>Project Files\Features\Miscellaneous</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,12 +5,12 @@
 
 #include "Main.h"
 
-class CMisc
+class Misc
 {
 public:
 	// void Bunnyhop(CBaseEntity* pLocal, CInput::CUserCmd* pUserCmd);
 };
 
-extern CMisc g_Misc;
+extern Misc misc;
 
 #endif

@@ -5,56 +5,59 @@
 
 #include "Main.h"
 
-__forceinline float clamp(float fValue, float fMinValue, float fMaxValue)
+__forceinline float clamp(float value, float minValue, float maxValue)
 {
 #if defined(__i386__) || defined(_M_IX86)
-	_mm_store_ss(&fValue,
+	_mm_store_ss(&value,
 		_mm_min_ss(
 			_mm_max_ss(
-				_mm_load_ss(&fValue),
-				_mm_load_ss(&fMinValue)),
-			_mm_load_ss(&fMaxValue)));
+				_mm_load_ss(&value),
+				_mm_load_ss(&minValue)),
+			_mm_load_ss(&maxValue)));
 #else
-	val = fpmax(fMinValue, fValue);
-	val = fpmin(fMaxValue, fValue);
+	val = fpmax(minValue, value);
+	val = fpmin(maxValue, value);
 #endif
-	return fValue;
+	return value;
 }
 
-class CMenu
+class Menu
 {
 public:
-	CMenu(void);
+	Menu(void);
 
-	void Think();
-
-private:
-	void DrawMouseCursor();
-
-	void GetMouseStatus();
-	bool IsMenuKey(int iKey);
-	bool MouseOver(int x, int y, int w, int h);
-	bool LeftClick(int x, int y, int w, int h);
-
-	void DrawCheckbox(int x, int y, int iDistance, bool& bValue, const char* pchName);
-	void DrawSlider(int x, int y, int w, int h, int iMin, int iMax, int iDistance, float& fValue, const char* pchName);
-
-	void GetKeyPressed(int x, int y, int w, int h, int iDistance, int& iValue, const char* pchName);
-
-	bool DragMenu(int& x, int& y, int w, int h, int iIndex);
-	void DrawBorder(int x, int y, int w, int h, const char* pchText);
-	void DrawMenu();
+	void think();
 
 private:
-	bool	m_bCursor;
-	int		m_iCursorPosition[2];
+	void setMouse();
+	void getMouse();
 
-	bool	m_bInKeyPressed;
+	bool isMenuKey(int key);
+	bool isHovered(int x, int y, int w, int h);
+	bool isClicked(int x, int y, int w, int h);
 
-	bool	m_bLeftClick, m_bRightClick;
-	bool	m_bLeftClickRelease, m_bRightClickRelease;
+	void drawMenu();
+	void drawBorder(int x, int y, int w, int h, const char* text);
+	void drawMouse();
+	void drawCheckbox(int x, int y, int distance, bool& value, const char* text);
+	void drawSlider(int x, int y, int w, int h, int min, int max, int distance, float& value, const char* text);
+
+	void getKeyPressed(int x, int y, int w, int h, int distance, int& value, const char* text);
+
+	bool dragMenu(int& x, int& y, int w, int h, int index);
+
+private:
+	bool isCursorActive_;
+	int  cursorPosition_[2];
+
+	int  activeTab_;
+
+	bool isKeyPressed_;
+
+	bool isLeftClick_, isRightClick_;
+	bool isLeftClickReleased_, isRightClickReleased_;
 };
 
-extern CMenu g_Menu;
+extern Menu menu;
 
 #endif

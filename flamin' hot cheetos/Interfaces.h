@@ -5,9 +5,9 @@
 
 #include "Main.h"
 
-namespace Interfaces
+namespace interfaces
 {
-	void Initialize();
+	void initialize();
 }
 
 #endif

@@ -250,7 +250,7 @@ inline bool RecvTable::IsInMainList() const
 	template <> int ClientClassInit<tableName::ignored>(tableName::ignored *); \
 	namespace tableName {	\
 		RecvTable g_RecvTable; \
-		int g_RecvTableInit = ClientClassInit((tableName::ignored *)NULL); \
+		int g_RecvTableInit = ClientClassInit((tableName::ignored *)0); \
 	} \
 	template <> int ClientClassInit<tableName::ignored>(tableName::ignored *) \
 	{ \
@@ -297,7 +297,7 @@ RecvProp RecvPropFloat(
 	int sizeofVar = SIZEOF_IGNORE,	// Handled by RECVINFO macro, but set to SIZEOF_IGNORE if you don't want to bother.
 	int flags = 0,
 	RecvVarProxyFn varProxy = RecvProxy_FloatToFloat
-	);
+);
 
 RecvProp RecvPropVector(
 	const char *pVarName,
@@ -305,7 +305,7 @@ RecvProp RecvPropVector(
 	int sizeofVar = SIZEOF_IGNORE,	// Handled by RECVINFO macro, but set to SIZEOF_IGNORE if you don't want to bother.
 	int flags = 0,
 	RecvVarProxyFn varProxy = RecvProxy_VectorToVector
-	);
+);
 
 // This is here so the RecvTable can look more like the SendTable.
 #define RecvPropQAngles RecvPropVector
@@ -318,7 +318,7 @@ RecvProp RecvPropQuaternion(
 	int sizeofVar = SIZEOF_IGNORE,	// Handled by RECVINFO macro, but set to SIZEOF_IGNORE if you don't want to bother.
 	int flags = 0,
 	RecvVarProxyFn varProxy = RecvProxy_QuaternionToQuaternion
-	);
+);
 #endif
 
 RecvProp RecvPropInt(
@@ -327,7 +327,7 @@ RecvProp RecvPropInt(
 	int sizeofVar = SIZEOF_IGNORE,	// Handled by RECVINFO macro, but set to SIZEOF_IGNORE if you don't want to bother.
 	int flags = 0,
 	RecvVarProxyFn varProxy = 0
-	);
+);
 
 RecvProp RecvPropString(
 	const char *pVarName,
@@ -335,7 +335,7 @@ RecvProp RecvPropString(
 	int bufferSize,
 	int flags = 0,
 	RecvVarProxyFn varProxy = RecvProxy_StringToString
-	);
+);
 
 RecvProp RecvPropDataTable(
 	const char *pVarName,
@@ -343,7 +343,7 @@ RecvProp RecvPropDataTable(
 	int flags,
 	RecvTable *pTable,
 	DataTableRecvVarProxyFn varProxy = DataTableRecvProxy_StaticDataTable
-	);
+);
 
 RecvProp RecvPropArray3(
 	const char *pVarName,
@@ -352,7 +352,7 @@ RecvProp RecvPropArray3(
 	int elements,
 	RecvProp pArrayProp,
 	DataTableRecvVarProxyFn varProxy = DataTableRecvProxy_StaticDataTable
-	);
+);
 
 // Use the macro to let it automatically generate a table name. You shouldn't
 // ever need to reference the table name. If you want to exclude this array, then
@@ -362,7 +362,7 @@ RecvProp InternalRecvPropArray(
 	const int elementStride,
 	const char *pName,
 	ArrayLengthRecvProxyFn proxy
-	);
+);
 
 //
 // Use this if you want to completely manage the way the array data is stored.

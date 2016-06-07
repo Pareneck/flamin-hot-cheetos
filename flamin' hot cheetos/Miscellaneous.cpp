@@ -1,6 +1,6 @@
 #include "Miscellaneous.h"
 
-CMisc g_Misc;
+Misc misc;
 
 //void CMisc::Bunnyhop(CBaseEntity* pLocal, CInput::CUserCmd* pUserCmd)
 //{

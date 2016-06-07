@@ -10,108 +10,108 @@
 
 typedef DWORD** PPDWORD;
 
-class CVFTManager
+class VFTManager
 {
-	CVFTManager(const CVFTManager&) = delete;
+	VFTManager(const VFTManager&) = delete;
 
 public:
-	CVFTManager(PPDWORD ppClass, bool bReplace)
+	VFTManager(PPDWORD classBase, bool shouldReplace)
 	{
-		m_ppClassBase = ppClass;
-		m_bReplace = bReplace;
+		classBase_ = classBase;
+		shouldReplace_ = shouldReplace;
 
-		if (bReplace)
+		if (shouldReplace_)
 		{
-			m_pOriginalVMTable = *ppClass;
-			uint32_t dwLength = CalculateLength();
+			originalTable_ = *classBase;
+			uint32_t length = computeLength();
 
-			m_pNewVMTable = new DWORD[dwLength];
-			memcpy(m_pNewVMTable, m_pOriginalVMTable, dwLength * sizeof(DWORD));
+			newTable_ = new DWORD[length];
+			memcpy(newTable_, originalTable_, length * sizeof(DWORD));
 
-			DWORD dwOld;
-			VirtualProtect(m_ppClassBase, sizeof(DWORD), PAGE_EXECUTE_READWRITE, &dwOld);
-			*m_ppClassBase = m_pNewVMTable;
-			VirtualProtect(m_ppClassBase, sizeof(DWORD), dwOld, &dwOld);
+			DWORD old;
+			VirtualProtect(classBase_, sizeof(DWORD), PAGE_EXECUTE_READWRITE, &old);
+			*classBase_ = newTable_;
+			VirtualProtect(classBase_, sizeof(DWORD), old, &old);
 		}
 		else
 		{
-			m_pOriginalVMTable = *ppClass;
-			m_pNewVMTable = *ppClass;
+			originalTable_ = *classBase;
+			newTable_ = *classBase;
 		}
 	}
 
-	~CVFTManager()
+	~VFTManager()
 	{
-		RestoreTable();
+		restoreTable();
 
-		if (m_bReplace && m_pNewVMTable)
-			delete[] m_pNewVMTable;
+		if (shouldReplace_ && newTable_)
+			delete[] newTable_;
 	}
 
-	void RestoreTable()
+	void restoreTable()
 	{
-		if (m_bReplace)
+		if (shouldReplace_)
 		{
-			DWORD dwOld;
-			VirtualProtect(m_ppClassBase, sizeof(DWORD), PAGE_EXECUTE_READWRITE, &dwOld);
-			*m_ppClassBase = m_pOriginalVMTable;
-			VirtualProtect(m_ppClassBase, sizeof(DWORD), dwOld, &dwOld);
+			DWORD old;
+			VirtualProtect(classBase_, sizeof(DWORD), PAGE_EXECUTE_READWRITE, &old);
+			*classBase_ = originalTable_;
+			VirtualProtect(classBase_, sizeof(DWORD), old, &old);
 		}
 		else
 		{
-			for (auto& pair : m_vecHookedIndexes)
-				Unhook(pair.first);
+			for (auto& pair : hookedIndexes_)
+				unhook(pair.first);
 		}
 	}
 
-	template<class Type>
-	Type Hook(uint32_t index, Type fnNew)
+	template<class T>
+	T hook(uint32_t index, T newFunction)
 	{
-		DWORD dwOld = (DWORD)m_pOriginalVMTable[index];
-		m_pNewVMTable[index] = (DWORD)fnNew;
-		m_vecHookedIndexes.insert(std::make_pair(index, (DWORD)dwOld));
-		return (Type)dwOld;
+		DWORD old = (DWORD)originalTable_[index];
+		newTable_[index] = (DWORD)newFunction;
+		hookedIndexes_.insert(std::make_pair(index, (DWORD)old));
+		return (T)old;
 	}
 
-	void Unhook(uint32_t index)
+	void unhook(uint32_t index)
 	{
-		auto it = m_vecHookedIndexes.find(index);
-		if (it != m_vecHookedIndexes.end())
+		auto it = hookedIndexes_.find(index);
+		if (it != hookedIndexes_.end())
 		{
-			m_pNewVMTable[index] = (DWORD)it->second;
-			m_vecHookedIndexes.erase(it);
+			newTable_[index] = (DWORD)it->second;
+			hookedIndexes_.erase(it);
 		}
 	}
 
-	template<class Type>
-	Type GetOriginal(uint32_t index)
+	template<class T>
+	T getOriginal(uint32_t index)
 	{
-		return (Type)m_pOriginalVMTable[index];
+		return (T)originalTable_[index];
 	}
 
 private:
-	uint32_t CalculateLength()
+	uint32_t computeLength()
 	{
-		uint32_t dwIndex = 0;
+		uint32_t index = 0;
 
-		if (!m_pOriginalVMTable)
+		if (!originalTable_)
 			return 0;
 
-		for (dwIndex = 0; m_pOriginalVMTable[dwIndex]; dwIndex++)
+		for (index = 0; originalTable_[index]; index++)
 		{
-			if (IsBadCodePtr((FARPROC)m_pOriginalVMTable[dwIndex]))
+			if (IsBadCodePtr((FARPROC)originalTable_[index]))
 				break;
 		}
 
-		return dwIndex;
+		return index;
 	}
 
 private:
-	std::map<uint32_t, DWORD>	m_vecHookedIndexes;
-	PPDWORD						m_ppClassBase;
-	PDWORD						m_pOriginalVMTable;
-	PDWORD						m_pNewVMTable;
-	bool						m_bReplace;
+	std::map<uint32_t, DWORD>	hookedIndexes_;
+	PPDWORD						classBase_;
+	PDWORD						originalTable_;
+	PDWORD						newTable_;
+	bool						shouldReplace_;
 };
 
 #endif

@@ -1,15 +1,15 @@
 #include "Visuals.h"
 
-CVisuals g_Visuals;
+Visuals visuals;
 
-CVisuals::CVisuals(void)
+Visuals::Visuals(void)
 {
-	this->m_clrESP = Color(0, 0, 0, 0);
+	espColor_ = Color(0, 0, 0, 0);
 }
 
-void CVisuals::Think(CBaseEntity* pLocal)
+void Visuals::think(CBaseEntity* pLocal)
 {
-	player_info_t pInfo;
+	player_info_t playerInfo;
 
 	for (int i = 1; i <= g_pEntityList->GetHighestEntityIndex(); i++)
 	{
@@ -25,14 +25,14 @@ void CVisuals::Think(CBaseEntity* pLocal)
 			continue;
 		if (pEntity->GetTeamNum() == pLocal->GetTeamNum())
 			continue;
-		if (!g_pEngine->GetPlayerInfo(i, &pInfo))
+		if (!g_pEngine->GetPlayerInfo(i, &playerInfo))
 			continue;
 
-		this->DrawPlayer(pLocal, pEntity, pInfo);
+		drawPlayer(pLocal, pEntity, playerInfo);
 	}
 }
 
-void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info_t pInfo)
+void Visuals::drawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info_t playerInfo)
 {
 	const matrix3x4& trans = *(matrix3x4*)((DWORD)pEntity + (0x470 - 0x30));
 
@@ -53,18 +53,18 @@ void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info
 	Vector transformed[8];
 
 	for (int i = 0; i < 8; i++)
-		g_Tools.VectorTransform(pointList[i], trans, transformed[i]);
+		tools.VectorTransform(pointList[i], trans, transformed[i]);
 
 	Vector flb, brt, blb, frt, frb, brb, blt, flt;
 
-	if (!g_Tools.WorldToScreen(transformed[3], flb) ||
-		!g_Tools.WorldToScreen(transformed[0], blb) ||
-		!g_Tools.WorldToScreen(transformed[2], frb) ||
-		!g_Tools.WorldToScreen(transformed[6], blt) ||
-		!g_Tools.WorldToScreen(transformed[5], brt) ||
-		!g_Tools.WorldToScreen(transformed[4], frt) ||
-		!g_Tools.WorldToScreen(transformed[1], brb) ||
-		!g_Tools.WorldToScreen(transformed[7], flt))
+	if (!tools.WorldToScreen(transformed[3], flb) ||
+		!tools.WorldToScreen(transformed[0], blb) ||
+		!tools.WorldToScreen(transformed[2], frb) ||
+		!tools.WorldToScreen(transformed[6], blt) ||
+		!tools.WorldToScreen(transformed[5], brt) ||
+		!tools.WorldToScreen(transformed[4], frt) ||
+		!tools.WorldToScreen(transformed[1], brb) ||
+		!tools.WorldToScreen(transformed[7], flt))
 		return;
 
 	Vector arr[] = { flb, brt, blb, frt, frb, brb, blt, flt };
@@ -91,46 +91,46 @@ void CVisuals::DrawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info
 	float w = right - left;
 	float h = top - bottom;
 
-	bool bVisible = g_Tools.IsVisible(pLocal->GetEyePosition(), pEntity->GetEyePosition(), pEntity);
-	if (bVisible)
+	bool isVisible = tools.isVisible(pLocal->GetEyePosition(), pEntity->GetEyePosition(), pEntity);
+	if (isVisible)
 	{
 		if (pEntity->GetTeamNum() == 2)
-			m_clrESP = Color(255, 0, 0);
+			espColor_ = Color(255, 0, 0);
 		else if (pEntity->GetTeamNum() == 3)
-			m_clrESP = Color(0, 0, 255);
+			espColor_ = Color(0, 0, 255);
 	}
 	else
 	{
 		if (pEntity->GetTeamNum() == 2)
-			m_clrESP = Color(255, 255, 0);
+			espColor_ = Color(255, 255, 0);
 		else if (pEntity->GetTeamNum() == 3)
-			m_clrESP = Color(0, 255, 0);
+			espColor_ = Color(0, 255, 0);
 	}
 
-	if (CVars::g_bESPDrawBox)
-		g_Drawing.DrawESPBox(x, y, w, h, m_clrESP, Color(0, 0, 0));
+	if (cvar::esp_draw_box)
+		drawing.drawOutlinedBox(x, y, w, h, espColor_, Color(0, 0, 0));
 
-	if (CVars::g_bESPDrawName)
-		g_Drawing.DrawString(g_Drawing.m_ESPFont, true, x + w / 2, y - 16, Color(255, 255, 255), pInfo.m_szPlayerName);
+	if (cvar::esp_draw_name)
+		drawing.drawString(drawing.espFont, true, x + w / 2, y - 16, Color(255, 255, 255), playerInfo.m_szPlayerName);
 
-	if (CVars::g_bESPDrawWeapon)
+	if (cvar::esp_draw_weapon)
 	{
-		CBaseCombatWeapon* pWeapon = g_Tools.GetActiveWeapon(pEntity);
+		CBaseCombatWeapon* pWeapon = tools.getActiveWeapon(pEntity);
 		if (pWeapon)
 		{
-			char chBuffer[32];
+			char buffer[32];
 
 			if (!pWeapon->IsKnife() && !pWeapon->IsOther())
-				sprintf_s(chBuffer, sizeof chBuffer, "%s | %i", pWeapon->GetWeaponName(), pWeapon->GetClip1());
+				sprintf_s(buffer, sizeof(buffer), "%s | %i", pWeapon->GetWeaponName(), pWeapon->GetClip1());
 			else
-				sprintf_s(chBuffer, sizeof chBuffer, "%s", pWeapon->GetWeaponName());
+				sprintf_s(buffer, sizeof(buffer), "%s", pWeapon->GetWeaponName());
 
-			g_Drawing.DrawString(g_Drawing.m_ESPFont, true, x + w / 2, top + 2, Color(255, 255, 255), chBuffer);
+			drawing.drawString(drawing.espFont, true, x + w / 2, top + 2, Color(255, 255, 255), buffer);
 		}
 	}
 
-	int iPlace = 0;
+	int place = 0;
 
-	if (CVars::g_bESPDrawCallout)
-		g_Drawing.DrawString(g_Drawing.m_ESPFont, false, x + w + 5, y - 4 + (iPlace++ * 11), Color(255, 255, 255), pEntity->GetLastPlaceName());
+	if (cvar::esp_draw_callout)
+		drawing.drawString(drawing.espFont, false, x + w + 5, y - 4 + (place++ * 11), Color(255, 255, 255), pEntity->GetLastPlaceName());
 }

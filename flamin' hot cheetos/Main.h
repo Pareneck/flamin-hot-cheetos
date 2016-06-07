@@ -30,6 +30,6 @@
 #include "Visuals.h"
 #include "Miscellaneous.h"
 
-extern bool bUnload;
+extern bool shouldUnload;
 
 #endif

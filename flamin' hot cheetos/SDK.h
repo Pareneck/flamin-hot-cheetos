@@ -96,7 +96,7 @@ public:
 		{
 			MOV ECX, this
 			MOV EAX, DWORD PTR DS : [ECX]
-				CALL DWORD PTR DS : [EAX + 0x28]
+			CALL DWORD PTR DS : [EAX + 0x28]
 		}
 	}
 	int GetIndex(void)
@@ -105,8 +105,8 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, DWORD PTR DS : [EDI + 0x8]
-				MOV EDX, DWORD PTR DS : [ECX]
-				CALL DWORD PTR DS : [EDX + 0x28]
+			MOV EDX, DWORD PTR DS : [ECX]
+			CALL DWORD PTR DS : [EDX + 0x28]
 		}
 	}
 	bool IsDormant(void)
@@ -115,8 +115,8 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, [EDI + 0x8]
-				MOV EDX, DWORD PTR DS : [ecx]
-				CALL[EDX + 0x24]
+			MOV EDX, DWORD PTR DS : [ecx]
+			CALL[EDX + 0x24]
 		}
 	}
 	IVClientClass* GetClientClass(void)
@@ -660,7 +660,7 @@ public:
 		bool			 m_IsRay;	// are the extents zero?
 		bool			 m_IsSwept;	// is delta != 0?
 
-		Ray_t() : m_pWorldAxisTransform(NULL) {}
+		Ray_t() : m_pWorldAxisTransform(0) {}
 
 		void Init(Vector const& start, Vector const& end)
 		{
@@ -670,7 +670,7 @@ public:
 			m_IsSwept = (m_Delta.LengthSqr() != 0);
 
 			VectorClear(m_Extents);
-			m_pWorldAxisTransform = NULL;
+			m_pWorldAxisTransform = 0;
 			m_IsRay = true;
 
 			VectorClear(m_StartOffset);
@@ -681,7 +681,7 @@ public:
 			Assert(&end);
 			VectorSubtract(end, start, m_Delta); //wait
 
-			m_pWorldAxisTransform = NULL;
+			m_pWorldAxisTransform = 0;
 			m_IsSwept = (m_Delta.LengthSqr() != 0);
 
 			VectorSubtract(maxs, mins, m_Extents);
@@ -733,7 +733,7 @@ public:
 		}
 		bool DidHitNonWorldEntity(IClientEntityList* EntList)
 		{
-			return pEntity != NULL && !DidHitWorld(EntList);
+			return pEntity != 0 && !DidHitWorld(EntList);
 		}
 		bool DidHit() const
 		{
@@ -794,7 +794,7 @@ public:
 		typedef void(__thiscall* fnOriginal)(PVOID, const Ray_t &, unsigned int, CBaseEntity *, trace_t *);
 		GetVirtualFunction<fnOriginal>(this, 3)(this, ray, fMask, pEnt, pTrace);
 	}
-	int GetPointContents(const Vector &vecAbsPosition, unsigned int fMask, CBaseEntity** ppEntity = NULL)
+	int GetPointContents(const Vector &vecAbsPosition, unsigned int fMask, CBaseEntity** ppEntity = 0)
 	{
 		typedef int(__thiscall* fnOriginal)(PVOID, const Vector &, unsigned int, CBaseEntity**);
 		return GetVirtualFunction<fnOriginal>(this, 0)(this, vecAbsPosition, fMask, ppEntity);
@@ -805,14 +805,14 @@ public:
 // TOOLS CLASS
 //----------------------------------------
 
-class CTools
+class Tools
 {
 public:
-	void* QueryInterface(std::string szModuleName, std::string szInterfaceName);
-	bool IsVisible(Vector& vecStart, Vector& vecEnd, CBaseEntity* pEntity);
-	CBaseCombatWeapon* GetActiveWeapon(CBaseEntity* pEntity);
-	bool WorldToScreen(Vector& vWorld, Vector& vScreen);
+	void* getInterface(std::string moduleName, std::string interfaceName);
+	bool isVisible(Vector& start, Vector& end, CBaseEntity* pEntity);
+	CBaseCombatWeapon* getActiveWeapon(CBaseEntity* pEntity);
+	bool WorldToScreen(Vector& world, Vector& screen);
 	void VectorTransform(const Vector& in1, const matrix3x4& in2, Vector& out);
-}; extern CTools g_Tools;
+}; extern Tools tools;
 
 #endif

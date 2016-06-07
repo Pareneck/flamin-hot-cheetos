@@ -1,29 +1,29 @@
 #include "Drawing.h"
 
-CDrawing g_Drawing;
+Drawing drawing;
 
-CDrawing::CDrawing(void)
+Drawing::Drawing(void)
 {
-	m_MenuFont = 0, m_MenuTitle = 0;
-	m_ESPFont = 0;
+	menuFont = 0, menuTitleFont = 0;
+	espFont = 0;
 }
 
-void CDrawing::InitializeFonts(void)
+void Drawing::initializeFonts(void)
 {
-	m_MenuFont = g_pSurface->CreateFont();
-	g_pSurface->SetFontGlyphSet(m_MenuFont, charenc("Verdana"), 13, 20, 0, 0, FONTFLAG_ANTIALIAS);
+	menuFont = g_pSurface->CreateFont();
+	g_pSurface->SetFontGlyphSet(menuFont, charenc("Verdana"), 13, 20, 0, 0, FONTFLAG_ANTIALIAS);
 
-	m_MenuTitle = g_pSurface->CreateFont();
-	g_pSurface->SetFontGlyphSet(m_MenuTitle, charenc("Tahoma"), 13, 600, 0, 0, FONTFLAG_ANTIALIAS);
+	menuTitleFont = g_pSurface->CreateFont();
+	g_pSurface->SetFontGlyphSet(menuTitleFont, charenc("Tahoma"), 13, 600, 0, 0, FONTFLAG_ANTIALIAS);
 
-	m_ESPFont = g_pSurface->CreateFont();
-	g_pSurface->SetFontGlyphSet(m_ESPFont, charenc("Tahoma"), 13, 1250, 0, 0, FONTFLAG_DROPSHADOW);
+	espFont = g_pSurface->CreateFont();
+	g_pSurface->SetFontGlyphSet(espFont, charenc("Tahoma"), 13, 1250, 0, 0, FONTFLAG_DROPSHADOW);
 }
 
-int GetWidth(unsigned long ulFont, const char* pchInput, ...)
+int getWidth(unsigned long ulFont, const char* pchInput, ...)
 {
 	int iWide = 0, iTall = 0;
-	int iBufferSize = MultiByteToWideChar(CP_UTF8, 0x0, pchInput, -1, NULL, 0);
+	int iBufferSize = MultiByteToWideChar(CP_UTF8, 0x0, pchInput, -1, 0, 0);
 
 	wchar_t* wchUnicode = new wchar_t[iBufferSize];
 	MultiByteToWideChar(CP_UTF8, 0x0, pchInput, -1, wchUnicode, iBufferSize);
@@ -34,57 +34,57 @@ int GetWidth(unsigned long ulFont, const char* pchInput, ...)
 	return iWide;
 }
 
-std::wstring GetWide(const std::string& strText)
+std::wstring getWide(const std::string& text)
 {
-	std::wstring wstrWide(strText.length(), L' ');
-	std::copy(strText.begin(), strText.end(), wstrWide.begin());
+	std::wstring wide(text.length(), L' ');
+	std::copy(text.begin(), text.end(), wide.begin());
 
-	return wstrWide;
+	return wide;
 }
 
-void CDrawing::DrawString(unsigned long ulFont, bool bCenter, int x, int y, Color clrString, const char* pchInput, ...)
+void Drawing::drawString(unsigned long font, bool shouldCenter, int x, int y, Color color, const char* text, ...)
 {
-	if (!pchInput)
+	if (!text)
 		return;
 
-	char chBuffer[MAX_PATH];
+	char buffer[MAX_PATH];
 
-	vsprintf_s(chBuffer, pchInput, (char*)&pchInput + _INTSIZEOF(pchInput));
+	vsprintf_s(buffer, text, (char*)&text + _INTSIZEOF(text));
 
-	if (bCenter)
-		x -= GetWidth(ulFont, chBuffer) / 2;
+	if (shouldCenter)
+		x -= getWidth(font, buffer) / 2;
 
-	g_pSurface->DrawSetTextColor(clrString.r(), clrString.g(), clrString.b(), clrString.a());
-	g_pSurface->DrawSetTextFont(ulFont);
+	g_pSurface->DrawSetTextColor(color.r(), color.g(), color.b(), color.a());
+	g_pSurface->DrawSetTextFont(font);
 	g_pSurface->DrawSetTextPos(x, y);
 
-	std::wstring wstrWide = GetWide(std::string(chBuffer));
-	g_pSurface->DrawPrintText(wstrWide.c_str(), wstrWide.length());
+	std::wstring wide = getWide(std::string(buffer));
+	g_pSurface->DrawPrintText(wide.c_str(), wide.length());
 }
 
-void CDrawing::DrawLine(int x1, int y1, int x2, int y2, Color clrColor)
+void Drawing::drawLine(int x1, int y1, int x2, int y2, Color color)
 {
-	g_pSurface->DrawSetColor(clrColor.r(), clrColor.g(), clrColor.b(), clrColor.a());
+	g_pSurface->DrawSetColor(color.r(), color.g(), color.b(), color.a());
 	g_pSurface->DrawLine(x1, y1, x2, y2);
 }
 
-void CDrawing::DrawFilledRect(int x, int y, int w, int h, Color clrColor)
+void Drawing::drawFilledRect(int x, int y, int w, int h, Color color)
 {
-	g_pSurface->DrawSetColor(clrColor.r(), clrColor.g(), clrColor.b(), clrColor.a());
+	g_pSurface->DrawSetColor(color.r(), color.g(), color.b(), color.a());
 	g_pSurface->DrawFilledRect(x, y, x + w, y + h);
 }
 
-void CDrawing::DrawOutlinedRect(int x, int y, int w, int h, Color clrColor)
+void Drawing::drawOutlinedRect(int x, int y, int w, int h, Color color)
 {
-	g_pSurface->DrawSetColor(clrColor.r(), clrColor.g(), clrColor.b(), clrColor.a());
+	g_pSurface->DrawSetColor(color.r(), color.g(), color.b(), color.a());
 	g_pSurface->DrawOutlinedRect(x, y, x + w, y + h);
 }
 
-void CDrawing::DrawESPBox(int x, int y, int w, int h, Color clrBox, Color clrOutline)
+void Drawing::drawOutlinedBox(int x, int y, int w, int h, Color color, Color colorOutline)
 {
-	this->DrawOutlinedRect(x, y, w, h, clrBox);
+	drawOutlinedRect(x, y, w, h, color);
 
-	g_pSurface->DrawSetColor(clrOutline.r(), clrOutline.g(), clrOutline.b(), clrOutline.a());
+	g_pSurface->DrawSetColor(colorOutline.r(), colorOutline.g(), colorOutline.b(), colorOutline.a());
 	g_pSurface->DrawOutlinedRect(x + 1, y + 1, x + w - 1, y + h - 1);
 	g_pSurface->DrawOutlinedRect(x - 1, y - 1, x + w + 1, y + h + 1);
 }

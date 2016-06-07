@@ -12,25 +12,25 @@
 //    - hook other shit like createmove [x]
 //      - do aimbot and shit
 //  - make this project a little prettier
-//    - better naming notation (?) -- NOTE: Hungarian notation isn't extremely useful anymore, since the compiler can detect the variable type (wasn't the case back then)
+//    - working on converting from messy hungarian to http://geosoft.no/development/cppstyle.html (mixed case / camelcase)
 //    - I have trouble deciding whether I should make x variable a class member
 //  - figure out this 'undefined class' shit (circular header includes?)
 //------------------------------------------------------------------------------------------
 
-bool bUnload = false;
+bool shouldUnload = false;
 
-DWORD __stdcall InitRoutine(LPVOID hModule)
+DWORD __stdcall initializeRoutine(LPVOID hModule)
 {
 	while (!GetModuleHandleA(charenc("client.dll")) || !GetModuleHandleA(charenc("engine.dll")))
 		Sleep(100);
 
-	Interfaces::Initialize();
-	Hooks::Initialize();
+	interfaces::initialize();
+	hooks::initialize();
 
-	while (!bUnload)
+	while (!shouldUnload)
 		Sleep(1000);
 
-	Hooks::UnhookFunctions();
+	hooks::restore();
 	FreeLibraryAndExitThread((HMODULE)hModule, 0);
 
 	return 0;
@@ -41,14 +41,14 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 	switch (dwReason)
 	{
 	case DLL_PROCESS_ATTACH:
-		CreateThread(0, 0, InitRoutine, hModule, 0, 0);
+		CreateThread(0, 0, initializeRoutine, hModule, 0, 0);
 	case DLL_THREAD_ATTACH:
 	case DLL_THREAD_DETACH:
 	case DLL_PROCESS_DETACH:
 		break;
 	}
 
-	TerminateThread(InitRoutine, 0);
+	TerminateThread(initializeRoutine, 0);
 
 	return TRUE;
 }
