@@ -588,7 +588,7 @@ public:
 	BYTE		u1[4];
 	int			command_number;
 	int			tick_count;
-	Vector		viewangles;
+	QAngle		viewangles;
 	Vector		aimdirection;
 	float		forwardmove;
 	float		sidemove;
@@ -605,16 +605,16 @@ public:
 	Vector		headoffset;
 };
 
+class CVerifiedUserCmd
+{
+public:
+	CUserCmd		m_cmd;
+	unsigned long	m_crc;
+};
+
 class CInput
 {
 public:
-	class CVerifiedUserCmd
-	{
-	public:
-		CUserCmd		m_cmd;
-		unsigned long	m_crc;
-	};
-
 	CUserCmd* GetUserCmd(int slot, int seq)
 	{
 		typedef CUserCmd* (__thiscall* fnOriginal)(void*, int, int);
@@ -655,60 +655,60 @@ public:
 
 	struct Ray_t
 	{
-		VectorAligned	 m_Start;	// starting point, centered within the extents
-		VectorAligned	 m_Delta;	// direction + length of the ray
-		VectorAligned	 m_StartOffset;	// Add this to m_Start to get the actual ray start
-		VectorAligned	 m_Extents;	// Describes an axis aligned box extruded along a ray
-		const matrix3x4* m_pWorldAxisTransform;
-		bool			 m_IsRay;	// are the extents zero?
-		bool			 m_IsSwept;	// is delta != 0?
+		VectorAligned	 m_start;	// starting point, centered within the extents
+		VectorAligned	 m_delta;	// direction + length of the ray
+		VectorAligned	 m_startOffset;	// Add this to m_Start to get the actual ray start
+		VectorAligned	 m_extents;	// Describes an axis aligned box extruded along a ray
+		const matrix3x4* m_worldAxisTransform;
+		bool			 m_isRay;	// are the extents zero?
+		bool			 m_isSwept;	// is delta != 0?
 
-		Ray_t() : m_pWorldAxisTransform(0) {}
+		Ray_t() : m_worldAxisTransform(0) {}
 
 		void Init(Vector const& start, Vector const& end)
 		{
 			Assert(&end);
-			VectorSubtract(end, start, m_Delta);
+			VectorSubtract(end, start, m_delta);
 
-			m_IsSwept = (m_Delta.LengthSqr() != 0);
+			m_isSwept = (m_delta.LengthSqr() != 0);
 
-			VectorClear(m_Extents);
-			m_pWorldAxisTransform = 0;
-			m_IsRay = true;
+			VectorClear(m_extents);
+			m_worldAxisTransform = 0;
+			m_isRay = true;
 
-			VectorClear(m_StartOffset);
-			VectorCopy(start, m_Start);
+			VectorClear(m_startOffset);
+			VectorCopy(start, m_start);
 		}
 		void Init(Vector const& start, Vector const& end, Vector const& mins, Vector const& maxs)
 		{
 			Assert(&end);
-			VectorSubtract(end, start, m_Delta); //wait
+			VectorSubtract(end, start, m_delta); //wait
 
-			m_pWorldAxisTransform = 0;
-			m_IsSwept = (m_Delta.LengthSqr() != 0);
+			m_worldAxisTransform = 0;
+			m_isSwept = (m_delta.LengthSqr() != 0);
 
-			VectorSubtract(maxs, mins, m_Extents);
-			m_Extents *= 0.5f;
-			m_IsRay = (m_Extents.LengthSqr() < 1e-6);
+			VectorSubtract(maxs, mins, m_extents);
+			m_extents *= 0.5f;
+			m_isRay = (m_extents.LengthSqr() < 1e-6);
 
-			VectorAdd(mins, maxs, m_StartOffset);
-			m_StartOffset *= 0.5f;
-			VectorAdd(start, m_StartOffset, m_Start);
-			m_StartOffset *= -1.f;
+			VectorAdd(mins, maxs, m_startOffset);
+			m_startOffset *= 0.5f;
+			VectorAdd(start, m_startOffset, m_start);
+			m_startOffset *= -1.f;
 		}
 		Vector InvDelta() const
 		{
-			Vector vecInvDelta;
+			Vector invDelta;
 
-			for (int iAxis = 0; iAxis < 3; ++iAxis)
+			for (int i = 0; i < 3; ++i)
 			{
-				if (m_Delta[iAxis] != 0.f)
-					vecInvDelta[iAxis] = 1.f / m_Delta[iAxis];
+				if (m_delta[i] != 0.f)
+					invDelta[i] = 1.f / m_delta[i];
 				else
-					vecInvDelta[iAxis] = FLT_MAX;
+					invDelta[i] = FLT_MAX;
 			}
 
-			return vecInvDelta;
+			return invDelta;
 		}
 	};
 
@@ -726,17 +726,17 @@ public:
 		csurface_t	 surface;
 		int			 hitgroup;
 		short		 physicsBone;
-		WORD		 nWorldSurfaceIndex;
-		CBaseEntity* pEntity;
+		WORD		 worldSurfaceIndex;
+		CBaseEntity* entity;
 		int			 hitbox;
 
-		bool DidHitWorld(IClientEntityList* EntList)
+		bool DidHitWorld(IClientEntityList* entitylist)
 		{
-			return pEntity == (CBaseEntity*)EntList->GetClientEntity(0);
+			return entity == (CBaseEntity*)entitylist->GetClientEntity(0);
 		}
-		bool DidHitNonWorldEntity(IClientEntityList* EntList)
+		bool DidHitNonWorldEntity(IClientEntityList* entitylist)
 		{
-			return pEntity != 0 && !DidHitWorld(EntList);
+			return entity != 0 && !DidHitWorld(entitylist);
 		}
 		bool DidHit() const
 		{
@@ -747,60 +747,60 @@ public:
 	class ITraceFilter
 	{
 	public:
-		virtual bool ShouldHitEntity(CBaseEntity *pEntity, int contentsMask) = 0;
+		virtual bool ShouldHitEntity(CBaseEntity* entity, int contentsMask) = 0;
 		virtual TraceType_t GetTraceType() const = 0;
 	};
 
 	class CTraceFilter : public ITraceFilter
 	{
 	public:
-		bool ShouldHitEntity(CBaseEntity* pEntityHandle, int contentsMask)
+		bool ShouldHitEntity(CBaseEntity* entityHandle, int contentsMask)
 		{
-			return !(pEntityHandle == pSkip);
+			return !(entityHandle == skip);
 		}
 		virtual TraceType_t GetTraceType() const
 		{
 			return TRACE_EVERYTHING;
 		}
 
-		void* pSkip;
+		void* skip;
 	};
 
 	class CTraceFilterSkipTwoEntities : public ITraceFilter
 	{
 	public:
-		CTraceFilterSkipTwoEntities(void *pPassEnt1, void *pPassEnt2)
+		CTraceFilterSkipTwoEntities(void* passEntity1, void* passEntity2)
 		{
-			passentity1 = pPassEnt1;
-			passentity2 = pPassEnt2;
+			passentity1 = passEntity1;
+			passentity2 = passEntity2;
 		}
-		virtual bool ShouldHitEntity(CBaseEntity* pEntityHandle, int contentsMask)
+		virtual bool ShouldHitEntity(CBaseEntity* entityHandle, int contentsMask)
 		{
-			return !(pEntityHandle == passentity1 || pEntityHandle == passentity2);
+			return !(entityHandle == passentity1 || entityHandle == passentity2);
 		}
 		virtual TraceType_t GetTraceType() const
 		{
 			return TRACE_EVERYTHING;
 		}
 
-		void *passentity1;
-		void *passentity2;
+		void* passentity1;
+		void* passentity2;
 	};
 public:
-	void TraceRay(const Ray_t &ray, unsigned int fMask, CTraceFilter *pTraceFilter, trace_t *pTrace)
+	void TraceRay(const Ray_t& ray, unsigned int mask, CTraceFilter* filter, trace_t* trace)
 	{
-		typedef void(__thiscall* fnOriginal)(PVOID, const Ray_t&, unsigned int, CTraceFilter *, trace_t*);
-		GetVirtualFunction<fnOriginal>(this, 5)(this, ray, fMask, pTraceFilter, pTrace);
+		typedef void(__thiscall* fnOriginal)(void*, const Ray_t&, unsigned int, CTraceFilter*, trace_t*);
+		GetVirtualFunction<fnOriginal>(this, 5)(this, ray, mask, filter, trace);
 	}
-	void ClipRayToEntity(const Ray_t &ray, unsigned int fMask, CBaseEntity *pEnt, trace_t *pTrace)
+	void ClipRayToEntity(const Ray_t& ray, unsigned int mask, CBaseEntity* entity, trace_t* trace)
 	{
-		typedef void(__thiscall* fnOriginal)(PVOID, const Ray_t &, unsigned int, CBaseEntity *, trace_t *);
-		GetVirtualFunction<fnOriginal>(this, 3)(this, ray, fMask, pEnt, pTrace);
+		typedef void(__thiscall* fnOriginal)(void*, const Ray_t&, unsigned int, CBaseEntity*, trace_t*);
+		GetVirtualFunction<fnOriginal>(this, 3)(this, ray, mask, entity, trace);
 	}
-	int GetPointContents(const Vector &vecAbsPosition, unsigned int fMask, CBaseEntity** ppEntity = 0)
+	int GetPointContents(const Vector& absPosition, unsigned int mask, CBaseEntity** entity = 0)
 	{
-		typedef int(__thiscall* fnOriginal)(PVOID, const Vector &, unsigned int, CBaseEntity**);
-		return GetVirtualFunction<fnOriginal>(this, 0)(this, vecAbsPosition, fMask, ppEntity);
+		typedef int(__thiscall* fnOriginal)(void*, const Vector&, unsigned int, CBaseEntity**);
+		return GetVirtualFunction<fnOriginal>(this, 0)(this, absPosition, mask, entity);
 	}
 };
 
@@ -811,11 +811,14 @@ public:
 class Tools
 {
 public:
-	void* getInterface(std::string moduleName, std::string interfaceName);
-	bool isVisible(Vector& start, Vector& end, CBaseEntity* entity);
+	void*              getInterface(std::string moduleName, std::string interfaceName);
+	bool               isVisible(Vector& start, Vector& end, CBaseEntity* entity);
 	CBaseCombatWeapon* getActiveWeapon(CBaseEntity* entity);
-	bool WorldToScreen(Vector& world, Vector& screen);
-	void VectorTransform(const Vector& in1, const matrix3x4& in2, Vector& out);
+	bool               WorldToScreen(Vector& world, Vector& screen);
+	void               VectorTransform(const Vector& in1, const matrix3x4& in2, Vector& out);
+
+	void               normalizeAngle(QAngle& angle);
+	void               clampAngle(QAngle& angle);
 }; extern Tools tools;
 
 #endif

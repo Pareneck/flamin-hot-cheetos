@@ -10,8 +10,8 @@ void __stdcall CreateMove(int sequence_number, float input_sample_frametime, boo
 	if (!cmd)
 		return;
 
-	CInput::CVerifiedUserCmd* verifiedCommands = *(CInput::CVerifiedUserCmd**)((DWORD)interfaces::input + VERIFIEDCMDOFFSET);
-	CInput::CVerifiedUserCmd* verified = &verifiedCommands[sequence_number % MULTIPLAYER_BACKUP];
+	CVerifiedUserCmd* verifiedCmd = *(CVerifiedUserCmd**)((DWORD)interfaces::input + VERIFIEDCMDOFFSET);
+	CVerifiedUserCmd* verified = &verifiedCmd[sequence_number % MULTIPLAYER_BACKUP];
 	if (!verified)
 		return;
 

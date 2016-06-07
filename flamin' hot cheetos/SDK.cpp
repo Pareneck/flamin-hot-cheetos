@@ -29,15 +29,15 @@ void* Tools::getInterface(std::string moduleName, std::string interfaceName)
 
 bool Tools::isVisible(Vector& start, Vector& end, CBaseEntity* entity)
 {
-	IEngineTrace::trace_t tr;
+	IEngineTrace::trace_t trace;
 	IEngineTrace::Ray_t ray;
 	IEngineTrace::CTraceFilter filter;
-	filter.pSkip = interfaces::entitylist->GetClientEntity(interfaces::engine->GetLocalPlayer());
+	filter.skip = interfaces::entitylist->GetClientEntity(interfaces::engine->GetLocalPlayer());
 
 	ray.Init(start, end);
-	interfaces::enginetrace->TraceRay(ray, 0x4600400B, &filter, &tr);
+	interfaces::enginetrace->TraceRay(ray, 0x4600400B, &filter, &trace);
 
-	return (tr.pEntity == entity || tr.fraction > 0.99f);
+	return (trace.entity == entity || trace.fraction > 0.99f);
 }
 
 CBaseCombatWeapon* Tools::getActiveWeapon(CBaseEntity* entity)
@@ -67,4 +67,35 @@ void VectorTransformFloat(const float* in1, const matrix3x4& in2, float* out)
 void Tools::VectorTransform(const Vector& in1, const matrix3x4& in2, Vector& out)
 {
 	VectorTransformFloat(&in1.x, in2, &out.x);
+}
+
+void Tools::normalizeAngle(QAngle& angle)
+{
+	for (int i = 0; i < 2; ++i)
+	{
+		if (angle[i] < -180.f)
+			angle[i] += 360.f;
+
+		if (angle[i] > 180.f)
+			angle[i] -= 360.f;
+	}
+
+	angle[2] = 0.f;
+}
+
+void Tools::clampAngle(QAngle& angle)
+{
+	if (angle.x < -89.f)
+		angle.x = -89.f;
+
+	if (angle.x > 89.f)
+		angle.x = 89.f;
+
+	if (angle.y < -180.f)
+		angle.y = -180.f;
+
+	if (angle.y > 180.f)
+		angle.y = 180.f;
+
+	angle.z = 0.f;
 }
