@@ -5,6 +5,8 @@
 
 #include "stdafx.h"
 
+class CBaseEntity;
+
 class Misc
 {
 public:
