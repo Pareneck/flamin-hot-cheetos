@@ -6,8 +6,8 @@ void __stdcall CreateMove(int sequence_number, float input_sample_frametime, boo
 {
 	originalCreateMove(client, sequence_number, input_sample_frametime, active);
 
-	ValveSDK::CInput::CUserCmd* userCmd = input->GetUserCmd(0, sequence_number);
-	if (!userCmd)
+	ValveSDK::CInput::CUserCmd* cmd = input->GetUserCmd(0, sequence_number);
+	if (!cmd)
 		return;
 
 	ValveSDK::CInput::CVerifiedUserCmd* verifiedCommands = *(ValveSDK::CInput::CVerifiedUserCmd**)((DWORD)input + VERIFIEDCMDOFFSET);
@@ -22,11 +22,11 @@ void __stdcall CreateMove(int sequence_number, float input_sample_frametime, boo
 		{
 			// g_Misc.Bunnyhop(pLocal, pUserCmd);
 
-			if ((userCmd->buttons & IN_JUMP) && !(local->GetFlags() & FL_ONGROUND))
-				userCmd->buttons &= ~IN_JUMP;
+			if ((cmd->buttons & IN_JUMP) && !(local->GetFlags() & FL_ONGROUND))
+				cmd->buttons &= ~IN_JUMP;
 		}
 	}
 
-	verified->m_cmd = *userCmd;
-	verified->m_crc = userCmd->GetChecksum();
+	verified->m_cmd = *cmd;
+	verified->m_crc = cmd->GetChecksum();
 }

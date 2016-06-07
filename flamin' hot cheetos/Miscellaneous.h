@@ -9,7 +9,7 @@
 class Misc
 {
 public:
-	void Bunnyhop(ValveSDK::CBaseEntity* local, ValveSDK::CInput::CUserCmd* userCmd);
+	void Bunnyhop(ValveSDK::CBaseEntity* local, ValveSDK::CInput::CUserCmd* cmd);
 };
 
 extern Misc misc;

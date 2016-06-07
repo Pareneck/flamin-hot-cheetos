@@ -2,8 +2,8 @@
 
 Misc misc;
 
-void Misc::Bunnyhop(ValveSDK::CBaseEntity* local, ValveSDK::CInput::CUserCmd* userCmd)
+void Misc::Bunnyhop(ValveSDK::CBaseEntity* local, ValveSDK::CInput::CUserCmd* cmd)
 {
-	if ((userCmd->buttons & IN_JUMP) && !(local->GetFlags() & FL_ONGROUND))
-		userCmd->buttons &= ~IN_JUMP;
+	if ((cmd->buttons & IN_JUMP) && !(local->GetFlags() & FL_ONGROUND))
+		cmd->buttons &= ~IN_JUMP;
 }
