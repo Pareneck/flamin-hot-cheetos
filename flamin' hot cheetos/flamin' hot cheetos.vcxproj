@@ -144,8 +144,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Common.h" />
-    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\stdafx.h" />
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="stdafx.h" />
     <ClInclude Include="Miscellaneous.h" />
     <ClInclude Include="checksum_crc.h" />
     <ClInclude Include="CreateMove.h" />
