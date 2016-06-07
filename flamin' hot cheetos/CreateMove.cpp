@@ -6,7 +6,7 @@ void __stdcall CreateMove(int sequence_number, float input_sample_frametime, boo
 {
 	originalCreateMove(interfaces::client, sequence_number, input_sample_frametime, active);
 
-	CInput::CUserCmd* cmd = interfaces::input->GetUserCmd(0, sequence_number);
+	CUserCmd* cmd = interfaces::input->GetUserCmd(0, sequence_number);
 	if (!cmd)
 		return;
 
@@ -19,12 +19,7 @@ void __stdcall CreateMove(int sequence_number, float input_sample_frametime, boo
 	if (local)
 	{
 		if (cvar::misc_bunnyhop)
-		{
-			// g_Misc.Bunnyhop(pLocal, pUserCmd);
-
-			if ((cmd->buttons & IN_JUMP) && !(local->GetFlags() & FL_ONGROUND))
-				cmd->buttons &= ~IN_JUMP;
-		}
+			misc.bunnyhop(local, cmd);
 	}
 
 	verified->m_cmd = *cmd;
