@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <windows.h>
+
 typedef struct player_info_s
 {
 private:

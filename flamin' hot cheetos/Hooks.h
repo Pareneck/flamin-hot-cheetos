@@ -3,7 +3,8 @@
 
 #pragma once
 
-#include "Main.h"
+#include "stdafx.h"
+
 #include "VFTManager.h"
 
 #include "PaintTraverse.h"

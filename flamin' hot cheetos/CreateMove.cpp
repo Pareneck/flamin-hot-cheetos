@@ -4,29 +4,29 @@ CreateMove_t originalCreateMove;
 
 void __stdcall CreateMove(int sequence_number, float input_sample_frametime, bool active)
 {
-	originalCreateMove(g_pClient, sequence_number, input_sample_frametime, active);
+	originalCreateMove(client, sequence_number, input_sample_frametime, active);
 
-	CInput::CUserCmd* pUserCmd = g_pInput->GetUserCmd(0, sequence_number);
-	if (!pUserCmd)
+	ValveSDK::CInput::CUserCmd* userCmd = input->GetUserCmd(0, sequence_number);
+	if (!userCmd)
 		return;
 
-	CInput::CVerifiedUserCmd* pVerifiedCommands = *(CInput::CVerifiedUserCmd**)((DWORD)g_pInput + VERIFIEDCMDOFFSET);
-	CInput::CVerifiedUserCmd* pVerified = &pVerifiedCommands[sequence_number % MULTIPLAYER_BACKUP];
-	if (!pVerified)
+	ValveSDK::CInput::CVerifiedUserCmd* verifiedCommands = *(ValveSDK::CInput::CVerifiedUserCmd**)((DWORD)input + VERIFIEDCMDOFFSET);
+	ValveSDK::CInput::CVerifiedUserCmd* verified = &verifiedCommands[sequence_number % MULTIPLAYER_BACKUP];
+	if (!verified)
 		return;
 
-	CBaseEntity* pLocal = g_pEntityList->GetClientEntity(g_pEngine->GetLocalPlayer());
-	if (pLocal)
+	ValveSDK::CBaseEntity* local = entitylist->GetClientEntity(engine->GetLocalPlayer());
+	if (local)
 	{
 		if (cvar::misc_bunnyhop)
 		{
 			// g_Misc.Bunnyhop(pLocal, pUserCmd);
 
-			if ((pUserCmd->buttons & IN_JUMP) && !(pLocal->GetFlags() & FL_ONGROUND))
-				pUserCmd->buttons &= ~IN_JUMP;
+			if ((userCmd->buttons & IN_JUMP) && !(local->GetFlags() & FL_ONGROUND))
+				userCmd->buttons &= ~IN_JUMP;
 		}
 	}
 
-	pVerified->m_cmd = *pUserCmd;
-	pVerified->m_crc = pUserCmd->GetChecksum();
+	verified->m_cmd = *userCmd;
+	verified->m_crc = userCmd->GetChecksum();
 }

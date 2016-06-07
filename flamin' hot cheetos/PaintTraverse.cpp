@@ -4,33 +4,33 @@ PaintTraverse_t originalPaintTraverse;
 
 void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool allowForce)
 {
-	originalPaintTraverse(g_pPanel, vguiPanel, forceRepaint, allowForce);
+	originalPaintTraverse(panel, vguiPanel, forceRepaint, allowForce);
 
 	if (GetAsyncKeyState(VK_DELETE) & 1)
 		shouldUnload = true;
 
-	static bool bOnce = false;
-	if (!bOnce)
+	static bool isDone = false;
+	if (!isDone)
 	{
 		drawing.initializeFonts();
-		bOnce = true;
+		isDone = true;
 	}
 
-	const char* panelName = g_pPanel->GetName(vguiPanel);
+	const char* panelName = panel->GetName(vguiPanel);
 	if (!panelName)
 		return;
 
 	// MatSystemTopPanel
 	if (panelName[0] == 'M' && panelName[3] == 'S' && panelName[9] == 'T')
 	{
-		if (g_pEngine->InGame() && g_pEngine->IsConnected())
+		if (engine->InGame() && engine->IsConnected())
 		{
-			CBaseEntity* pLocal = g_pEntityList->GetClientEntity(g_pEngine->GetLocalPlayer());
-			if (!pLocal)
+			ValveSDK::CBaseEntity* local = entitylist->GetClientEntity(engine->GetLocalPlayer());
+			if (!local)
 				return;
 
 			if (cvar::esp_enabled)
-				visuals.think(pLocal);
+				visuals.think(local);
 		}
 
 		menu.think();

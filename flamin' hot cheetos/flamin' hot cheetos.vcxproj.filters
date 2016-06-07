@@ -89,9 +89,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Main.h">
-      <Filter>Project Files\Main</Filter>
-    </ClInclude>
     <ClInclude Include="SDK.h">
       <Filter>Project Files\SDK</Filter>
     </ClInclude>
@@ -146,11 +143,17 @@
     <ClInclude Include="CreateMove.h">
       <Filter>Project Files\Hooks\CreateMove</Filter>
     </ClInclude>
-    <ClInclude Include="Visuals.h">
-      <Filter>Project Files\Features\Visuals</Filter>
-    </ClInclude>
     <ClInclude Include="Miscellaneous.h">
       <Filter>Project Files\Features\Miscellaneous</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\Common.h">
+      <Filter>Project Files\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Visuals.h">
+      <Filter>Project Files\Hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\flamin%27 hot cheetos\flamin-hot-cheetos\flamin%27 hot cheetos\stdafx.h">
+      <Filter>Project Files\Main</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

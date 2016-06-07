@@ -1,5 +1,5 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef STDAFX_H
+#define STDAFX_H
 
 #pragma once
 #pragma warning(disable: 4244)
@@ -13,18 +13,6 @@
 #include <memory>
 
 #include "cx_strenc.h"
-
-#include "Vector.h"
-#include "SDK.h"
-#include "SDKDefinitions.h"
-
-#include "Color.h"
-#include "Drawing.h"
-
-#include "Interfaces.h"
-#include "Hooks.h"
-
-#include "Control Variables.h"
 
 #include "Menu.h"
 #include "Visuals.h"

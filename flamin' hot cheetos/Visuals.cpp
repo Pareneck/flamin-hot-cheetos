@@ -7,55 +7,55 @@ Visuals::Visuals(void)
 	espColor_ = Color(0, 0, 0, 0);
 }
 
-void Visuals::think(CBaseEntity* pLocal)
+void Visuals::think(ValveSDK::CBaseEntity* local)
 {
-	player_info_t playerInfo;
+	player_info_t info;
 
-	for (int i = 1; i <= g_pEntityList->GetHighestEntityIndex(); i++)
+	for (int i = 1; i <= entitylist->GetHighestEntityIndex(); i++)
 	{
-		if (i == pLocal->GetIndex())
+		if (i == local->GetIndex())
 			continue;
 
-		CBaseEntity* pEntity = g_pEntityList->GetClientEntity(i);
-		if (!pEntity)
+		ValveSDK::CBaseEntity* entity = entitylist->GetClientEntity(i);
+		if (!entity)
 			continue;
-		if (pEntity->IsDormant() || pEntity->GetLifeState() != LIFE_ALIVE)
+		if (entity->IsDormant() || entity->GetLifeState() != LIFE_ALIVE)
 			continue;
-		if (pEntity->GetClientClass()->GetClassID() != CCSPlayer)
+		if (entity->GetClientClass()->GetClassID() != CCSPlayer)
 			continue;
-		if (pEntity->GetTeamNum() == pLocal->GetTeamNum())
+		if (entity->GetTeamNum() == local->GetTeamNum())
 			continue;
-		if (!g_pEngine->GetPlayerInfo(i, &playerInfo))
+		if (!engine->GetPlayerInfo(i, &info))
 			continue;
 
-		drawPlayer(pLocal, pEntity, playerInfo);
+		drawPlayer(local, entity, info);
 	}
 }
 
-void Visuals::drawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info_t playerInfo)
+void Visuals::drawPlayer(ValveSDK::CBaseEntity* local, ValveSDK::CBaseEntity* entity, player_info_t info)
 {
-	const matrix3x4& trans = *(matrix3x4*)((DWORD)pEntity + (0x470 - 0x30));
+	const matrix3x4& trans = *(matrix3x4*)((DWORD)entity + (0x470 - 0x30));
 
-	Vector min, max;
-	pEntity->GetRenderBounds(min, max);
+	ValveSDK::Vector min, max;
+	entity->GetRenderBounds(min, max);
 
-	Vector pointList[] = {
-		Vector(min.x, min.y, min.z),
-		Vector(min.x, max.y, min.z),
-		Vector(max.x, max.y, min.z),
-		Vector(max.x, min.y, min.z),
-		Vector(max.x, max.y, max.z),
-		Vector(min.x, max.y, max.z),
-		Vector(min.x, min.y, max.z),
-		Vector(max.x, min.y, max.z)
+	ValveSDK::Vector pointList[] = {
+		ValveSDK::Vector(min.x, min.y, min.z),
+		ValveSDK::Vector(min.x, max.y, min.z),
+		ValveSDK::Vector(max.x, max.y, min.z),
+		ValveSDK::Vector(max.x, min.y, min.z),
+		ValveSDK::Vector(max.x, max.y, max.z),
+		ValveSDK::Vector(min.x, max.y, max.z),
+		ValveSDK::Vector(min.x, min.y, max.z),
+		ValveSDK::Vector(max.x, min.y, max.z)
 	};
 
-	Vector transformed[8];
+	ValveSDK::Vector transformed[8];
 
 	for (int i = 0; i < 8; i++)
 		tools.VectorTransform(pointList[i], trans, transformed[i]);
 
-	Vector flb, brt, blb, frt, frb, brb, blt, flt;
+	ValveSDK::Vector flb, brt, blb, frt, frb, brb, blt, flt;
 
 	if (!tools.WorldToScreen(transformed[3], flb) ||
 		!tools.WorldToScreen(transformed[0], blb) ||
@@ -67,7 +67,7 @@ void Visuals::drawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info_
 		!tools.WorldToScreen(transformed[7], flt))
 		return;
 
-	Vector arr[] = { flb, brt, blb, frt, frb, brb, blt, flt };
+	ValveSDK::Vector arr[] = { flb, brt, blb, frt, frb, brb, blt, flt };
 
 	float left = flb.x;
 	float top = flb.y;
@@ -91,19 +91,19 @@ void Visuals::drawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info_
 	float w = right - left;
 	float h = top - bottom;
 
-	bool isVisible = tools.isVisible(pLocal->GetEyePosition(), pEntity->GetEyePosition(), pEntity);
+	bool isVisible = tools.isVisible(local->GetEyePosition(), entity->GetEyePosition(), entity);
 	if (isVisible)
 	{
-		if (pEntity->GetTeamNum() == 2)
+		if (entity->GetTeamNum() == 2)
 			espColor_ = Color(255, 0, 0);
-		else if (pEntity->GetTeamNum() == 3)
+		else if (entity->GetTeamNum() == 3)
 			espColor_ = Color(0, 0, 255);
 	}
 	else
 	{
-		if (pEntity->GetTeamNum() == 2)
+		if (entity->GetTeamNum() == 2)
 			espColor_ = Color(255, 255, 0);
-		else if (pEntity->GetTeamNum() == 3)
+		else if (entity->GetTeamNum() == 3)
 			espColor_ = Color(0, 255, 0);
 	}
 
@@ -111,19 +111,19 @@ void Visuals::drawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info_
 		drawing.drawOutlinedBox(x, y, w, h, espColor_, Color(0, 0, 0));
 
 	if (cvar::esp_draw_name)
-		drawing.drawString(drawing.espFont, true, x + w / 2, y - 16, Color(255, 255, 255), playerInfo.m_szPlayerName);
+		drawing.drawString(drawing.espFont, true, x + w / 2, y - 16, Color(255, 255, 255), info.m_szPlayerName);
 
 	if (cvar::esp_draw_weapon)
 	{
-		CBaseCombatWeapon* pWeapon = tools.getActiveWeapon(pEntity);
-		if (pWeapon)
+		ValveSDK::CBaseCombatWeapon* weapon = tools.getActiveWeapon(entity);
+		if (weapon)
 		{
 			char buffer[32];
 
-			if (!pWeapon->IsKnife() && !pWeapon->IsOther())
-				sprintf_s(buffer, sizeof(buffer), "%s | %i", pWeapon->GetWeaponName(), pWeapon->GetClip1());
+			if (!weapon->IsKnife() && !weapon->IsOther())
+				sprintf_s(buffer, sizeof(buffer), "%s | %i", weapon->GetWeaponName(), weapon->GetClip1());
 			else
-				sprintf_s(buffer, sizeof(buffer), "%s", pWeapon->GetWeaponName());
+				sprintf_s(buffer, sizeof(buffer), "%s", weapon->GetWeaponName());
 
 			drawing.drawString(drawing.espFont, true, x + w / 2, top + 2, Color(255, 255, 255), buffer);
 		}
@@ -132,5 +132,5 @@ void Visuals::drawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info_
 	int place = 0;
 
 	if (cvar::esp_draw_callout)
-		drawing.drawString(drawing.espFont, false, x + w + 5, y - 4 + (place++ * 11), Color(255, 255, 255), pEntity->GetLastPlaceName());
+		drawing.drawString(drawing.espFont, false, x + w + 5, y - 4 + (place++ * 11), Color(255, 255, 255), entity->GetLastPlaceName());
 }

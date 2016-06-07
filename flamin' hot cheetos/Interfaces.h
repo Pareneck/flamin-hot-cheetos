@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "Main.h"
+#include "stdafx.h"
 
 namespace interfaces
 {

@@ -3,8 +3,6 @@
 
 #pragma once
 
-#include "Main.h"
-
 namespace cvar
 {
 	extern bool esp_enabled;

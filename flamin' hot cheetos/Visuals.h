@@ -3,20 +3,20 @@
 
 #pragma once
 
-#include "Main.h"
+#include "stdafx.h"
+#include "Common.h"
 
 // why the hell do I have to make forward declarations
-class CBaseEntity;
 
 class Visuals
 {
 public:
 	Visuals(void);
 
-	void think(CBaseEntity* pLocal);
+	void think(ValveSDK::CBaseEntity* local);
 
 private:
-	void drawPlayer(CBaseEntity* pLocal, CBaseEntity* pEntity, player_info_t playerInfo);
+	void drawPlayer(ValveSDK::CBaseEntity* local, ValveSDK::CBaseEntity* entity, player_info_t info);
 
 private:
 	Color espColor_;

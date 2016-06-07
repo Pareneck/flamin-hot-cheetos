@@ -3,7 +3,8 @@
 
 #pragma once
 
-#include "Main.h"
+#include "stdafx.h"
+#include "Common.h"
 
 class Drawing
 {
