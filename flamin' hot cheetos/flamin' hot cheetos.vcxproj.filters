@@ -146,9 +146,6 @@
     <ClInclude Include="Miscellaneous.h">
       <Filter>Project Files\Features\Miscellaneous</Filter>
     </ClInclude>
-    <ClInclude Include="Common.h">
-      <Filter>Project Files\Main</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Project Files\Main</Filter>
     </ClInclude>

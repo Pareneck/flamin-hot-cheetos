@@ -14,6 +14,17 @@
 
 #include "cx_strenc.h"
 
+#include "SDK.h"
+#include "SDKDefinitions.h"
+
+#include "Color.h"
+#include "Drawing.h"
+
+#include "Interfaces.h"
+#include "Hooks.h"
+
+#include "Control Variables.h"
+
 #include "Menu.h"
 #include "Visuals.h"
 #include "Miscellaneous.h"

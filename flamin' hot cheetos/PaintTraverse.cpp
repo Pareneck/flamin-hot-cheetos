@@ -4,7 +4,7 @@ PaintTraverse_t originalPaintTraverse;
 
 void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool allowForce)
 {
-	originalPaintTraverse(panel, vguiPanel, forceRepaint, allowForce);
+	originalPaintTraverse(interfaces::panel, vguiPanel, forceRepaint, allowForce);
 
 	if (GetAsyncKeyState(VK_DELETE) & 1)
 		shouldUnload = true;
@@ -16,16 +16,16 @@ void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool all
 		isDone = true;
 	}
 
-	const char* panelName = panel->GetName(vguiPanel);
+	const char* panelName = interfaces::panel->GetName(vguiPanel);
 	if (!panelName)
 		return;
 
 	// MatSystemTopPanel
 	if (panelName[0] == 'M' && panelName[3] == 'S' && panelName[9] == 'T')
 	{
-		if (engine->InGame() && engine->IsConnected())
+		if (interfaces::engine->InGame() && interfaces::engine->IsConnected())
 		{
-			ValveSDK::CBaseEntity* local = entitylist->GetClientEntity(engine->GetLocalPlayer());
+			CBaseEntity* local = interfaces::entitylist->GetClientEntity(interfaces::engine->GetLocalPlayer());
 			if (!local)
 				return;
 

@@ -4,12 +4,11 @@
 #pragma once
 
 #include "stdafx.h"
-#include "Common.h"
 
 class Misc
 {
 public:
-	void Bunnyhop(ValveSDK::CBaseEntity* local, ValveSDK::CInput::CUserCmd* cmd);
+	void Bunnyhop(CBaseEntity* local, CInput::CUserCmd* cmd);
 };
 
 extern Misc misc;

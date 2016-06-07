@@ -7,16 +7,16 @@ Visuals::Visuals(void)
 	espColor_ = Color(0, 0, 0, 0);
 }
 
-void Visuals::think(ValveSDK::CBaseEntity* local)
+void Visuals::think(CBaseEntity* local)
 {
 	player_info_t info;
 
-	for (int i = 1; i <= entitylist->GetHighestEntityIndex(); i++)
+	for (int i = 1; i <= interfaces::entitylist->GetHighestEntityIndex(); i++)
 	{
 		if (i == local->GetIndex())
 			continue;
 
-		ValveSDK::CBaseEntity* entity = entitylist->GetClientEntity(i);
+		CBaseEntity* entity = interfaces::entitylist->GetClientEntity(i);
 		if (!entity)
 			continue;
 		if (entity->IsDormant() || entity->GetLifeState() != LIFE_ALIVE)
@@ -25,37 +25,37 @@ void Visuals::think(ValveSDK::CBaseEntity* local)
 			continue;
 		if (entity->GetTeamNum() == local->GetTeamNum())
 			continue;
-		if (!engine->GetPlayerInfo(i, &info))
+		if (!interfaces::engine->GetPlayerInfo(i, &info))
 			continue;
 
 		drawPlayer(local, entity, info);
 	}
 }
 
-void Visuals::drawPlayer(ValveSDK::CBaseEntity* local, ValveSDK::CBaseEntity* entity, player_info_t info)
+void Visuals::drawPlayer(CBaseEntity* local, CBaseEntity* entity, player_info_t info)
 {
 	const matrix3x4& trans = *(matrix3x4*)((DWORD)entity + (0x470 - 0x30));
 
-	ValveSDK::Vector min, max;
+	Vector min, max;
 	entity->GetRenderBounds(min, max);
 
-	ValveSDK::Vector pointList[] = {
-		ValveSDK::Vector(min.x, min.y, min.z),
-		ValveSDK::Vector(min.x, max.y, min.z),
-		ValveSDK::Vector(max.x, max.y, min.z),
-		ValveSDK::Vector(max.x, min.y, min.z),
-		ValveSDK::Vector(max.x, max.y, max.z),
-		ValveSDK::Vector(min.x, max.y, max.z),
-		ValveSDK::Vector(min.x, min.y, max.z),
-		ValveSDK::Vector(max.x, min.y, max.z)
+	Vector pointList[] = {
+		Vector(min.x, min.y, min.z),
+		Vector(min.x, max.y, min.z),
+		Vector(max.x, max.y, min.z),
+		Vector(max.x, min.y, min.z),
+		Vector(max.x, max.y, max.z),
+		Vector(min.x, max.y, max.z),
+		Vector(min.x, min.y, max.z),
+		Vector(max.x, min.y, max.z)
 	};
 
-	ValveSDK::Vector transformed[8];
+	Vector transformed[8];
 
 	for (int i = 0; i < 8; i++)
 		tools.VectorTransform(pointList[i], trans, transformed[i]);
 
-	ValveSDK::Vector flb, brt, blb, frt, frb, brb, blt, flt;
+	Vector flb, brt, blb, frt, frb, brb, blt, flt;
 
 	if (!tools.WorldToScreen(transformed[3], flb) ||
 		!tools.WorldToScreen(transformed[0], blb) ||
@@ -67,7 +67,7 @@ void Visuals::drawPlayer(ValveSDK::CBaseEntity* local, ValveSDK::CBaseEntity* en
 		!tools.WorldToScreen(transformed[7], flt))
 		return;
 
-	ValveSDK::Vector arr[] = { flb, brt, blb, frt, frb, brb, blt, flt };
+	Vector arr[] = { flb, brt, blb, frt, frb, brb, blt, flt };
 
 	float left = flb.x;
 	float top = flb.y;
@@ -115,7 +115,7 @@ void Visuals::drawPlayer(ValveSDK::CBaseEntity* local, ValveSDK::CBaseEntity* en
 
 	if (cvar::esp_draw_weapon)
 	{
-		ValveSDK::CBaseCombatWeapon* weapon = tools.getActiveWeapon(entity);
+		CBaseCombatWeapon* weapon = tools.getActiveWeapon(entity);
 		if (weapon)
 		{
 			char buffer[32];

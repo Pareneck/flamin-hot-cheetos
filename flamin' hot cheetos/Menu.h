@@ -4,7 +4,6 @@
 #pragma once
 
 #include "stdafx.h"
-#include "Common.h"
 
 __forceinline float clamp(float value, float minValue, float maxValue)
 {

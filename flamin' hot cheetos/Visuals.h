@@ -4,7 +4,6 @@
 #pragma once
 
 #include "stdafx.h"
-#include "Common.h"
 
 // why the hell do I have to make forward declarations
 
@@ -13,10 +12,10 @@ class Visuals
 public:
 	Visuals(void);
 
-	void think(ValveSDK::CBaseEntity* local);
+	void think(CBaseEntity* local);
 
 private:
-	void drawPlayer(ValveSDK::CBaseEntity* local, ValveSDK::CBaseEntity* entity, player_info_t info);
+	void drawPlayer(CBaseEntity* local, CBaseEntity* entity, player_info_t info);
 
 private:
 	Color espColor_;

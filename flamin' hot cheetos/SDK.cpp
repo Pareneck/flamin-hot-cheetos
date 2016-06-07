@@ -27,28 +27,28 @@ void* Tools::getInterface(std::string moduleName, std::string interfaceName)
 	return CreateInterface(buffer, nullptr);
 }
 
-bool Tools::isVisible(ValveSDK::Vector& start, ValveSDK::Vector& end, ValveSDK::CBaseEntity* entity)
+bool Tools::isVisible(Vector& start, Vector& end, CBaseEntity* entity)
 {
-	ValveSDK::IEngineTrace::trace_t tr;
-	ValveSDK::IEngineTrace::Ray_t ray;
-	ValveSDK::IEngineTrace::CTraceFilter filter;
-	filter.pSkip = entitylist->GetClientEntity(engine->GetLocalPlayer());
+	IEngineTrace::trace_t tr;
+	IEngineTrace::Ray_t ray;
+	IEngineTrace::CTraceFilter filter;
+	filter.pSkip = interfaces::entitylist->GetClientEntity(interfaces::engine->GetLocalPlayer());
 
 	ray.Init(start, end);
-	enginetrace->TraceRay(ray, 0x4600400B, &filter, &tr);
+	interfaces::enginetrace->TraceRay(ray, 0x4600400B, &filter, &tr);
 
 	return (tr.pEntity == entity || tr.fraction > 0.99f);
 }
 
-ValveSDK::CBaseCombatWeapon* Tools::getActiveWeapon(ValveSDK::CBaseEntity* entity)
+CBaseCombatWeapon* Tools::getActiveWeapon(CBaseEntity* entity)
 {
 	ULONG weaponHandle = (ULONG)*(DWORD*)((DWORD)entity + 0x2EE8);
-	return (ValveSDK::CBaseCombatWeapon*)entitylist->GetClientEntityFromHandle(weaponHandle);
+	return (CBaseCombatWeapon*)interfaces::entitylist->GetClientEntityFromHandle(weaponHandle);
 }
 
-bool Tools::WorldToScreen(ValveSDK::Vector& world, ValveSDK::Vector& screen)
+bool Tools::WorldToScreen(Vector& world, Vector& screen)
 {
-	return (debugoverlay->ScreenPosition(world, screen) != 1);
+	return (interfaces::debugoverlay->ScreenPosition(world, screen) != 1);
 }
 
 float DotProductFloat(const float* v1, const float* v2)
@@ -64,16 +64,7 @@ void VectorTransformFloat(const float* in1, const matrix3x4& in2, float* out)
 	out[2] = DotProductFloat(in1, in2[2]) + in2[2][3];
 }
 
-void Tools::VectorTransform(const ValveSDK::Vector& in1, const matrix3x4& in2, ValveSDK::Vector& out)
+void Tools::VectorTransform(const Vector& in1, const matrix3x4& in2, Vector& out)
 {
 	VectorTransformFloat(&in1.x, in2, &out.x);
 }
-
-ValveSDK::CHLClient*         client = nullptr;
-ValveSDK::IEngineClient*     engine = nullptr;
-ValveSDK::IClientEntityList* entitylist = nullptr;
-ValveSDK::ISurface*          surface = nullptr;
-ValveSDK::IPanel*            panel = nullptr;
-ValveSDK::IVDebugOverlay*    debugoverlay = nullptr;
-ValveSDK::IEngineTrace*      enginetrace = nullptr;
-ValveSDK::CInput*            input = nullptr;

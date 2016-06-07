@@ -10,28 +10,28 @@ Drawing::Drawing(void)
 
 void Drawing::initializeFonts(void)
 {
-	menuFont = surface->CreateFont();
-	surface->SetFontGlyphSet(menuFont, charenc("Verdana"), 13, 20, 0, 0, FONTFLAG_ANTIALIAS);
+	menuFont = interfaces::surface->CreateFont();
+	interfaces::surface->SetFontGlyphSet(menuFont, charenc("Verdana"), 13, 20, 0, 0, FONTFLAG_ANTIALIAS);
 
-	menuTitleFont = surface->CreateFont();
-	surface->SetFontGlyphSet(menuTitleFont, charenc("Tahoma"), 13, 600, 0, 0, FONTFLAG_ANTIALIAS);
+	menuTitleFont = interfaces::surface->CreateFont();
+	interfaces::surface->SetFontGlyphSet(menuTitleFont, charenc("Tahoma"), 13, 600, 0, 0, FONTFLAG_ANTIALIAS);
 
-	espFont = surface->CreateFont();
-	surface->SetFontGlyphSet(espFont, charenc("Tahoma"), 13, 1250, 0, 0, FONTFLAG_DROPSHADOW);
+	espFont = interfaces::surface->CreateFont();
+	interfaces::surface->SetFontGlyphSet(espFont, charenc("Tahoma"), 13, 1250, 0, 0, FONTFLAG_DROPSHADOW);
 }
 
-int getWidth(unsigned long ulFont, const char* pchInput, ...)
+int getWidth(unsigned long font, const char* text, ...)
 {
-	int iWide = 0, iTall = 0;
-	int iBufferSize = MultiByteToWideChar(CP_UTF8, 0x0, pchInput, -1, 0, 0);
+	int wide = 0, tall = 0;
+	int bufferSize = MultiByteToWideChar(CP_UTF8, 0x0, text, -1, 0, 0);
 
-	wchar_t* wchUnicode = new wchar_t[iBufferSize];
-	MultiByteToWideChar(CP_UTF8, 0x0, pchInput, -1, wchUnicode, iBufferSize);
+	wchar_t* wchUnicode = new wchar_t[bufferSize];
+	MultiByteToWideChar(CP_UTF8, 0x0, text, -1, wchUnicode, bufferSize);
 
-	surface->GetTextSize(ulFont, wchUnicode, iWide, iTall);
+	interfaces::surface->GetTextSize(font, wchUnicode, wide, tall);
 	delete[] wchUnicode;
 
-	return iWide;
+	return wide;
 }
 
 std::wstring getWide(const std::string& text)
@@ -54,37 +54,37 @@ void Drawing::drawString(unsigned long font, bool shouldCenter, int x, int y, Co
 	if (shouldCenter)
 		x -= getWidth(font, buffer) / 2;
 
-	surface->DrawSetTextColor(color.r(), color.g(), color.b(), color.a());
-	surface->DrawSetTextFont(font);
-	surface->DrawSetTextPos(x, y);
+	interfaces::surface->DrawSetTextColor(color.r(), color.g(), color.b(), color.a());
+	interfaces::surface->DrawSetTextFont(font);
+	interfaces::surface->DrawSetTextPos(x, y);
 
 	std::wstring wide = getWide(std::string(buffer));
-	surface->DrawPrintText(wide.c_str(), wide.length());
+	interfaces::surface->DrawPrintText(wide.c_str(), wide.length());
 }
 
 void Drawing::drawLine(int x1, int y1, int x2, int y2, Color color)
 {
-	surface->DrawSetColor(color.r(), color.g(), color.b(), color.a());
-	surface->DrawLine(x1, y1, x2, y2);
+	interfaces::surface->DrawSetColor(color.r(), color.g(), color.b(), color.a());
+	interfaces::surface->DrawLine(x1, y1, x2, y2);
 }
 
 void Drawing::drawFilledRect(int x, int y, int w, int h, Color color)
 {
-	surface->DrawSetColor(color.r(), color.g(), color.b(), color.a());
-	surface->DrawFilledRect(x, y, x + w, y + h);
+	interfaces::surface->DrawSetColor(color.r(), color.g(), color.b(), color.a());
+	interfaces::surface->DrawFilledRect(x, y, x + w, y + h);
 }
 
 void Drawing::drawOutlinedRect(int x, int y, int w, int h, Color color)
 {
-	surface->DrawSetColor(color.r(), color.g(), color.b(), color.a());
-	surface->DrawOutlinedRect(x, y, x + w, y + h);
+	interfaces::surface->DrawSetColor(color.r(), color.g(), color.b(), color.a());
+	interfaces::surface->DrawOutlinedRect(x, y, x + w, y + h);
 }
 
 void Drawing::drawOutlinedBox(int x, int y, int w, int h, Color color, Color colorOutline)
 {
 	drawOutlinedRect(x, y, w, h, color);
 
-	surface->DrawSetColor(colorOutline.r(), colorOutline.g(), colorOutline.b(), colorOutline.a());
-	surface->DrawOutlinedRect(x + 1, y + 1, x + w - 1, y + h - 1);
-	surface->DrawOutlinedRect(x - 1, y - 1, x + w + 1, y + h + 1);
+	interfaces::surface->DrawSetColor(colorOutline.r(), colorOutline.g(), colorOutline.b(), colorOutline.a());
+	interfaces::surface->DrawOutlinedRect(x + 1, y + 1, x + w - 1, y + h - 1);
+	interfaces::surface->DrawOutlinedRect(x - 1, y - 1, x + w + 1, y + h + 1);
 }
