@@ -4,11 +4,11 @@ Aimbot aimbot;
 
 Aimbot::Aimbot(void)
 {
-	bestTarget_ = -1;
+	bestTarget = -1;
 
-	viewAngles_ = QAngle(0.f, 0.f, 0.f);
-	hitboxPosition_ = Vector(0.f, 0.f, 0.f);
-	finalAngles_ = QAngle(0.f, 0.f, 0.f);
+	viewAngles = QAngle(0.f, 0.f, 0.f);
+	hitboxPosition = Vector(0.f, 0.f, 0.f);
+	finalAngles = QAngle(0.f, 0.f, 0.f);
 }
 
 void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
@@ -16,29 +16,29 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	if (!(GetAsyncKeyState(cvar::general_key_aimbot) & 0x8000))
 		return;
 
-	bestTarget_ = getBestTarget(local, weapon, hitboxPosition_);
-	if (bestTarget_ == -1)
+	bestTarget = getBestTarget(local, weapon, hitboxPosition);
+	if (bestTarget == -1)
 		return;
 
-	CBaseEntity* entity = interfaces::entitylist->GetClientEntity(bestTarget_);
+	CBaseEntity* entity = interfaces::entitylist->GetClientEntity(bestTarget);
 	if (!entity)
 		return;
 
-	if (tools.getDistance(hitboxPosition_, local->GetEyePosition()) > 8192.f)
+	if (tools.getDistance(local->GetEyePosition(), hitboxPosition) > 8192.f)
 		return;
 
-	hitboxPosition_.x += tools.random(-cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox);
-	hitboxPosition_.y += tools.random(-cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox);
-	hitboxPosition_.z += tools.random(-cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox);
+	hitboxPosition.x += tools.random(-cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox);
+	hitboxPosition.y += tools.random(-cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox);
+	hitboxPosition.z += tools.random(-cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox);
 
-	tools.computeAngle(local->GetEyePosition(), hitboxPosition_, finalAngles_);
-	tools.normalizeAngles(finalAngles_);
+	tools.computeAngle(local->GetEyePosition(), hitboxPosition, finalAngles);
+	tools.normalizeAngles(finalAngles);
 
-	finalAngles_.x -= getRandomizedRecoil(local).x;
-	finalAngles_.y -= getRandomizedRecoil(local).y;
+	finalAngles.x -= getRandomizedRecoil(local).x;
+	finalAngles.y -= getRandomizedRecoil(local).y;
 
-	finalAngles_ = viewAngles_ - finalAngles_;
-	tools.normalizeAngles(finalAngles_);
+	finalAngles = viewAngles - finalAngles;
+	tools.normalizeAngles(finalAngles);
 
 	float sensitivity = *(float*)(interfaces::clientdll + 0xA34CB4);
 	if (!sensitivity)
@@ -47,24 +47,24 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	float pixels = sensitivity * 0.22f / tools.random(0.7f, 1.1f);
 	float smoothRate = tools.random(0.7f, 1.1f) * 2.f;
 
-	if (finalAngles_.x > smoothRate)
-		finalAngles_.x = smoothRate;
-	else if (finalAngles_.x < -smoothRate)
-		finalAngles_.x = -smoothRate;
+	if (finalAngles.x > smoothRate)
+		finalAngles.x = smoothRate;
+	else if (finalAngles.x < -smoothRate)
+		finalAngles.x = -smoothRate;
 
-	if (finalAngles_.y > smoothRate)
-		finalAngles_.y = smoothRate;
-	else if (finalAngles_.y < -smoothRate)
-		finalAngles_.y = -smoothRate;
+	if (finalAngles.y > smoothRate)
+		finalAngles.y = smoothRate;
+	else if (finalAngles.y < -smoothRate)
+		finalAngles.y = -smoothRate;
 
-	finalAngles_.x /= pixels * -1.f;
-	finalAngles_.y /= pixels;
-	finalAngles_.y += tools.random(-cvar::aimbot_randomize_angle, cvar::aimbot_randomize_angle);
+	finalAngles.x /= pixels * -1.f;
+	finalAngles.y /= pixels;
+	finalAngles.y += tools.random(-cvar::aimbot_randomize_angle, cvar::aimbot_randomize_angle);
 
-	setAngles(finalAngles_.y, finalAngles_.x);
+	moveMouse(finalAngles.y, finalAngles.x);
 }
 
-void Aimbot::setAngles(float x, float y)
+void Aimbot::moveMouse(float x, float y)
 {
 	INPUT input = { 0 };
 	input.type = INPUT_MOUSE;
@@ -76,14 +76,14 @@ void Aimbot::setAngles(float x, float y)
 
 Vector Aimbot::getRandomizedRecoil(CBaseEntity* local)
 {
-	QAngle punchAngle = local->GetPunchAngles() * tools.random(cvar::aimbot_rcs_min, cvar::aimbot_rcs_max);
-	return (local->GetShotsFired() > 1 ? punchAngle : Vector(0, 0, 0));
+	QAngle punchAngles = local->GetPunchAngles() * tools.random(cvar::aimbot_rcs_min, cvar::aimbot_rcs_max);
+	return (local->GetShotsFired() > 1 ? punchAngles : Vector(0, 0, 0));
 }
 
 bool Aimbot::getClosestHitbox(CBaseEntity* local, CBaseEntity* entity, Vector& dest)
 {
 	int bestHitbox = -1;
-	float bestFoV = 180.f;
+	float bestFov = 180.f;
 
 	std::vector<int> hitboxes;
 	hitboxes.push_back(HITBOX_HEAD);
@@ -91,6 +91,7 @@ bool Aimbot::getClosestHitbox(CBaseEntity* local, CBaseEntity* entity, Vector& d
 	hitboxes.push_back(HITBOX_UPPER_CHEST);
 	hitboxes.push_back(HITBOX_CHEST);
 	hitboxes.push_back(HITBOX_BODY);
+	// add more hitboxes if you wish
 
 	for (auto hitbox : hitboxes)
 	{
@@ -98,10 +99,10 @@ bool Aimbot::getClosestHitbox(CBaseEntity* local, CBaseEntity* entity, Vector& d
 		if (!tools.getHitboxPosition(hitbox, temp, entity))
 			continue;
 
-		float fov = tools.getFov(viewAngles_ + getRandomizedRecoil(local), tools.computeAngle(local->GetEyePosition(), temp));
-		if (fov < bestFoV)
+		float fov = tools.getFov(viewAngles + getRandomizedRecoil(local), tools.computeAngle(local->GetEyePosition(), temp));
+		if (fov < bestFov)
 		{
-			bestFoV = fov;
+			bestFov = fov;
 			bestHitbox = hitbox;
 		}
 	}
@@ -120,7 +121,7 @@ int Aimbot::getBestTarget(CBaseEntity* local, CBaseCombatWeapon* weapon, Vector&
 	int bestTarget = -1;
 	float bestFov = 180.f;
 
-	interfaces::engine->GetViewAngles(viewAngles_);
+	interfaces::engine->GetViewAngles(viewAngles);
 
 	for (int i = 1; i <= interfaces::engine->GetMaxClients(); i++)
 	{
@@ -128,22 +129,19 @@ int Aimbot::getBestTarget(CBaseEntity* local, CBaseCombatWeapon* weapon, Vector&
 			continue;
 
 		CBaseEntity* entity = interfaces::entitylist->GetClientEntity(i);
-		if (!entity)
-			continue;
-		if (entity->IsDormant() || entity->GetLifeState() != LIFE_ALIVE)
-			continue;
-		if (entity->IsProtected())
-			continue;
-		if (entity->GetClientClass()->GetClassID() != CCSPlayer)
-			continue;
-		if (entity->GetTeamNum() == local->GetTeamNum())
+		if (!entity ||
+			entity->IsDormant() ||
+			entity->GetLifeState() != LIFE_ALIVE ||
+			entity->IsProtected() ||
+			entity->GetClientClass()->GetClassID() != CCSPlayer ||
+			entity->GetTeamNum() == local->GetTeamNum())
 			continue;
 
 		Vector hitbox;
 		if (getClosestHitbox(local, entity, hitbox))
 			continue;
 
-		float fov = tools.getFov(viewAngles_ + getRandomizedRecoil(local), tools.computeAngle(local->GetEyePosition(), hitbox));
+		float fov = tools.getFov(viewAngles + getRandomizedRecoil(local), tools.computeAngle(local->GetEyePosition(), hitbox));
 		if (fov < bestFov && fov < cvar::aimbot_fov)
 		{
 			if (tools.isVisible(local->GetEyePosition(), hitbox, entity))

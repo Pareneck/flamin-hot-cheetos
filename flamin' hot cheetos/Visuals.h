@@ -22,7 +22,7 @@ private:
 	void drawBoundingBox(CBaseEntity* entity, Color color, const char* text);
 
 private:
-	Color espColor_;
+	Color espColor;
 };
 
 extern Visuals visuals;

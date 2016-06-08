@@ -13,7 +13,7 @@ public:
 	void think(CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd* cmd);
 
 private:
-	QAngle viewAngles_;
+	QAngle viewAngles;
 };
 
 extern Triggerbot triggerbot;
