@@ -19,14 +19,14 @@ private:
 	int    getBestTarget(CBaseEntity* local, CBaseCombatWeapon* weapon, Vector& dest);
 	Vector getRandomizedRecoil(CBaseEntity* local);
 
-	void   setAngles(float x, float y);
+	void   moveMouse(float x, float y);
 
 private:
-	int    bestTarget_;
+	int    bestTarget;
 
-	QAngle viewAngles_;
-	Vector hitboxPosition_;
-	QAngle finalAngles_;
+	QAngle viewAngles;
+	Vector hitboxPosition;
+	QAngle finalAngles;
 };
 
 extern Aimbot aimbot;

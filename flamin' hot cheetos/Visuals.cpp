@@ -4,7 +4,7 @@ Visuals visuals;
 
 Visuals::Visuals(void)
 {
-	espColor_ = Color(0, 0, 0, 0);
+	espColor = Color(0, 0, 0, 0);
 }
 
 void Visuals::think(CBaseEntity* local)
@@ -98,20 +98,20 @@ void Visuals::drawPlayer(CBaseEntity* local, CBaseEntity* entity, player_info_t 
 	if (isVisible)
 	{
 		if (entity->GetTeamNum() == 2)
-			espColor_ = Color(255, 0, 0);
+			espColor = Color(255, 0, 0);
 		else if (entity->GetTeamNum() == 3)
-			espColor_ = Color(0, 0, 255);
+			espColor = Color(0, 0, 255);
 	}
 	else
 	{
 		if (entity->GetTeamNum() == 2)
-			espColor_ = Color(255, 255, 0);
+			espColor = Color(255, 255, 0);
 		else if (entity->GetTeamNum() == 3)
-			espColor_ = Color(0, 255, 0);
+			espColor = Color(0, 255, 0);
 	}
 
 	if (cvar::esp_draw_box)
-		drawing.drawOutlinedBox(x, y, w, h, espColor_, Color(0, 0, 0));
+		drawing.drawOutlinedBox(x, y, w, h, espColor, Color(0, 0, 0));
 
 	if (cvar::esp_draw_health)
 		drawing.drawBar(x - 4, y + h / 2 - 1, 4, h + 1, Color(255.f - entity->GetHealth() * 2.55f, entity->GetHealth() * 2.55f, 0), entity->GetHealth());

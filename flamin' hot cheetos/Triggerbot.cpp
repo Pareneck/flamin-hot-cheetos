@@ -4,7 +4,7 @@ Triggerbot triggerbot;
 
 Triggerbot::Triggerbot(void)
 {
-	viewAngles_ = QAngle(0.f, 0.f, 0.f);
+	viewAngles = QAngle(0.f, 0.f, 0.f);
 }
 
 void Triggerbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd* cmd)
@@ -12,11 +12,11 @@ void Triggerbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd* 
 	if (!(GetAsyncKeyState(cvar::general_key_triggerbot) & 0x8000))
 		return;
 
-	interfaces::engine->GetViewAngles(viewAngles_);
-	viewAngles_ += local->GetPunchAngles() * 2.f;
+	interfaces::engine->GetViewAngles(viewAngles);
+	viewAngles += local->GetPunchAngles() * 2.f;
 
 	Vector traceStart, traceEnd;
-	tools.angleVectors(viewAngles_, traceEnd);
+	tools.angleVectors(viewAngles, traceEnd);
 
 	traceStart = local->GetEyePosition();
 	traceEnd = traceStart + (traceEnd * 8192.f);

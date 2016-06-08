@@ -9,11 +9,11 @@ void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool all
 	if (GetAsyncKeyState(VK_DELETE) & 1)
 		shouldUnload = true;
 
-	static bool isDone = false;
-	if (!isDone)
+	static bool doOnce = false;
+	if (!doOnce)
 	{
 		drawing.initializeFonts();
-		isDone = true;
+		doOnce = true;
 	}
 
 	const char* panelName = interfaces::panel->GetName(vguiPanel);
