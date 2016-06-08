@@ -142,17 +142,28 @@ void Menu::drawMenu()
 	{
 		drawing.drawFilledRect(x + 1, y + 30, 93, 15, Color(5, 120, 210));
 		drawing.drawString(drawing.menuFont, true, x + 46, y + 32, Color(255, 255, 255), charenc("Aimbot"));
+
+		drawCheckbox(x + 30, y + 55, 450, cvar::aimbot_enabled, charenc("Enable"));
+		drawSlider(x + 30, y + 80, 200, 6, 237, 0.f, 180.f, cvar::aimbot_fov, charenc("Field of View"));
+		drawSlider(x + 30, y + 105, 200, 6, 237, 0.f, 2.f, cvar::aimbot_rcs_min, charenc("Randomize Recoil Control Min"));
+		drawSlider(x + 30, y + 130, 200, 6, 237, cvar::aimbot_rcs_min, 2.f, cvar::aimbot_rcs_max, charenc("Randomize Recoil Control Max"));
+		drawSlider(x + 30, y + 155, 200, 6, 237, 0.f, 20.f, cvar::aimbot_randomize_hitbox, charenc("Randomize Hitbox"));
+		drawSlider(x + 30, y + 180, 200, 6, 237, 0.f, 20.f, cvar::aimbot_randomize_angle, charenc("Randomize Angle"));
 	}
 	else if (activeTab_ == 2)
 	{
 		drawing.drawFilledRect(x + 93, y + 30, 100, 15, Color(5, 120, 210));
 		drawing.drawString(drawing.menuFont, true, x + 140, y + 32, Color(255, 255, 255), charenc("Visuals"));
 
-		drawCheckbox(x + 30, y + 55, 450, cvar::esp_enabled, charenc("Enable ESP"));
-		drawCheckbox(x + 30, y + 80, 450, cvar::esp_draw_box, charenc("Draw Boxes"));
-		drawCheckbox(x + 30, y + 105, 450, cvar::esp_draw_name, charenc("Draw Name"));
-		drawCheckbox(x + 30, y + 130, 450, cvar::esp_draw_weapon, charenc("Draw Weapon"));
-		drawCheckbox(x + 30, y + 155, 450, cvar::esp_draw_callout, charenc("Draw Callout"));
+		drawCheckbox(x + 30, y + 55, 450, cvar::esp_enabled, charenc("Enable"));
+		drawCheckbox(x + 30, y + 80, 450, cvar::esp_draw_box, charenc("Boxes"));
+		drawCheckbox(x + 30, y + 105, 450, cvar::esp_draw_name, charenc("Name"));
+		drawCheckbox(x + 30, y + 130, 450, cvar::esp_draw_weapon, charenc("Weapon"));
+		drawCheckbox(x + 30, y + 155, 450, cvar::esp_draw_callout, charenc("Callout"));
+		drawCheckbox(x + 30, y + 180, 450, cvar::esp_draw_health, charenc("Health Bar"));
+		drawCheckbox(x + 30, y + 205, 450, cvar::esp_draw_health_text, charenc("Health Text"));
+		drawCheckbox(x + 30, y + 230, 450, cvar::esp_draw_armor, charenc("Armor Bar"));
+		drawCheckbox(x + 30, y + 255, 450, cvar::esp_draw_armor_text, charenc("Armor Text"));
 	}
 	else if (activeTab_ == 3)
 	{
@@ -231,28 +242,29 @@ void Menu::drawCheckbox(int x, int y, int distance, bool& value, const char* tex
 	drawing.drawOutlinedRect(x + distance, y + 2, 12, 12, Color(150, 150, 150));
 }
 
-void Menu::drawSlider(int x, int y, int w, int h, int min, int max, int distance, float& value, const char* text)
+void Menu::drawSlider(int x, int y, int w, int h, int distance, float min, float max, float& value, const char* text)
 {
 	drawing.drawString(drawing.menuFont, false, x, y + 1.5f, Color(150, 150, 150), text);
 
 	float sliderPosition = 0.f, barPosition = 0.f;
 
-	if (isHovered(x + distance - 2, y + 1.5f, w + 4, h + 4) && isLeftClick_)
-		sliderPosition = (cursorPosition_[0] - x + distance);
+	if (isHovered(x + distance - 2, y - 2, w + 4, h + 4) && isLeftClick_)
+	{
+		sliderPosition = (cursorPosition_[0] - (x + distance));
+		float range = (max - min) * (sliderPosition / w);
+		value = clamp(min + range, min, max);
+	}
 	else
-		sliderPosition = (((value * 100) * 2) / max);
+	{
+		sliderPosition = ((value * 100) * 2) / max;
+	}
 
 	if (sliderPosition <= 1)
 		sliderPosition = 0;
 
-	value = max * (sliderPosition / 2.f) / 100;
-
 	barPosition = (sliderPosition / w * 100) * 2;
-
 	if (barPosition > w)
 		barPosition = w;
-
-	value = clamp(value, min, max);
 
 	drawing.drawFilledRect(x + distance, y + 4.5f, barPosition, h, Color(5, 120, 210));
 	drawing.drawOutlinedRect(x + distance, y + 4.5f, w + 1, h, Color(0, 0, 0));
@@ -261,13 +273,49 @@ void Menu::drawSlider(int x, int y, int w, int h, int min, int max, int distance
 	drawing.drawOutlinedRect(x + barPosition + distance, y + 2.8f, 3, 11, Color(0, 0, 0));
 
 	if (value >= 0.f && value < 10.f)
-		drawing.drawString(drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color(150, 150, 150), "%i", value);
+		drawing.drawString(drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color(150, 150, 150), "%.1f", value);
 	else if (value > 9.f && value < 100.f)
-		drawing.drawString(drawing.menuFont, false, x + w + 12 + distance, y + 1.5f, Color(150, 150, 150), "%i", value);
+		drawing.drawString(drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color(150, 150, 150), "%.1f", value);
 	else if (value > 99.f && value < 1000.f)
-		drawing.drawString(drawing.menuFont, false, x + w + 9 + distance, y + 1.5f, Color(150, 150, 150), "%i", value);
-	else if (value > 999.f && value < 10000.f)
-		drawing.drawString(drawing.menuFont, false, x + w + 6 + distance, y + 1.5f, Color(150, 150, 150), "%i", value);
+		drawing.drawString(drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color(150, 150, 150), "%.1f", value);
+}
+
+void Menu::drawSlider(int x, int y, int w, int h, int distance, int min, int max, int& value, const char* text)
+{
+	drawing.drawString(drawing.menuFont, false, x, y + 1.5f, Color(150, 150, 150), text);
+
+	float sliderPosition = 0.f, barPosition = 0.f;
+
+	if (isHovered(x + distance - 2, y - 2, w + 4, h + 4) && isLeftClick_)
+	{
+		sliderPosition = (cursorPosition_[0] - (x + distance));
+		float range = (max - min) * (sliderPosition / w);
+		value = clamp(roundf(min + range), min, max);
+	}
+	else
+	{
+		sliderPosition = ((value * 100) * 2) / max;
+	}
+
+	if (sliderPosition <= 1)
+		sliderPosition = 0;
+
+	barPosition = (sliderPosition / w * 100) * 2;
+	if (barPosition > w)
+		barPosition = w;
+
+	drawing.drawFilledRect(x + distance, y + 4.5f, barPosition, h, Color(5, 120, 210));
+	drawing.drawOutlinedRect(x + distance, y + 4.5f, w + 1, h, Color(0, 0, 0));
+
+	drawing.drawFilledRect(x + barPosition + distance, y + 2.8f, 2, 10, Color(5, 120, 210));
+	drawing.drawOutlinedRect(x + barPosition + distance, y + 2.8f, 3, 11, Color(0, 0, 0));
+
+	if (value >= 0 && value < 10)
+		drawing.drawString(drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color(150, 150, 150), "%i", value);
+	else if (value > 9 && value < 100)
+		drawing.drawString(drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color(150, 150, 150), "%i", value);
+	else if (value > 99 && value < 1000)
+		drawing.drawString(drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color(150, 150, 150), "%i", value);
 }
 
 void Menu::getKeyPressed(int x, int y, int w, int h, int distance, int& value, const char* text)

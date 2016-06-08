@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <vector>
 
 #include "cx_strenc.h"
 
@@ -28,6 +29,7 @@
 #include "Menu.h"
 #include "Visuals.h"
 #include "Miscellaneous.h"
+#include "Aimbot.h"
 
 extern bool shouldUnload;
 

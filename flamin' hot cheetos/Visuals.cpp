@@ -110,6 +110,12 @@ void Visuals::drawPlayer(CBaseEntity* local, CBaseEntity* entity, player_info_t 
 	if (cvar::esp_draw_box)
 		drawing.drawOutlinedBox(x, y, w, h, espColor_, Color(0, 0, 0));
 
+	if (cvar::esp_draw_health)
+		drawing.drawBar(x - 4, y + h / 2 - 1, 4, h + 1, Color(255.f - entity->GetHealth() * 2.55f, entity->GetHealth() * 2.55f, 0), entity->GetHealth());
+
+	if (cvar::esp_draw_armor)
+		drawing.drawBar(x - 9, y + h / 2 - 1, 4, h + 1, Color(255.f - entity->GetArmor() * 2.55f, entity->GetArmor() * 2.55f, 0), entity->GetArmor());
+
 	if (cvar::esp_draw_name)
 		drawing.drawString(drawing.espFont, true, x + w / 2, y - 16, Color(255, 255, 255), info.m_szPlayerName);
 
@@ -130,6 +136,12 @@ void Visuals::drawPlayer(CBaseEntity* local, CBaseEntity* entity, player_info_t 
 	}
 
 	int place = 0;
+
+	if (cvar::esp_draw_health_text)
+		drawing.drawString(drawing.espFont, false, x + w + 5, y - 4 + (place++ * 11), Color(255, 255, 255), charenc("%i HP"), entity->GetHealth());
+
+	if (cvar::esp_draw_armor_text)
+		drawing.drawString(drawing.espFont, false, x + w + 5, y - 4 + (place++ * 11), Color(255, 255, 255), charenc("%i AP"), entity->GetArmor());
 
 	if (cvar::esp_draw_callout)
 		drawing.drawString(drawing.espFont, false, x + w + 5, y - 4 + (place++ * 11), Color(255, 255, 255), entity->GetLastPlaceName());

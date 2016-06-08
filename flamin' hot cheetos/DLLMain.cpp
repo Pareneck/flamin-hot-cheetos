@@ -11,6 +11,7 @@
 //      - do a bunch of shit
 //    - hook other shit like createmove [x]
 //      - do aimbot and shit
+//    - hook shit like framestagenotify
 //  - make this project a little prettier
 //    - working on converting from messy hungarian to http://geosoft.no/development/cppstyle.html (mixed case / camelcase)
 //    - I have trouble deciding whether I should make x variable a class member

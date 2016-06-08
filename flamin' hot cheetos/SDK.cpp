@@ -69,33 +69,142 @@ void Tools::VectorTransform(const Vector& in1, const matrix3x4& in2, Vector& out
 	VectorTransformFloat(&in1.x, in2, &out.x);
 }
 
-void Tools::normalizeAngle(QAngle& angle)
+void Tools::sinCos(float radians, float* sine, float* cosine)
+{
+	_asm
+	{
+		fld		DWORD PTR[radians]
+		fsincos
+
+			mov edx, DWORD PTR[cosine]
+			mov eax, DWORD PTR[sine]
+
+			fstp DWORD PTR[edx]
+			fstp DWORD PTR[eax]
+	}
+}
+
+void Tools::angleVectors(const Vector angles, Vector& forward)
+{
+	float sp, sy, cp, cy;
+	sinCos(DEG2RAD(angles[1]), &sy, &cy);
+	sinCos(DEG2RAD(angles[0]), &sp, &cp);
+
+	forward.x = cp * cy;
+	forward.y = cp * sy;
+	forward.z = -sp;
+}
+
+bool Tools::getHitboxPosition(int hitbox, Vector& output, CBaseEntity* entity)
+{
+	if (hitbox >= 22)
+		return false;
+
+	const model_t* model = entity->GetModel();
+	if (model)
+	{
+		studiohdr_t* studioHdr = interfaces::modelinfo->GetStudioModel(model);
+		if (!studioHdr)
+			return false;
+
+		matrix3x4 matrix[128];
+		if (!entity->SetupBones(matrix, 128, 0x100, interfaces::engine->GetLastTimeStamp()))
+			return false;
+
+		mstudiobbox_t* box = studioHdr->pHitbox(hitbox, 0);
+		if (!box)
+			return false;
+
+		Vector min, max;
+		VectorTransform(box->bbmin, matrix[box->bone], min);
+		VectorTransform(box->bbmax, matrix[box->bone], max);
+		output = (min + max) * 0.5f;
+
+		return true;
+	}
+
+	return false;
+}
+
+float Tools::getDistance(Vector origin, Vector other)
+{
+	float distance = sqrt((origin - other).Length());
+	if (distance < 1.f)
+		distance = 1.f;
+
+	return distance;
+}
+
+float Tools::getFov(QAngle viewAngles, QAngle aimAngles)
+{
+	Vector ang, aim;
+	angleVectors(viewAngles, aim);
+	angleVectors(aimAngles, ang);
+
+	return RAD2DEG(acos(aim.Dot(ang) / aim.LengthSqr()));
+}
+
+void Tools::computeAngle(Vector source, Vector dest, QAngle& angles)
+{
+	QAngle delta = source - dest;
+	angles.x = (float)(asinf(delta.z / delta.Length()) * M_RADPI);
+	angles.y = (float)(atanf(delta.y / delta.x) * M_RADPI);
+	angles.z = 0.f;
+
+	if (delta.x >= 0.f)
+		angles.y += 180.f;
+}
+
+QAngle Tools::computeAngle(Vector source, Vector dest)
+{
+	QAngle angles;
+
+	Vector delta = source - dest;
+	angles.x = (float)(asinf(delta.z / delta.Length()) * M_RADPI);
+	angles.y = (float)(atanf(delta.y / delta.x) * M_RADPI);
+	angles.z = 0.f;
+
+	if (delta.x >= 0.f)
+		angles.y += 180.f;
+
+	return angles;
+}
+
+void Tools::normalizeAngles(QAngle& angles)
 {
 	for (int i = 0; i < 2; ++i)
 	{
-		if (angle[i] < -180.f)
-			angle[i] += 360.f;
+		while (angles[i] > 180.f)
+			angles[i] -= 360.f;
 
-		if (angle[i] > 180.f)
-			angle[i] -= 360.f;
+		while (angles[i] < -180.f)
+			angles[i] += 360.f;
 	}
 
-	angle[2] = 0.f;
+	angles[2] = 0.f;
 }
 
-void Tools::clampAngle(QAngle& angle)
+void Tools::clampAngles(QAngle& angles)
 {
-	if (angle.x < -89.f)
-		angle.x = -89.f;
+	if (angles.x > 89.f)
+		angles.x = 89.f;
+	else if (angles.x < -89.f)
+		angles.x = -89.f;
 
-	if (angle.x > 89.f)
-		angle.x = 89.f;
+	if (angles.y > 180.f)
+		angles.y = 180.f;
+	else if (angles.y < -180.f)
+		angles.y = -180.f;
 
-	if (angle.y < -180.f)
-		angle.y = -180.f;
+	angles.z = 0.f;
+}
 
-	if (angle.y > 180.f)
-		angle.y = 180.f;
+int Tools::random(int min, int max)
+{
+	return min + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (max - min)));
+}
 
-	angle.z = 0.f;
+float Tools::random(float min, float max)
+{
+	return min + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (max - min)));
 }

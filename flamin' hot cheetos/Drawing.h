@@ -18,6 +18,7 @@ public:
 
 	void drawString(unsigned long font, bool shouldCenter, int x, int y, Color color, const char* text, ...);
 	void drawOutlinedBox(int x, int y, int w, int h, Color color, Color colorOutline);
+	void drawBar(int x, int y, int w, int h, Color color, float value);
 
 public:
 	unsigned long menuFont, menuTitleFont;

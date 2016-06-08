@@ -40,7 +40,8 @@ private:
 	void drawBorder(int x, int y, int w, int h, const char* text);
 	void drawMouse();
 	void drawCheckbox(int x, int y, int distance, bool& value, const char* text);
-	void drawSlider(int x, int y, int w, int h, int min, int max, int distance, float& value, const char* text);
+	void drawSlider(int x, int y, int w, int h, int distance, float min, float max, float& value, const char* text);
+	void drawSlider(int x, int y, int w, int h, int distance, int min, int max, int& value, const char* text);
 
 	void getKeyPressed(int x, int y, int w, int h, int distance, int& value, const char* text);
 

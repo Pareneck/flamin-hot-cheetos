@@ -25,10 +25,7 @@ typedef float matrix4x4[4][4];
 // FORWARD DECLARATIONS
 //----------------------------------------
 
-class CBaseEntity;
-class CBaseCombatWeapon;
-class CInput;
-class CUserCmd;
+class model_t;
 class IVClientClass;
 
 //----------------------------------------
@@ -65,6 +62,10 @@ public:
 	{
 		return *(int*)((DWORD)this + 0xFC);
 	}
+	int GetArmor(void)
+	{
+		return *(int*)((DWORD)this + 0xA9E8);
+	}
 	int GetTeamNum(void)
 	{
 		return *(int*)((DWORD)this + 0xF0);
@@ -76,6 +77,10 @@ public:
 	int GetFlags(void)
 	{
 		return *(int*)((DWORD)this + 0x100);
+	}
+	int GetShotsFired()
+	{
+		return *(int*)((DWORD)this + 0xA2B0);
 	}
 	const char* GetLastPlaceName(void)
 	{
@@ -91,7 +96,11 @@ public:
 	}
 	Vector GetEyePosition(void)
 	{
-		return (this->GetOrigin() + this->GetViewOffset());
+		return (GetOrigin() + GetViewOffset());
+	}
+	QAngle GetPunchAngles(void)
+	{
+		return *(QAngle*)((DWORD)this + 0x3018);
 	}
 	Vector& GetAbsOrigin(void)
 	{
@@ -99,7 +108,16 @@ public:
 		{
 			MOV ECX, this
 			MOV EAX, DWORD PTR DS : [ECX]
-			CALL DWORD PTR DS : [EAX + 0x28]
+				CALL DWORD PTR DS : [EAX + 0x28]
+		}
+	}
+	Vector GetAbsAngles(void)
+	{
+		__asm
+		{
+			MOV ECX, this;
+			MOV EAX, DWORD PTR DS : [ECX]; Ge
+				CALL DWORD PTR DS : [EAX + 0x2C]
 		}
 	}
 	int GetIndex(void)
@@ -108,8 +126,8 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, DWORD PTR DS : [EDI + 0x8]
-			MOV EDX, DWORD PTR DS : [ECX]
-			CALL DWORD PTR DS : [EDX + 0x28]
+				MOV EDX, DWORD PTR DS : [ECX]
+				CALL DWORD PTR DS : [EDX + 0x28]
 		}
 	}
 	bool IsDormant(void)
@@ -118,8 +136,32 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, [EDI + 0x8]
-			MOV EDX, DWORD PTR DS : [ecx]
-			CALL[EDX + 0x24]
+				MOV EDX, DWORD PTR DS : [ecx]
+				CALL[EDX + 0x24]
+		}
+	}
+	bool SetupBones(matrix3x4* matrix, int maxbones, int mask, float time)
+	{
+		__asm
+		{
+			MOV EDI, this
+			LEA ECX, DWORD PTR DS : [EDI + 0x4]
+				MOV EDX, DWORD PTR DS : [ECX]
+				PUSH time
+				PUSH mask
+				PUSH maxbones
+				PUSH matrix
+				CALL DWORD PTR DS : [EDX + 0x34]
+		}
+	}
+	model_t* GetModel()
+	{
+		__asm
+		{
+			MOV EDI, this
+			LEA ECX, [EDI + 0x4]
+				MOV EDX, DWORD PTR DS : [ECX]
+				CALL[EDX + 0x20]
 		}
 	}
 	IVClientClass* GetClientClass(void)
@@ -534,6 +576,21 @@ public:
 		typedef int(__thiscall* fnOriginal)(void*);
 		return GetVirtualFunction<fnOriginal>(this, 12)(this);
 	}
+	float GetLastTimeStamp(void)
+	{
+		typedef float(__thiscall* fnOriginal)(void*);
+		return GetVirtualFunction<fnOriginal>(this, 14)(this);
+	}
+	void GetViewAngles(QAngle& angles)
+	{
+		typedef void(__thiscall* fnOriginal)(void*, QAngle&);
+		GetVirtualFunction< fnOriginal >(this, 18)(this, angles);
+	}
+	void SetViewAngles(QAngle& angles)
+	{
+		typedef void(__thiscall* fnOriginal)(void*, QAngle&);
+		GetVirtualFunction<fnOriginal>(this, 19)(this, angles);
+	}
 	int GetMaxClients(void)
 	{
 		typedef int(__thiscall* fnOriginal)(void*);
@@ -805,6 +862,49 @@ public:
 };
 
 //----------------------------------------
+// MATERIAL INTERFACE
+//----------------------------------------
+
+class IMaterial
+{
+public:
+};
+
+//----------------------------------------
+// MODEL INFO INTERFACE
+//----------------------------------------
+
+class IVModelInfo
+{
+public:
+	int GetModelIndex(const char* modelName)
+	{
+		typedef int(__thiscall* fnOriginal)(void*, const char*);
+		return GetVirtualFunction<fnOriginal>(this, 2)(this, modelName);
+	}
+	const char* GetModelName(const model_t* pModel)
+	{
+		typedef const char* (__thiscall* fnOriginal)(void*, const model_t*);
+		return GetVirtualFunction<fnOriginal>(this, 3)(this, pModel);
+	}
+	int GetInt(const char* keyName, int defaultValue = 0)
+	{
+		typedef int(__thiscall* fnOriginal)(void*, const char*, int);
+		return GetVirtualFunction<fnOriginal>(this, 6)(this, keyName, defaultValue);
+	}
+	void GetModelMaterials(const model_t* model, int count, IMaterial** ppMaterial)
+	{
+		typedef void(__thiscall* fnOriginal)(void*, const model_t*, int, IMaterial**);
+		return GetVirtualFunction< fnOriginal >(this, 17)(this, model, count, ppMaterial);
+	}
+	studiohdr_t* GetStudioModel(const model_t* model)
+	{
+		typedef studiohdr_t* (__thiscall* fnOriginal)(void*, const model_t*);
+		return GetVirtualFunction<fnOriginal>(this, 30)(this, model);
+	}
+};
+
+//----------------------------------------
 // TOOLS CLASS
 //----------------------------------------
 
@@ -815,10 +915,24 @@ public:
 	bool               isVisible(Vector& start, Vector& end, CBaseEntity* entity);
 	CBaseCombatWeapon* getActiveWeapon(CBaseEntity* entity);
 	bool               WorldToScreen(Vector& world, Vector& screen);
-	void               VectorTransform(const Vector& in1, const matrix3x4& in2, Vector& out);
 
-	void               normalizeAngle(QAngle& angle);
-	void               clampAngle(QAngle& angle);
+	void               VectorTransform(const Vector& in1, const matrix3x4& in2, Vector& out);
+	void               sinCos(float radians, float* sine, float* cosine);
+
+	void               angleVectors(const Vector angles, Vector& forward);
+
+	bool               getHitboxPosition(int hitbox, Vector& origin, CBaseEntity* entity);
+
+	float              getDistance(Vector origin, Vector other);
+
+	float              getFov(QAngle viewAngles, QAngle aimAngles);
+	void               computeAngle(Vector source, Vector dest, QAngle& angles);
+	QAngle             computeAngle(Vector source, Vector dest);
+	void               normalizeAngles(QAngle& angles);
+	void               clampAngles(QAngle& angles);
+
+	int                random(int min, int max);
+	float              random(float min, float max);
 }; extern Tools tools;
 
 #endif

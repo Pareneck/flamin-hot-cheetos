@@ -88,3 +88,14 @@ void Drawing::drawOutlinedBox(int x, int y, int w, int h, Color color, Color col
 	interfaces::surface->DrawOutlinedRect(x + 1, y + 1, x + w - 1, y + h - 1);
 	interfaces::surface->DrawOutlinedRect(x - 1, y - 1, x + w + 1, y + h + 1);
 }
+
+void Drawing::drawBar(int x, int y, int w, int h, Color color, float value)
+{
+	x -= w / 2;
+	y -= h / 2;
+
+	drawFilledRect(x, y, w, h + 1, Color(0, 0, 0));
+
+	UINT height = (UINT)(((h + 1) * value) / 100);
+	drawFilledRect(x + 1, y + 1, w - 2, height - 2, color);
+}

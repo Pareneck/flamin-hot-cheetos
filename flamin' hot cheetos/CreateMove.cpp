@@ -20,7 +20,17 @@ void __stdcall CreateMove(int sequence_number, float input_sample_frametime, boo
 	{
 		if (cvar::misc_bunnyhop)
 			misc.bunnyhop(local, cmd);
+
+		CBaseCombatWeapon* weapon = tools.getActiveWeapon(local);
+		if (weapon)
+		{
+			if (cvar::aimbot_enabled)
+				aimbot.think(local, weapon);
+		}
 	}
+
+	tools.normalizeAngles(cmd->viewangles);
+	tools.clampAngles(cmd->viewangles);
 
 	verified->m_cmd = *cmd;
 	verified->m_crc = cmd->GetChecksum();

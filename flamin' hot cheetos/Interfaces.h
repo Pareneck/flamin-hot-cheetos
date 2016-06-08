@@ -13,9 +13,12 @@ class IPanel;
 class IVDebugOverlay;
 class IEngineTrace;
 class CInput;
+class IVModelInfo;
 
 namespace interfaces
 {
+	extern DWORD              clientdll;
+
 	extern CHLClient*         client;
 	extern IEngineClient*     engine;
 	extern IClientEntityList* entitylist;
@@ -24,6 +27,7 @@ namespace interfaces
 	extern IVDebugOverlay*    debugoverlay;
 	extern IEngineTrace*      enginetrace;
 	extern CInput*            input;
+	extern IVModelInfo*       modelinfo;
 
 	void initialize();
 }
