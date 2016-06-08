@@ -48,15 +48,15 @@ private:
 	bool dragMenu(int& x, int& y, int w, int h, int index);
 
 private:
-	bool isCursorActive_;
-	int  cursorPosition_[2];
+	bool isCursorActive;
+	int  cursorPosition[2];
 
-	int  activeTab_;
+	int  activeTab;
 
-	bool isKeyPressed_;
+	bool isKeyPressed;
 
-	bool isLeftClick_, isRightClick_;
-	bool isLeftClickReleased_, isRightClickReleased_;
+	bool isLeftClick, isRightClick;
+	bool isLeftClickReleased, isRightClickReleased;
 };
 
 extern Menu menu;

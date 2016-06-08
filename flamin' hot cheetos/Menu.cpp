@@ -4,15 +4,15 @@ Menu menu;
 
 Menu::Menu(void)
 {
-	isCursorActive_ = false;
-	cursorPosition_[0] = 0, cursorPosition_[1] = 0;
+	isCursorActive = false;
+	cursorPosition[0] = 0, cursorPosition[1] = 0;
 
-	activeTab_ = 0;
+	activeTab = 1;
 
-	isKeyPressed_ = false;
+	isKeyPressed = false;
 
-	isLeftClick_ = false, isLeftClickReleased_ = false;
-	isRightClick_ = false, isRightClickReleased_ = false;
+	isLeftClick = false, isLeftClickReleased = false;
+	isRightClick = false, isRightClickReleased = false;
 }
 
 void Menu::think()
@@ -29,47 +29,47 @@ void Menu::setMouse()
 	if (!isMenuKey(VK_INSERT))
 		return;
 
-	isCursorActive_ = !isCursorActive_;
+	isCursorActive = !isCursorActive;
 
 	if (interfaces::engine->InGame())
 	{
 		char buffer[32];
-		w_sprintf_s(buffer, sizeof(buffer), charenc("cl_mouseenable %i"), !isCursorActive_);
+		w_sprintf_s(buffer, sizeof(buffer), charenc("cl_mouseenable %i"), !isCursorActive);
 		interfaces::engine->ExecuteClientCmd(buffer);
 	}
 }
 
 void Menu::getMouse()
 {
-	if (!isCursorActive_)
+	if (!isCursorActive)
 		return;
 
 	if (GetAsyncKeyState(VK_LBUTTON))
 	{
-		isLeftClick_ = true;
+		isLeftClick = true;
 	}
 	else
 	{
-		if (isLeftClick_)
-			isLeftClickReleased_ = true;
+		if (isLeftClick)
+			isLeftClickReleased = true;
 		else
-			isLeftClickReleased_ = false;
+			isLeftClickReleased = false;
 
-		isLeftClick_ = false;
+		isLeftClick = false;
 	}
 
 	if (GetAsyncKeyState(VK_RBUTTON))
 	{
-		isRightClick_ = true;
+		isRightClick = true;
 	}
 	else
 	{
-		if (isRightClick_)
-			isRightClickReleased_ = true;
+		if (isRightClick)
+			isRightClickReleased = true;
 		else
-			isRightClickReleased_ = false;
+			isRightClickReleased = false;
 
-		isRightClick_ = false;
+		isRightClick = false;
 	}
 }
 
@@ -95,7 +95,7 @@ bool Menu::isMenuKey(int key)
 
 bool Menu::isHovered(int x, int y, int w, int h)
 {
-	if ((cursorPosition_[0] > x) && (cursorPosition_[0] < x + w) && (cursorPosition_[1] > y) && (cursorPosition_[1] < y + h))
+	if ((cursorPosition[0] > x) && (cursorPosition[0] < x + w) && (cursorPosition[1] > y) && (cursorPosition[1] < y + h))
 		return true;
 
 	return false;
@@ -103,7 +103,7 @@ bool Menu::isHovered(int x, int y, int w, int h)
 
 bool Menu::isClicked(int x, int y, int w, int h)
 {
-	if (isLeftClickReleased_ && (cursorPosition_[0] > x) && (cursorPosition_[0] < x + w) && (cursorPosition_[1] > y) && (cursorPosition_[1] < y + h))
+	if (isLeftClickReleased && (cursorPosition[0] > x) && (cursorPosition[0] < x + w) && (cursorPosition[1] > y) && (cursorPosition[1] < y + h))
 		return true;
 
 	return false;
@@ -111,7 +111,7 @@ bool Menu::isClicked(int x, int y, int w, int h)
 
 void Menu::drawMenu()
 {
-	if (!isCursorActive_)
+	if (!isCursorActive)
 		return;
 
 	static int x = 400, y = 400;
@@ -121,11 +121,11 @@ void Menu::drawMenu()
 	dragMenu(x, y, w, 20, 0);
 
 	if (isClicked(x + 1, y + 30, 93, 15))
-		activeTab_ = 1;
+		activeTab = 1;
 	else if (isClicked(x + 93, y + 30, 100, 15))
-		activeTab_ = 2;
+		activeTab = 2;
 	else if (isClicked(x + 193, y + 30, 83, 15))
-		activeTab_ = 3;
+		activeTab = 3;
 
 	if (isHovered(x + 1, y + 30, 93, 15))
 		drawing.drawFilledRect(x + 1, y + 30, 93, 15, Color(255, 165, 0, 150));
@@ -138,7 +138,7 @@ void Menu::drawMenu()
 	drawing.drawString(drawing.menuFont, true, x + 140, y + 32, Color(255, 255, 255), charenc("Visuals"));
 	drawing.drawString(drawing.menuFont, true, x + 233, y + 32, Color(255, 255, 255), charenc("Misc"));
 
-	if (activeTab_ == 1)
+	if (activeTab == 1)
 	{
 		drawing.drawFilledRect(x + 1, y + 30, 93, 15, Color(255, 165, 0));
 		drawing.drawString(drawing.menuFont, true, x + 46, y + 32, Color(255, 255, 255), charenc("Aimbot"));
@@ -151,7 +151,7 @@ void Menu::drawMenu()
 		drawSlider(x + 30, y + 180, 200, 6, 237, 0.f, 20.f, cvar::aimbot_randomize_hitbox, charenc("Randomize Hitbox"));
 		drawSlider(x + 30, y + 205, 200, 6, 237, 0.f, 20.f, cvar::aimbot_randomize_angle, charenc("Randomize Angle"));
 	}
-	else if (activeTab_ == 2)
+	else if (activeTab == 2)
 	{
 		drawing.drawFilledRect(x + 93, y + 30, 100, 15, Color(255, 165, 0));
 		drawing.drawString(drawing.menuFont, true, x + 140, y + 32, Color(255, 255, 255), charenc("Visuals"));
@@ -167,7 +167,7 @@ void Menu::drawMenu()
 		drawCheckbox(x + 30, y + 255, 450, cvar::esp_draw_armor_text, charenc("Armor Text"));
 		drawCheckbox(x + 30, y + 280, 450, cvar::esp_draw_world, charenc("World"));
 	}
-	else if (activeTab_ == 3)
+	else if (activeTab == 3)
 	{
 		drawing.drawFilledRect(x + 193, y + 30, 83, 15, Color(255, 165, 0));
 		drawing.drawString(drawing.menuFont, true, x + 233, y + 32, Color(255, 255, 255), charenc("Misc"));
@@ -198,39 +198,39 @@ void Menu::drawBorder(int x, int y, int w, int h, const char* text)
 
 void Menu::drawMouse()
 {
-	if (!isCursorActive_)
+	if (!isCursorActive)
 		return;
 
-	interfaces::surface->GetCursorPos(cursorPosition_[0], cursorPosition_[1]);
+	interfaces::surface->GetCursorPos(cursorPosition[0], cursorPosition[1]);
 
-	drawing.drawFilledRect(cursorPosition_[0] + 1, cursorPosition_[1], 1, 17, Color(3, 6, 26));
+	drawing.drawFilledRect(cursorPosition[0] + 1, cursorPosition[1], 1, 17, Color(3, 6, 26));
 
 	for (int i = 0; i < 11; i++)
-		drawing.drawFilledRect(cursorPosition_[0] + 2 + i, cursorPosition_[1] + 1 + i, 1, 1, Color(3, 6, 26));
+		drawing.drawFilledRect(cursorPosition[0] + 2 + i, cursorPosition[1] + 1 + i, 1, 1, Color(3, 6, 26));
 
-	drawing.drawFilledRect(cursorPosition_[0] + 8, cursorPosition_[1] + 12, 5, 1, Color(3, 6, 26));
-	drawing.drawFilledRect(cursorPosition_[0] + 8, cursorPosition_[1] + 13, 1, 1, Color(3, 6, 26));
-	drawing.drawFilledRect(cursorPosition_[0] + 9, cursorPosition_[1] + 14, 1, 2, Color(3, 6, 26));
-	drawing.drawFilledRect(cursorPosition_[0] + 10, cursorPosition_[1] + 16, 1, 2, Color(3, 6, 26));
-	drawing.drawFilledRect(cursorPosition_[0] + 8, cursorPosition_[1] + 18, 2, 1, Color(3, 6, 26));
-	drawing.drawFilledRect(cursorPosition_[0] + 7, cursorPosition_[1] + 16, 1, 2, Color(3, 6, 26));
-	drawing.drawFilledRect(cursorPosition_[0] + 6, cursorPosition_[1] + 14, 1, 2, Color(3, 6, 26));
-	drawing.drawFilledRect(cursorPosition_[0] + 5, cursorPosition_[1] + 13, 1, 1, Color(3, 6, 26));
-	drawing.drawFilledRect(cursorPosition_[0] + 4, cursorPosition_[1] + 14, 1, 1, Color(3, 6, 26));
-	drawing.drawFilledRect(cursorPosition_[0] + 3, cursorPosition_[1] + 15, 1, 1, Color(3, 6, 26));
-	drawing.drawFilledRect(cursorPosition_[0] + 2, cursorPosition_[1] + 16, 1, 1, Color(3, 6, 26));
-
-	for (int i = 0; i < 4; i++)
-		drawing.drawFilledRect(cursorPosition_[0] + 2 + i, cursorPosition_[1] + 2 + i, 1, 14 - (i * 2), Color(255 - (i * 4), 255 - (i * 4), 255 - (i * 4)));
-
-	drawing.drawFilledRect(cursorPosition_[0] + 6, cursorPosition_[1] + 6, 1, 8, Color(235, 235, 235));
-	drawing.drawFilledRect(cursorPosition_[0] + 7, cursorPosition_[1] + 7, 1, 9, Color(231, 231, 231));
+	drawing.drawFilledRect(cursorPosition[0] + 8, cursorPosition[1] + 12, 5, 1, Color(3, 6, 26));
+	drawing.drawFilledRect(cursorPosition[0] + 8, cursorPosition[1] + 13, 1, 1, Color(3, 6, 26));
+	drawing.drawFilledRect(cursorPosition[0] + 9, cursorPosition[1] + 14, 1, 2, Color(3, 6, 26));
+	drawing.drawFilledRect(cursorPosition[0] + 10, cursorPosition[1] + 16, 1, 2, Color(3, 6, 26));
+	drawing.drawFilledRect(cursorPosition[0] + 8, cursorPosition[1] + 18, 2, 1, Color(3, 6, 26));
+	drawing.drawFilledRect(cursorPosition[0] + 7, cursorPosition[1] + 16, 1, 2, Color(3, 6, 26));
+	drawing.drawFilledRect(cursorPosition[0] + 6, cursorPosition[1] + 14, 1, 2, Color(3, 6, 26));
+	drawing.drawFilledRect(cursorPosition[0] + 5, cursorPosition[1] + 13, 1, 1, Color(3, 6, 26));
+	drawing.drawFilledRect(cursorPosition[0] + 4, cursorPosition[1] + 14, 1, 1, Color(3, 6, 26));
+	drawing.drawFilledRect(cursorPosition[0] + 3, cursorPosition[1] + 15, 1, 1, Color(3, 6, 26));
+	drawing.drawFilledRect(cursorPosition[0] + 2, cursorPosition[1] + 16, 1, 1, Color(3, 6, 26));
 
 	for (int i = 0; i < 4; i++)
-		drawing.drawFilledRect(cursorPosition_[0] + 8 + i, cursorPosition_[1] + 8 + i, 1, 4 - i, Color(227 - (i * 4), 227 - (i * 4), 227 - (i * 4)));
+		drawing.drawFilledRect(cursorPosition[0] + 2 + i, cursorPosition[1] + 2 + i, 1, 14 - (i * 2), Color(255 - (i * 4), 255 - (i * 4), 255 - (i * 4)));
 
-	drawing.drawFilledRect(cursorPosition_[0] + 8, cursorPosition_[1] + 14, 1, 4, Color(207, 207, 207));
-	drawing.drawFilledRect(cursorPosition_[0] + 9, cursorPosition_[1] + 16, 1, 2, Color(203, 203, 203));
+	drawing.drawFilledRect(cursorPosition[0] + 6, cursorPosition[1] + 6, 1, 8, Color(235, 235, 235));
+	drawing.drawFilledRect(cursorPosition[0] + 7, cursorPosition[1] + 7, 1, 9, Color(231, 231, 231));
+
+	for (int i = 0; i < 4; i++)
+		drawing.drawFilledRect(cursorPosition[0] + 8 + i, cursorPosition[1] + 8 + i, 1, 4 - i, Color(227 - (i * 4), 227 - (i * 4), 227 - (i * 4)));
+
+	drawing.drawFilledRect(cursorPosition[0] + 8, cursorPosition[1] + 14, 1, 4, Color(207, 207, 207));
+	drawing.drawFilledRect(cursorPosition[0] + 9, cursorPosition[1] + 16, 1, 2, Color(203, 203, 203));
 }
 
 void Menu::drawCheckbox(int x, int y, int distance, bool& value, const char* text)
@@ -252,9 +252,9 @@ void Menu::drawSlider(int x, int y, int w, int h, int distance, float min, float
 
 	float sliderPosition = 0.f, barPosition = 0.f;
 
-	if (isHovered(x + distance - 2, y - 2, w + 4, h + 4) && isLeftClick_)
+	if (isHovered(x + distance - 2, y - 2, w + 4, h + 4) && isLeftClick)
 	{
-		sliderPosition = (cursorPosition_[0] - (x + distance));
+		sliderPosition = (cursorPosition[0] - (x + distance));
 		float range = (max - min) * (sliderPosition / w);
 		value = clamp(min + range, min, max);
 	}
@@ -267,6 +267,7 @@ void Menu::drawSlider(int x, int y, int w, int h, int distance, float min, float
 		sliderPosition = 0;
 
 	barPosition = (sliderPosition / w * 100) * 2;
+
 	if (barPosition > w)
 		barPosition = w;
 
@@ -290,9 +291,9 @@ void Menu::drawSlider(int x, int y, int w, int h, int distance, int min, int max
 
 	float sliderPosition = 0.f, barPosition = 0.f;
 
-	if (isHovered(x + distance - 2, y - 2, w + 4, h + 4) && isLeftClick_)
+	if (isHovered(x + distance - 2, y - 2, w + 4, h + 4) && isLeftClick)
 	{
-		sliderPosition = (cursorPosition_[0] - (x + distance));
+		sliderPosition = (cursorPosition[0] - (x + distance));
 		float range = (max - min) * (sliderPosition / w);
 		value = clamp(roundf(min + range), min, max);
 	}
@@ -305,6 +306,7 @@ void Menu::drawSlider(int x, int y, int w, int h, int distance, int min, int max
 		sliderPosition = 0;
 
 	barPosition = (sliderPosition / w * 100) * 2;
+
 	if (barPosition > w)
 		barPosition = w;
 
@@ -329,9 +331,9 @@ void Menu::getKeyPressed(int x, int y, int w, int h, int distance, int& value, c
 	drawing.drawOutlinedRect(x + distance, y, w, h, Color(150, 150, 150));
 
 	if (isClicked(x - 2 + distance, y - 2, w + 4, h + 4))
-		isKeyPressed_ = true;
+		isKeyPressed = true;
 
-	if (isKeyPressed_)
+	if (isKeyPressed)
 	{
 		drawing.drawString(drawing.menuFont, true, x + w / 2 + distance, y + 1, Color(150, 150, 150), "...");
 
@@ -340,7 +342,7 @@ void Menu::getKeyPressed(int x, int y, int w, int h, int distance, int& value, c
 			if (GetAsyncKeyState(i) & 0x8000)
 			{
 				value = i;
-				isKeyPressed_ = false;
+				isKeyPressed = false;
 			}
 		}
 	}
@@ -361,16 +363,16 @@ bool Menu::dragMenu(int& x, int& y, int w, int h, int index)
 			return false;
 	}
 
-	if (isLeftClick_)
+	if (isLeftClick)
 	{
-		if (cursorPosition_[0] > x && cursorPosition_[0] < x + w && cursorPosition_[1] > (y - 20 - 3) && cursorPosition_[1] < (y - 20 - 3) + h || isActive[index][0])
+		if (cursorPosition[0] > x && cursorPosition[0] < x + w && cursorPosition[1] > (y - 20 - 3) && cursorPosition[1] < (y - 20 - 3) + h || isActive[index][0])
 		{
 			isActive[index][0] = true;
 
 			if (!isActive[index][1])
 			{
-				newCursorPosition[0] = cursorPosition_[0] - x;
-				newCursorPosition[1] = cursorPosition_[1] - y;
+				newCursorPosition[0] = cursorPosition[0] - x;
+				newCursorPosition[1] = cursorPosition[1] - y;
 				isActive[index][1] = true;
 			}
 		}
@@ -381,7 +383,7 @@ bool Menu::dragMenu(int& x, int& y, int w, int h, int index)
 		}
 	}
 
-	if (!isLeftClick_ && isActive[0][0])
+	if (!isLeftClick && isActive[0][0])
 	{
 		isActive[index][0] = false;
 		isActive[index][1] = false;
@@ -389,8 +391,8 @@ bool Menu::dragMenu(int& x, int& y, int w, int h, int index)
 
 	if (isActive[index][0])
 	{
-		x = cursorPosition_[0] - newCursorPosition[0];
-		y = cursorPosition_[1] - newCursorPosition[1];
+		x = cursorPosition[0] - newCursorPosition[0];
+		y = cursorPosition[1] - newCursorPosition[1];
 	}
 
 	return true;

@@ -59,6 +59,8 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 
 	finalAngles.x /= pixels * -1.f;
 	finalAngles.y /= pixels;
+	tools.normalizeAngles(finalAngles);
+
 	finalAngles.y += tools.random(-cvar::aimbot_randomize_angle, cvar::aimbot_randomize_angle);
 
 	moveMouse(finalAngles.y, finalAngles.x);
@@ -129,12 +131,12 @@ int Aimbot::getBestTarget(CBaseEntity* local, CBaseCombatWeapon* weapon, Vector&
 			continue;
 
 		CBaseEntity* entity = interfaces::entitylist->GetClientEntity(i);
-		if (!entity ||
-			entity->IsDormant() ||
-			entity->GetLifeState() != LIFE_ALIVE ||
-			entity->IsProtected() ||
-			entity->GetClientClass()->GetClassID() != CCSPlayer ||
-			entity->GetTeamNum() == local->GetTeamNum())
+		if (!entity
+			|| entity->IsDormant()
+			|| entity->GetLifeState() != LIFE_ALIVE
+			|| entity->IsProtected()
+			|| entity->GetClientClass()->GetClassID() != CCSPlayer
+			|| entity->GetTeamNum() == local->GetTeamNum())
 			continue;
 
 		Vector hitbox;

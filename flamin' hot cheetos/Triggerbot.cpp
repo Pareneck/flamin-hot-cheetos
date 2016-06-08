@@ -29,18 +29,18 @@ void Triggerbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd* 
 	ray.Init(traceStart, traceEnd);
 	interfaces::enginetrace->TraceRay(ray, 0x4600400B, &filter, &trace);
 
-	if (!trace.entity ||
-		trace.entity == local ||
-		trace.entity->GetLifeState() != LIFE_ALIVE ||
-		trace.entity->IsProtected() ||
-		trace.entity->GetTeamNum() == local->GetTeamNum())
+	if (!(trace.hitgroup < 10 || trace.hitgroup > 0))
 		return;
 
-	if (trace.hitgroup < 10 && trace.hitgroup > 0)
-	{
-		weapon->GetItemDefinitionIndex() == WEAPON_REVOLVER ? cmd->buttons |= IN_ATTACK2 : cmd->buttons |= IN_ATTACK;
+	if (!trace.entity
+		|| trace.entity == local
+		|| trace.entity->GetLifeState() != LIFE_ALIVE
+		|| trace.entity->IsProtected()
+		|| trace.entity->GetTeamNum() == local->GetTeamNum())
+		return;
 
-		if (tools.isNotAbleToShoot(local, weapon))
-			weapon->GetItemDefinitionIndex() == WEAPON_REVOLVER ? cmd->buttons &= ~IN_ATTACK2 : cmd->buttons &= ~IN_ATTACK;
-	}
+	weapon->GetItemDefinitionIndex() == WEAPON_REVOLVER ? cmd->buttons |= IN_ATTACK2 : cmd->buttons |= IN_ATTACK;
+
+	if (tools.isNotAbleToShoot(local, weapon))
+		weapon->GetItemDefinitionIndex() == WEAPON_REVOLVER ? cmd->buttons &= ~IN_ATTACK2 : cmd->buttons &= ~IN_ATTACK;
 }
