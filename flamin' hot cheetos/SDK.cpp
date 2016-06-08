@@ -27,6 +27,51 @@ void* Tools::getInterface(std::string moduleName, std::string interfaceName)
 	return CreateInterface(buffer, nullptr);
 }
 
+DWORD_PTR Tools::getPatternOffset(std::string moduleName, PBYTE pattern, std::string mask, DWORD_PTR codeBase, DWORD_PTR codeSize)
+{
+	bool didPatternMatch = false;
+
+	HMODULE module = GetModuleHandleA(moduleName.c_str());
+	if (!module)
+		return 0;
+
+	PIMAGE_DOS_HEADER dosHeader = PIMAGE_DOS_HEADER(module);
+	PIMAGE_NT_HEADERS peHeader = PIMAGE_NT_HEADERS(LONG(module) + dosHeader->e_lfanew);
+	PIMAGE_OPTIONAL_HEADER optionalHeader = &peHeader->OptionalHeader;
+
+	if (!codeBase)
+		codeBase = (ULONG)module + optionalHeader->BaseOfCode;
+
+	if (!codeSize)
+		codeSize = optionalHeader->SizeOfCode;
+
+	std::size_t maskSize = mask.length();
+
+	if (!codeBase || !codeSize || !maskSize)
+		return 0;
+
+	for (DWORD_PTR i = codeBase; i <= codeBase + codeSize; i++)
+	{
+		for (size_t t = 0; t < maskSize; t++)
+		{
+			if (*((PBYTE)i + t) == pattern[t] || mask.c_str()[t] == '?')
+			{
+				didPatternMatch = true;
+			}
+			else
+			{
+				didPatternMatch = false;
+				break;
+			}
+		}
+
+		if (didPatternMatch)
+			return i;
+	}
+
+	return 0;
+}
+
 bool Tools::isVisible(Vector& start, Vector& end, CBaseEntity* entity)
 {
 	IEngineTrace::trace_t trace;
@@ -73,7 +118,7 @@ void Tools::sinCos(float radians, float* sine, float* cosine)
 {
 	_asm
 	{
-		fld		DWORD PTR[radians]
+		fld	DWORD PTR[radians]
 		fsincos
 
 			mov edx, DWORD PTR[cosine]
@@ -197,6 +242,18 @@ void Tools::clampAngles(QAngle& angles)
 		angles.y = -180.f;
 
 	angles.z = 0.f;
+}
+
+bool Tools::isAbleToShoot(CBaseEntity* entity, CBaseCombatWeapon* weapon)
+{
+	float serverTime = (float)entity->GetTickBase() * interfaces::globalvars->interval_per_tick;
+	return (weapon->GetNextPrimaryAttack() < serverTime);
+}
+
+bool Tools::isNotAbleToShoot(CBaseEntity* entity, CBaseCombatWeapon* weapon)
+{
+	float serverTime = (float)entity->GetTickBase() * interfaces::globalvars->interval_per_tick;
+	return (weapon->GetNextPrimaryAttack() > serverTime);
 }
 
 int Tools::random(int min, int max)

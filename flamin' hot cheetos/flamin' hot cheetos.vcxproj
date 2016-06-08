@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Triggerbot.h" />
     <ClInclude Include="Aimbot.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Miscellaneous.h" />
@@ -168,6 +169,7 @@
     <ClInclude Include="VFTManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Triggerbot.cpp" />
     <ClCompile Include="Aimbot.cpp" />
     <ClCompile Include="Miscellaneous.cpp" />
     <ClCompile Include="checksum_crc.cpp" />

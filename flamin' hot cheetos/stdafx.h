@@ -30,6 +30,7 @@
 #include "Visuals.h"
 #include "Miscellaneous.h"
 #include "Aimbot.h"
+#include "Triggerbot.h"
 
 extern bool shouldUnload;
 

@@ -14,6 +14,7 @@ class IVDebugOverlay;
 class IEngineTrace;
 class CInput;
 class IVModelInfo;
+class CGlobalVars;
 
 namespace interfaces
 {
@@ -28,6 +29,7 @@ namespace interfaces
 	extern IEngineTrace*      enginetrace;
 	extern CInput*            input;
 	extern IVModelInfo*       modelinfo;
+	extern CGlobalVars*       globalvars;
 
 	void initialize();
 }

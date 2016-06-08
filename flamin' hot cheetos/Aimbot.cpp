@@ -6,14 +6,14 @@ Aimbot::Aimbot(void)
 {
 	bestTarget_ = -1;
 
-	viewAngles_ = Vector(0, 0, 0);
-	hitboxPosition_ = Vector(0, 0, 0);
-	finalAngles_ = Vector(0, 0, 0);
+	viewAngles_ = QAngle(0.f, 0.f, 0.f);
+	hitboxPosition_ = Vector(0.f, 0.f, 0.f);
+	finalAngles_ = QAngle(0.f, 0.f, 0.f);
 }
 
 void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 {
-	if (!(GetAsyncKeyState(0x1) & 0x8000))
+	if (!(GetAsyncKeyState(cvar::general_key_aimbot) & 0x8000))
 		return;
 
 	bestTarget_ = getBestTarget(local, weapon, hitboxPosition_);
@@ -36,7 +36,6 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 
 	finalAngles_.x -= getRandomizedRecoil(local).x;
 	finalAngles_.y -= getRandomizedRecoil(local).y;
-	tools.normalizeAngles(finalAngles_);
 
 	finalAngles_ = viewAngles_ - finalAngles_;
 	tools.normalizeAngles(finalAngles_);
@@ -58,14 +57,9 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	else if (finalAngles_.y < -smoothRate)
 		finalAngles_.y = -smoothRate;
 
-	// randomizeAngles(finalAngles_);
-	tools.normalizeAngles(finalAngles_);
-
 	finalAngles_.x /= pixels * -1.f;
 	finalAngles_.y /= pixels;
 	finalAngles_.y += tools.random(-cvar::aimbot_randomize_angle, cvar::aimbot_randomize_angle);
-
-	tools.normalizeAngles(finalAngles_);
 
 	setAngles(finalAngles_.y, finalAngles_.x);
 }

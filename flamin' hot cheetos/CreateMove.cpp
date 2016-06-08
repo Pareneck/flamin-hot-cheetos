@@ -26,6 +26,9 @@ void __stdcall CreateMove(int sequence_number, float input_sample_frametime, boo
 		{
 			if (cvar::aimbot_enabled)
 				aimbot.think(local, weapon);
+
+			if (cvar::misc_triggerbot)
+				triggerbot.think(local, weapon, cmd);
 		}
 	}
 

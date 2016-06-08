@@ -128,11 +128,11 @@ void Menu::drawMenu()
 		activeTab_ = 3;
 
 	if (isHovered(x + 1, y + 30, 93, 15))
-		drawing.drawFilledRect(x + 1, y + 30, 93, 15, Color(5, 120, 210, 150));
+		drawing.drawFilledRect(x + 1, y + 30, 93, 15, Color(255, 165, 0, 150));
 	else if (isHovered(x + 93, y + 30, 100, 15))
-		drawing.drawFilledRect(x + 93, y + 30, 100, 15, Color(5, 120, 210, 150));
+		drawing.drawFilledRect(x + 93, y + 30, 100, 15, Color(255, 165, 0, 150));
 	else if (isHovered(x + 193, y + 30, 83, 15))
-		drawing.drawFilledRect(x + 193, y + 30, 83, 15, Color(5, 120, 210, 150));
+		drawing.drawFilledRect(x + 193, y + 30, 83, 15, Color(255, 165, 0, 150));
 
 	drawing.drawString(drawing.menuFont, true, x + 46, y + 32, Color(255, 255, 255), charenc("Aimbot"));
 	drawing.drawString(drawing.menuFont, true, x + 140, y + 32, Color(255, 255, 255), charenc("Visuals"));
@@ -140,19 +140,20 @@ void Menu::drawMenu()
 
 	if (activeTab_ == 1)
 	{
-		drawing.drawFilledRect(x + 1, y + 30, 93, 15, Color(5, 120, 210));
+		drawing.drawFilledRect(x + 1, y + 30, 93, 15, Color(255, 165, 0));
 		drawing.drawString(drawing.menuFont, true, x + 46, y + 32, Color(255, 255, 255), charenc("Aimbot"));
 
 		drawCheckbox(x + 30, y + 55, 450, cvar::aimbot_enabled, charenc("Enable"));
-		drawSlider(x + 30, y + 80, 200, 6, 237, 0.f, 180.f, cvar::aimbot_fov, charenc("Field of View"));
-		drawSlider(x + 30, y + 105, 200, 6, 237, 0.f, 2.f, cvar::aimbot_rcs_min, charenc("Randomize Recoil Control Min"));
-		drawSlider(x + 30, y + 130, 200, 6, 237, cvar::aimbot_rcs_min, 2.f, cvar::aimbot_rcs_max, charenc("Randomize Recoil Control Max"));
-		drawSlider(x + 30, y + 155, 200, 6, 237, 0.f, 20.f, cvar::aimbot_randomize_hitbox, charenc("Randomize Hitbox"));
-		drawSlider(x + 30, y + 180, 200, 6, 237, 0.f, 20.f, cvar::aimbot_randomize_angle, charenc("Randomize Angle"));
+		getKeyPressed(x + 30, y + 80, 50, 15, 430, cvar::general_key_aimbot, charenc("Aimbot Key"));
+		drawSlider(x + 30, y + 105, 200, 6, 237, 0.f, 180.f, cvar::aimbot_fov, charenc("Field of View"));
+		drawSlider(x + 30, y + 130, 200, 6, 237, 0.f, 2.f, cvar::aimbot_rcs_min, charenc("Randomize Recoil Control Min"));
+		drawSlider(x + 30, y + 155, 200, 6, 237, cvar::aimbot_rcs_min, 2.f, cvar::aimbot_rcs_max, charenc("Randomize Recoil Control Max"));
+		drawSlider(x + 30, y + 180, 200, 6, 237, 0.f, 20.f, cvar::aimbot_randomize_hitbox, charenc("Randomize Hitbox"));
+		drawSlider(x + 30, y + 205, 200, 6, 237, 0.f, 20.f, cvar::aimbot_randomize_angle, charenc("Randomize Angle"));
 	}
 	else if (activeTab_ == 2)
 	{
-		drawing.drawFilledRect(x + 93, y + 30, 100, 15, Color(5, 120, 210));
+		drawing.drawFilledRect(x + 93, y + 30, 100, 15, Color(255, 165, 0));
 		drawing.drawString(drawing.menuFont, true, x + 140, y + 32, Color(255, 255, 255), charenc("Visuals"));
 
 		drawCheckbox(x + 30, y + 55, 450, cvar::esp_enabled, charenc("Enable"));
@@ -164,16 +165,19 @@ void Menu::drawMenu()
 		drawCheckbox(x + 30, y + 205, 450, cvar::esp_draw_health_text, charenc("Health Text"));
 		drawCheckbox(x + 30, y + 230, 450, cvar::esp_draw_armor, charenc("Armor Bar"));
 		drawCheckbox(x + 30, y + 255, 450, cvar::esp_draw_armor_text, charenc("Armor Text"));
+		drawCheckbox(x + 30, y + 280, 450, cvar::esp_draw_world, charenc("World"));
 	}
 	else if (activeTab_ == 3)
 	{
-		drawing.drawFilledRect(x + 193, y + 30, 83, 15, Color(5, 120, 210));
+		drawing.drawFilledRect(x + 193, y + 30, 83, 15, Color(255, 165, 0));
 		drawing.drawString(drawing.menuFont, true, x + 233, y + 32, Color(255, 255, 255), charenc("Misc"));
 
 		drawCheckbox(x + 30, y + 55, 450, cvar::misc_bunnyhop, charenc("Bunnyhop"));
+		drawCheckbox(x + 30, y + 80, 450, cvar::misc_triggerbot, charenc("Triggerbot"));
+		getKeyPressed(x + 30, y + 105, 50, 15, 430, cvar::general_key_triggerbot, charenc("Triggerbot Key"));
 	}
 
-	drawing.drawFilledRect(x + 1, y + 45, w - 2, 2, Color(5, 120, 210));
+	drawing.drawFilledRect(x + 1, y + 45, w - 2, 2, Color(255, 165, 0));
 }
 
 void Menu::drawBorder(int x, int y, int w, int h, const char* text)
@@ -237,7 +241,7 @@ void Menu::drawCheckbox(int x, int y, int distance, bool& value, const char* tex
 		value = !value;
 
 	if (value)
-		drawing.drawFilledRect(x + distance, y + 2, 12, 12, Color(5, 120, 210));
+		drawing.drawFilledRect(x + distance, y + 2, 12, 12, Color(255, 165, 0));
 
 	drawing.drawOutlinedRect(x + distance, y + 2, 12, 12, Color(150, 150, 150));
 }
@@ -266,10 +270,10 @@ void Menu::drawSlider(int x, int y, int w, int h, int distance, float min, float
 	if (barPosition > w)
 		barPosition = w;
 
-	drawing.drawFilledRect(x + distance, y + 4.5f, barPosition, h, Color(5, 120, 210));
+	drawing.drawFilledRect(x + distance, y + 4.5f, barPosition, h, Color(255, 165, 0));
 	drawing.drawOutlinedRect(x + distance, y + 4.5f, w + 1, h, Color(0, 0, 0));
 
-	drawing.drawFilledRect(x + barPosition + distance, y + 2.8f, 2, 10, Color(5, 120, 210));
+	drawing.drawFilledRect(x + barPosition + distance, y + 2.8f, 2, 10, Color(255, 165, 0));
 	drawing.drawOutlinedRect(x + barPosition + distance, y + 2.8f, 3, 11, Color(0, 0, 0));
 
 	if (value >= 0.f && value < 10.f)
@@ -304,10 +308,10 @@ void Menu::drawSlider(int x, int y, int w, int h, int distance, int min, int max
 	if (barPosition > w)
 		barPosition = w;
 
-	drawing.drawFilledRect(x + distance, y + 4.5f, barPosition, h, Color(5, 120, 210));
+	drawing.drawFilledRect(x + distance, y + 4.5f, barPosition, h, Color(255, 165, 0));
 	drawing.drawOutlinedRect(x + distance, y + 4.5f, w + 1, h, Color(0, 0, 0));
 
-	drawing.drawFilledRect(x + barPosition + distance, y + 2.8f, 2, 10, Color(5, 120, 210));
+	drawing.drawFilledRect(x + barPosition + distance, y + 2.8f, 2, 10, Color(255, 165, 0));
 	drawing.drawOutlinedRect(x + barPosition + distance, y + 2.8f, 3, 11, Color(0, 0, 0));
 
 	if (value >= 0 && value < 10)
@@ -329,18 +333,7 @@ void Menu::getKeyPressed(int x, int y, int w, int h, int distance, int& value, c
 
 	if (isKeyPressed_)
 	{
-		static int iCount = 0;
-		iCount++;
-
-		if (iCount > 1500)
-			iCount = 0;
-
-		if (iCount > 0 && iCount < 500)
-			drawing.drawString(drawing.menuFont, true, x + w / 2 + distance, y + 1, Color(150, 150, 150), ".");
-		else if (iCount > 500 && iCount < 1000)
-			drawing.drawString(drawing.menuFont, true, x + w / 2 + distance, y + 1, Color(150, 150, 150), "..");
-		else if (iCount > 1000 && iCount < 1500)
-			drawing.drawString(drawing.menuFont, true, x + w / 2 + distance, y + 1, Color(150, 150, 150), "...");
+		drawing.drawString(drawing.menuFont, true, x + w / 2 + distance, y + 1, Color(150, 150, 150), "...");
 
 		for (int i = 1; i < 255; i++)
 		{

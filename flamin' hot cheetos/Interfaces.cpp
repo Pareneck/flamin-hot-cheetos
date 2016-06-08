@@ -13,6 +13,7 @@ namespace interfaces
 	IEngineTrace*      enginetrace = nullptr;
 	CInput*            input = nullptr;
 	IVModelInfo*       modelinfo = nullptr;
+	CGlobalVars*       globalvars = nullptr;
 
 	void initialize()
 	{
@@ -27,6 +28,7 @@ namespace interfaces
 		debugoverlay = (IVDebugOverlay*)tools.getInterface(charenc("engine.dll"), charenc("VDebugOverlay"));
 		enginetrace = (IEngineTrace*)tools.getInterface(charenc("engine.dll"), charenc("EngineTraceClient"));
 		modelinfo = (IVModelInfo*)tools.getInterface(charenc("engine.dll"), charenc("VModelInfoClient"));
+		globalvars = (CGlobalVars*)*(DWORD*)*(DWORD*)(tools.getPatternOffset(charenc("client.dll"), (PBYTE)"\xA1\x00\x00\x00\x00\x8B\x40\x10\x89\x41\x04", "x????xxxxxx") + 0x1);
 
 		DWORD* clientVMT = (DWORD*)*(DWORD*)client;
 		input = *(CInput**)(clientVMT[15] + 0x1);

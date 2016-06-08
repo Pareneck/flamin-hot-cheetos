@@ -17,6 +17,9 @@ public:
 
 private:
 	void drawPlayer(CBaseEntity* local, CBaseEntity* entity, player_info_t info);
+	void drawWorld(CBaseEntity* entity);
+
+	void drawBoundingBox(CBaseEntity* entity, Color color, const char* text);
 
 private:
 	Color espColor_;

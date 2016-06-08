@@ -82,6 +82,10 @@ public:
 	{
 		return *(int*)((DWORD)this + 0xA2B0);
 	}
+	int GetTickBase()
+	{
+		return *(int*)((DWORD)this + 0x3414);
+	}
 	const char* GetLastPlaceName(void)
 	{
 		return (char*)((DWORD)this + 0x3598);
@@ -194,6 +198,10 @@ public:
 	int GetClip1(void)
 	{
 		return *(int*)((DWORD)this + 0x31F4);
+	}
+	float GetNextPrimaryAttack()
+	{
+		return *(float*)((DWORD)this + 0x31C8);
 	}
 	const char* GetWeaponName(void)
 	{
@@ -862,6 +870,25 @@ public:
 };
 
 //----------------------------------------
+// GLOBAL VARIABLES
+//----------------------------------------
+
+class CGlobalVars
+{
+public:
+	float			realtime;
+	int				framecount;
+	float			absoluteframetime;
+	float			unknown;
+	float			curtime;
+	float			frametime;
+	int				maxclients;
+	int				tickcount;
+	float			interval_per_tick;
+	float			interpolation_amount;
+};
+
+//----------------------------------------
 // MATERIAL INTERFACE
 //----------------------------------------
 
@@ -912,6 +939,8 @@ class Tools
 {
 public:
 	void*              getInterface(std::string moduleName, std::string interfaceName);
+	DWORD_PTR          getPatternOffset(std::string moduleName, PBYTE pattern, std::string mask, DWORD_PTR codeBase = NULL, DWORD_PTR codeSize = NULL);
+
 	bool               isVisible(Vector& start, Vector& end, CBaseEntity* entity);
 	CBaseCombatWeapon* getActiveWeapon(CBaseEntity* entity);
 	bool               WorldToScreen(Vector& world, Vector& screen);
@@ -930,6 +959,9 @@ public:
 	QAngle             computeAngle(Vector source, Vector dest);
 	void               normalizeAngles(QAngle& angles);
 	void               clampAngles(QAngle& angles);
+
+	bool               isAbleToShoot(CBaseEntity* entity, CBaseCombatWeapon* weapon);
+	bool               isNotAbleToShoot(CBaseEntity* entity, CBaseCombatWeapon* weapon);
 
 	int                random(int min, int max);
 	float              random(float min, float max);

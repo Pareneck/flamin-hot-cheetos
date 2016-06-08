@@ -2,6 +2,9 @@
 
 namespace cvar
 {
+	int general_key_aimbot = 1;
+	int general_key_triggerbot = 18;
+
 	bool aimbot_enabled = true;
 	int aimbot_fov = 10;
 	float aimbot_rcs_min = 1.8f;
@@ -18,6 +21,8 @@ namespace cvar
 	bool esp_draw_health_text = true;
 	bool esp_draw_armor = true;
 	bool esp_draw_armor_text = true;
+	bool esp_draw_world = true;
 
 	bool misc_bunnyhop = true;
+	bool misc_triggerbot = true;
 }

@@ -5,6 +5,9 @@
 
 namespace cvar
 {
+	extern int general_key_aimbot;
+	extern int general_key_triggerbot;
+
 	extern bool aimbot_enabled;
 	extern int aimbot_fov;
 	extern float aimbot_rcs_min;
@@ -21,8 +24,10 @@ namespace cvar
 	extern bool esp_draw_health_text;
 	extern bool esp_draw_armor;
 	extern bool esp_draw_armor_text;
+	extern bool esp_draw_world;
 
 	extern bool misc_bunnyhop;
+	extern bool misc_triggerbot;
 }
 
 #endif

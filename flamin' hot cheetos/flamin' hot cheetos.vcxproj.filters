@@ -52,6 +52,9 @@
     <Filter Include="Project Files\Features\Aimbot">
       <UniqueIdentifier>{ed9a6ba4-205f-408e-95cb-3dcdbe96538b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\Features\Triggerbot">
+      <UniqueIdentifier>{ef7ec9b1-af7f-40eb-ac77-04c99595ae2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK.cpp">
@@ -92,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="Aimbot.cpp">
       <Filter>Project Files\Features\Aimbot</Filter>
+    </ClCompile>
+    <ClCompile Include="Triggerbot.cpp">
+      <Filter>Project Files\Features\Triggerbot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="Aimbot.h">
       <Filter>Project Files\Features\Aimbot</Filter>
+    </ClInclude>
+    <ClInclude Include="Triggerbot.h">
+      <Filter>Project Files\Features\Triggerbot</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
