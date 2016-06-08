@@ -4,6 +4,7 @@ namespace hooks
 {
 	std::unique_ptr<VFTManager> clientHook = nullptr;
 	std::unique_ptr<VFTManager> panelHook = nullptr;
+	std::unique_ptr<VFTManager> surfaceHook = nullptr;
 
 	void initialize()
 	{
@@ -12,6 +13,9 @@ namespace hooks
 
 		clientHook = std::make_unique<VFTManager>((DWORD**)interfaces::client, true);
 		originalCreateMove = clientHook->hook(21, (CreateMove_t)CreateMove);
+
+		surfaceHook = std::make_unique<VFTManager>((DWORD**)interfaces::surface, true);
+		originalOnScreenSizeChanged = surfaceHook->hook(116, (OnScreenSizeChanged_t)OnScreenSizeChanged);
 
 		interfaces::engine->ExecuteClientCmd(charenc("echo [successfully hooked functions]"));
 	}

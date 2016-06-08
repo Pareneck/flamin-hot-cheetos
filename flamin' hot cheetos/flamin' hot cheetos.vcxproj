@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="OnScreenSizeChanged.h" />
     <ClInclude Include="Triggerbot.h" />
     <ClInclude Include="Aimbot.h" />
     <ClInclude Include="stdafx.h" />
@@ -169,6 +170,7 @@
     <ClInclude Include="VFTManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="OnScreenSizeChanged.cpp" />
     <ClCompile Include="Triggerbot.cpp" />
     <ClCompile Include="Aimbot.cpp" />
     <ClCompile Include="Miscellaneous.cpp" />

@@ -4,12 +4,19 @@ Drawing drawing;
 
 Drawing::Drawing(void)
 {
+	resetFonts();
+}
+
+void Drawing::resetFonts(void)
+{
 	menuFont = 0, menuTitleFont = 0;
 	espFont = 0;
 }
 
 void Drawing::initializeFonts(void)
 {
+	resetFonts();
+
 	menuFont = interfaces::surface->CreateFont();
 	interfaces::surface->SetFontGlyphSet(menuFont, charenc("Verdana"), 13, 20, 0, 0, FONTFLAG_ANTIALIAS);
 
@@ -25,11 +32,11 @@ int getWidth(unsigned long font, const char* text, ...)
 	int wide = 0, tall = 0;
 	int bufferSize = MultiByteToWideChar(CP_UTF8, 0x0, text, -1, 0, 0);
 
-	wchar_t* wchUnicode = new wchar_t[bufferSize];
-	MultiByteToWideChar(CP_UTF8, 0x0, text, -1, wchUnicode, bufferSize);
+	wchar_t* unicode = new wchar_t[bufferSize];
+	MultiByteToWideChar(CP_UTF8, 0x0, text, -1, unicode, bufferSize);
 
-	interfaces::surface->GetTextSize(font, wchUnicode, wide, tall);
-	delete[] wchUnicode;
+	interfaces::surface->GetTextSize(font, unicode, wide, tall);
+	delete[] unicode;
 
 	return wide;
 }
