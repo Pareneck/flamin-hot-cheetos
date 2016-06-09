@@ -15,28 +15,28 @@ class VFTManager
 	VFTManager(const VFTManager&) = delete;
 
 public:
-	VFTManager(PPDWORD classBase, bool shouldReplace)
+	VFTManager(PPDWORD classBase_, bool shouldReplace_)
 	{
-		classBase_ = classBase;
-		shouldReplace_ = shouldReplace;
+		classBase = classBase_;
+		shouldReplace = shouldReplace_;
 
-		if (shouldReplace_)
+		if (shouldReplace)
 		{
-			originalTable_ = *classBase;
+			originalTable = *classBase;
 			uint32_t length = computeLength();
 
-			newTable_ = new DWORD[length];
-			memcpy(newTable_, originalTable_, length * sizeof(DWORD));
+			newTable = new DWORD[length];
+			memcpy(newTable, originalTable, length * sizeof(DWORD));
 
 			DWORD old;
-			VirtualProtect(classBase_, sizeof(DWORD), PAGE_EXECUTE_READWRITE, &old);
-			*classBase_ = newTable_;
-			VirtualProtect(classBase_, sizeof(DWORD), old, &old);
+			VirtualProtect(classBase, sizeof(DWORD), PAGE_EXECUTE_READWRITE, &old);
+			*classBase = newTable;
+			VirtualProtect(classBase, sizeof(DWORD), old, &old);
 		}
 		else
 		{
-			originalTable_ = *classBase;
-			newTable_ = *classBase;
+			originalTable = *classBase;
+			newTable = *classBase;
 		}
 	}
 
@@ -44,22 +44,22 @@ public:
 	{
 		restoreTable();
 
-		if (shouldReplace_ && newTable_)
-			delete[] newTable_;
+		if (shouldReplace && newTable)
+			delete[] newTable;
 	}
 
 	void restoreTable()
 	{
-		if (shouldReplace_)
+		if (shouldReplace)
 		{
 			DWORD old;
-			VirtualProtect(classBase_, sizeof(DWORD), PAGE_EXECUTE_READWRITE, &old);
-			*classBase_ = originalTable_;
-			VirtualProtect(classBase_, sizeof(DWORD), old, &old);
+			VirtualProtect(classBase, sizeof(DWORD), PAGE_EXECUTE_READWRITE, &old);
+			*classBase = originalTable;
+			VirtualProtect(classBase, sizeof(DWORD), old, &old);
 		}
 		else
 		{
-			for (auto& pair : hookedIndexes_)
+			for (auto& pair : hookedIndexes)
 				unhook(pair.first);
 		}
 	}
@@ -67,26 +67,26 @@ public:
 	template<class T>
 	T hook(uint32_t index, T newFunction)
 	{
-		DWORD old = (DWORD)originalTable_[index];
-		newTable_[index] = (DWORD)newFunction;
-		hookedIndexes_.insert(std::make_pair(index, (DWORD)old));
+		DWORD old = (DWORD)originalTable[index];
+		newTable[index] = (DWORD)newFunction;
+		hookedIndexes.insert(std::make_pair(index, (DWORD)old));
 		return (T)old;
 	}
 
 	void unhook(uint32_t index)
 	{
-		auto it = hookedIndexes_.find(index);
-		if (it != hookedIndexes_.end())
+		auto it = hookedIndexes.find(index);
+		if (it != hookedIndexes.end())
 		{
-			newTable_[index] = (DWORD)it->second;
-			hookedIndexes_.erase(it);
+			newTable[index] = (DWORD)it->second;
+			hookedIndexes.erase(it);
 		}
 	}
 
 	template<class T>
 	T getOriginal(uint32_t index)
 	{
-		return (T)originalTable_[index];
+		return (T)originalTable[index];
 	}
 
 private:
@@ -94,12 +94,12 @@ private:
 	{
 		uint32_t index = 0;
 
-		if (!originalTable_)
+		if (!originalTable)
 			return 0;
 
-		for (index = 0; originalTable_[index]; index++)
+		for (index = 0; originalTable[index]; index++)
 		{
-			if (IsBadCodePtr((FARPROC)originalTable_[index]))
+			if (IsBadCodePtr((FARPROC)originalTable[index]))
 				break;
 		}
 
@@ -107,11 +107,11 @@ private:
 	}
 
 private:
-	std::map<uint32_t, DWORD>	hookedIndexes_;
-	PPDWORD						classBase_;
-	PDWORD						originalTable_;
-	PDWORD						newTable_;
-	bool						shouldReplace_;
+	std::map<uint32_t, DWORD>	hookedIndexes;
+	PPDWORD						classBase;
+	PDWORD						originalTable;
+	PDWORD						newTable;
+	bool						shouldReplace;
 };
 
 #endif
