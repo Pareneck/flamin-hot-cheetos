@@ -8,7 +8,7 @@
 class ConfigManager
 {
 public:
-	void  initialize();
+	void  initialize(const char* fileName);
 
 	void  getInteger(const char* section, const char* key, int& value);
 	void  getFloat(const char* section, const char* key, float& value);

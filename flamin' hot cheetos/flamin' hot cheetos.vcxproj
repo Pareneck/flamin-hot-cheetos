@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Weapons.h" />
     <ClInclude Include="Config Manager.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="FrameStageNotify.h" />
@@ -174,6 +175,7 @@
     <ClInclude Include="VFTManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Weapons.cpp" />
     <ClCompile Include="Config Manager.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="FrameStageNotify.cpp" />

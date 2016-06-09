@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <windows.h>
+
 #include "Vector.h"
 
 //----------------------------------------

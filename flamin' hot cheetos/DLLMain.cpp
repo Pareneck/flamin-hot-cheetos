@@ -25,6 +25,9 @@ DWORD __stdcall initializeRoutine(LPVOID hModule)
 	while (!GetModuleHandleA(charenc("client.dll")) || !GetModuleHandleA(charenc("engine.dll")))
 		Sleep(100);
 
+	config.loadConfig();
+	config.loadSkinConfig();
+
 	interfaces::initialize();
 	offsets::initialize();
 	hooks::initialize();

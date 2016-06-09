@@ -385,7 +385,7 @@ public:
 			return false;
 		}
 	}
-	void SetPattern(player_info_t info, int skin, float wear, int seed, int stattrak, const char* customName = "")
+	void SetPattern(player_info_t info, int skin, float wear, int seed, int stattrak, const char* name = "")
 	{
 		if (this->IsOther())
 			return;
@@ -408,8 +408,8 @@ public:
 		else
 			*(int*)((DWORD)this + offsets::weapon::m_iEntityQuality) = 4;
 
-		if (customName)
-			sprintf_s((char*)this + offsets::weapon::m_szCustomName, 32, "%s", customName);
+		if (name)
+			sprintf_s((char*)this + offsets::weapon::m_szCustomName, 32, "%s", name);
 	}
 };
 

@@ -129,6 +129,9 @@
     <ClCompile Include="Config Manager.cpp">
       <Filter>Project Files\Config\Config Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Weapons.cpp">
+      <Filter>Project Files\Config</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SDK.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="Config Manager.h">
       <Filter>Project Files\Config\Config Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapons.h">
+      <Filter>Project Files\Config</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

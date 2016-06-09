@@ -2,12 +2,12 @@
 
 ConfigManager configManager;
 
-void ConfigManager::initialize()
+void ConfigManager::initialize(const char* fileName)
 {
 	std::string folder = charenc("csgo\\cfg\\cheetos\\");
 	CreateDirectory(folder.c_str(), 0);
 
-	std::string file = folder + charenc("config.ini");
+	std::string file = folder + fileName;
 
 	memset(directory, 0, 255);
 	memcpy(directory, file.c_str(), strlen(file.c_str()));

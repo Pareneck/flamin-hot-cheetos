@@ -10,9 +10,15 @@ void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool all
 		shouldUnload = true;
 
 	if (GetAsyncKeyState(VK_HOME) & 1)
-		config.load();
+	{
+		config.loadConfig();
+		config.loadSkinConfig();
+	}
 	else if (GetAsyncKeyState(VK_END) & 1)
-		config.save();
+	{
+		config.saveConfig();
+		config.saveSkinConfig();
+	}
 
 	static bool doOnce = false;
 	if (!doOnce)

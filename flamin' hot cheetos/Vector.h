@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <math.h>
+
 #define CHECK_VALID(_v) 0
 #define Assert(_exp) ((void)0)
 #define FastSqrt(x)	(*sqrtf)(x)

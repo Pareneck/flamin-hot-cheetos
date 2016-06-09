@@ -38,8 +38,8 @@ void __stdcall FrameStageNotify(ClientFrameStage_t curStage)
 
 				CBaseCombatWeapon* weapon = (CBaseCombatWeapon*)entity;
 
-				if (weapon->GetItemDefinitionIndex() == WEAPON_AK47)
-					weapon->SetPattern(info, 243, 0.000000f, 1337, 1337, "flamin' hot cheetos");
+				if (weapon && !weapon->IsKnife())
+					weapon->SetPattern(info, config.skincfg[weapon->GetItemDefinitionIndex()].skin, config.skincfg[weapon->GetItemDefinitionIndex()].wear, config.skincfg[weapon->GetItemDefinitionIndex()].seed, config.skincfg[weapon->GetItemDefinitionIndex()].stattrak, config.skincfg[weapon->GetItemDefinitionIndex()].name);
 			}
 		}
 	}
