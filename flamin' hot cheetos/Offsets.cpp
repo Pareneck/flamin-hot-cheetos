@@ -38,8 +38,6 @@ namespace offsets
 
 		entity::m_CollisionGroup = 0x470;
 		entity::m_rgflCoordinateFrame = entity::m_CollisionGroup - 0x30;
-
-		// interfaces::engine->ExecuteClientCmd(charenc("echo [successfully loaded offsets]"));
 	}
 
 	namespace player

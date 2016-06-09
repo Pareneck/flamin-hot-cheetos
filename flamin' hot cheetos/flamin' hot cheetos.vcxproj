@@ -144,6 +144,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Config Manager.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="FrameStageNotify.h" />
     <ClInclude Include="Offsets.h" />
     <ClInclude Include="OnScreenSizeChanged.h" />
@@ -172,6 +174,8 @@
     <ClInclude Include="VFTManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Config Manager.cpp" />
+    <ClCompile Include="Config.cpp" />
     <ClCompile Include="FrameStageNotify.cpp" />
     <ClCompile Include="Offsets.cpp" />
     <ClCompile Include="OnScreenSizeChanged.cpp" />

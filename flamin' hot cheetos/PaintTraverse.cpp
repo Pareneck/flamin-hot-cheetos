@@ -9,6 +9,11 @@ void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool all
 	if (GetAsyncKeyState(VK_DELETE) & 1)
 		shouldUnload = true;
 
+	if (GetAsyncKeyState(VK_HOME) & 1)
+		config.load();
+	else if (GetAsyncKeyState(VK_END) & 1)
+		config.save();
+
 	static bool doOnce = false;
 	if (!doOnce)
 	{

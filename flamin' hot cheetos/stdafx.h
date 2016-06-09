@@ -20,6 +20,7 @@
 
 #include "Interfaces.h"
 #include "Hooks.h"
+#include "Config.h"
 #include "Control Variables.h"
 #include "Offsets.h"
 

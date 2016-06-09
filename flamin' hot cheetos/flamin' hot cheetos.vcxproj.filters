@@ -64,6 +64,12 @@
     <Filter Include="Project Files\Offsets">
       <UniqueIdentifier>{67264555-849c-47c2-8550-57f676b0cd55}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\Config">
+      <UniqueIdentifier>{bd637624-e873-44c3-a905-95d578e87b62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Config\Config Manager">
+      <UniqueIdentifier>{fed25574-d26c-44b9-b174-d8f2955f86c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK.cpp">
@@ -116,6 +122,12 @@
     </ClCompile>
     <ClCompile Include="Offsets.cpp">
       <Filter>Project Files\Offsets</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Project Files\Config</Filter>
+    </ClCompile>
+    <ClCompile Include="Config Manager.cpp">
+      <Filter>Project Files\Config\Config Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +208,12 @@
     </ClInclude>
     <ClInclude Include="Offsets.h">
       <Filter>Project Files\Offsets</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Project Files\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="Config Manager.h">
+      <Filter>Project Files\Config\Config Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
