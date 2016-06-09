@@ -15,12 +15,13 @@
 //  - make this project a little prettier
 //    - working on converting from messy hungarian to http://geosoft.no/development/cppstyle.html (mixed case / camelcase)
 //    - I have trouble deciding whether I should make x variable a class member
+//  - use engine button handling to replace getasynckeystate
 //  - figure out this 'undefined class' shit (circular header includes?)
 //------------------------------------------------------------------------------------------
 
 bool shouldUnload = false;
 
-DWORD __stdcall initializeRoutine(LPVOID hModule)
+DWORD __stdcall initializeRoutine(LPVOID hinstDLL)
 {
 	while (!GetModuleHandleA(charenc("client.dll")) || !GetModuleHandleA(charenc("engine.dll")))
 		Sleep(100);
@@ -35,25 +36,22 @@ DWORD __stdcall initializeRoutine(LPVOID hModule)
 	while (!shouldUnload)
 		Sleep(1000);
 
-	hooks::restore();
-	FreeLibraryAndExitThread((HMODULE)hModule, 0);
+	FreeLibraryAndExitThread((HMODULE)hinstDLL, 0);
 
 	return 0;
 }
 
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
+BOOL APIENTRY DllMain(HMODULE hinstDLL, DWORD dwReason, LPVOID lpReserved)
 {
 	switch (dwReason)
 	{
 	case DLL_PROCESS_ATTACH:
-		CreateThread(0, 0, initializeRoutine, hModule, 0, 0);
-	case DLL_THREAD_ATTACH:
-	case DLL_THREAD_DETACH:
+		CreateThread(0, 0, initializeRoutine, hinstDLL, 0, 0);
+		break;
 	case DLL_PROCESS_DETACH:
+		hooks::restore();
 		break;
 	}
-
-	TerminateThread(initializeRoutine, 0);
 
 	return TRUE;
 }
