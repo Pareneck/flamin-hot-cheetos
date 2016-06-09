@@ -13,7 +13,7 @@ Aimbot::Aimbot(void)
 
 void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 {
-	if (!(GetAsyncKeyState(cvar::general_key_aimbot) & 0x8000) || local->GetShotsFired() == 1)
+	if (!(GetAsyncKeyState(cvar::general_key_aimbot) & 0x8000))
 		return;
 
 	bestTarget = getBestTarget(local, weapon, hitboxPosition);
