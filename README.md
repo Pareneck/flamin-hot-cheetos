@@ -30,6 +30,6 @@ features:
      - skin changer (modify skins via skinconfig.ini)
 
 usage:
-   1. download the cheetos
-   2. inject into csgo using preffered injector
-   3. press insert if you see the watermark at the top left corner
+    - download the cheetos
+    - inject into csgo using preffered injector
+    - press insert if you see the watermark at the top left corner
