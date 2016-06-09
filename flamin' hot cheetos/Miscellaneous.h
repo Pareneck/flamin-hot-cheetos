@@ -5,13 +5,10 @@
 
 #include "stdafx.h"
 
-class CBaseEntity;
-class CUserCmd;
-
 class Misc
 {
 public:
-	void bunnyhop(CBaseEntity* local, CUserCmd* cmd);
+	void bunnyhop(CBaseEntity* local, CInput::CUserCmd* cmd);
 };
 
 extern Misc misc;

@@ -6,7 +6,7 @@ namespace cvar
 	int general_key_triggerbot = 18;
 
 	bool aimbot_enabled = true;
-	int aimbot_fov = 10;
+	float aimbot_fov = 10.f;
 	float aimbot_rcs_min = 1.8f;
 	float aimbot_rcs_max = 2.0f;
 	float aimbot_randomize_hitbox = 5.f;
@@ -25,4 +25,5 @@ namespace cvar
 
 	bool misc_bunnyhop = true;
 	bool misc_triggerbot = true;
+	bool misc_skinchanger = true;
 }

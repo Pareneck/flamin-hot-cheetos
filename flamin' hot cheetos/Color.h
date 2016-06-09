@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <windows.h>
+
 class Color
 {
 private:
@@ -112,19 +114,19 @@ public:
 	}
 
 public:
-	template< class T > T R(void) const
+	template<class T> T R(void) const
 	{
 		return (T)m_Color[0];
 	}
-	template< class T > T G(void) const
+	template<class T> T G(void) const
 	{
 		return (T)m_Color[1];
 	}
-	template< class T > T B(void) const
+	template<class T> T B(void) const
 	{
 		return (T)m_Color[2];
 	}
-	template< class T > T A(void) const
+	template<class T> T A(void) const
 	{
 		return (T)m_Color[3];
 	}

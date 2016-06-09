@@ -7,7 +7,7 @@ Triggerbot::Triggerbot(void)
 	viewAngles = QAngle(0.f, 0.f, 0.f);
 }
 
-void Triggerbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd* cmd)
+void Triggerbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon, CInput::CUserCmd* cmd)
 {
 	if (!(GetAsyncKeyState(cvar::general_key_triggerbot) & 0x8000))
 		return;
@@ -29,7 +29,7 @@ void Triggerbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon, CUserCmd* 
 	ray.Init(traceStart, traceEnd);
 	interfaces::enginetrace->TraceRay(ray, 0x4600400B, &filter, &trace);
 
-	if (!(trace.hitgroup < 10 || trace.hitgroup > 0))
+	if (!(trace.hitgroup < 10 && trace.hitgroup > 0))
 		return;
 
 	if (!trace.entity

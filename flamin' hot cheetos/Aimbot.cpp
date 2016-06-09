@@ -85,7 +85,7 @@ Vector Aimbot::getRandomizedRecoil(CBaseEntity* local)
 bool Aimbot::getClosestHitbox(CBaseEntity* local, CBaseEntity* entity, Vector& dest)
 {
 	int bestHitbox = -1;
-	float bestFov = 180.f;
+	float bestFov = cvar::aimbot_fov;
 
 	std::vector<int> hitboxes;
 	hitboxes.push_back(HITBOX_HEAD);
@@ -121,7 +121,7 @@ bool Aimbot::getClosestHitbox(CBaseEntity* local, CBaseEntity* entity, Vector& d
 int Aimbot::getBestTarget(CBaseEntity* local, CBaseCombatWeapon* weapon, Vector& dest)
 {
 	int bestTarget = -1;
-	float bestFov = 180.f;
+	float bestFov = cvar::aimbot_fov;
 
 	interfaces::engine->GetViewAngles(viewAngles);
 

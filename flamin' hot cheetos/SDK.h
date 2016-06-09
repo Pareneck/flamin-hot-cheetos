@@ -6,13 +6,19 @@
 #endif
 
 #pragma once
+#pragma warning(disable: 4307)
 
-#include "stdafx.h"
+#include <windows.h>
+
+#include "Interfaces.h"
+#include "Color.h"
+#include "Offsets.h"
+#include "Vector.h"
+
+#include "SDKDefinitions.h"
+
 #include "dt_recv.h"
 #include "checksum_crc.h"
-#include "Vector.h"
-#include "SDKDefinitions.h"
-#include "Color.h"
 
 //----------------------------------------
 // TYPEDEFS
@@ -56,47 +62,47 @@ class CBaseEntity
 public:
 	char GetLifeState(void)
 	{
-		return *(char*)((DWORD)this + 0x25B);
+		return *(char*)((DWORD)this + offsets::player::m_lifeState);
 	}
 	int GetHealth(void)
 	{
-		return *(int*)((DWORD)this + 0xFC);
+		return *(int*)((DWORD)this + offsets::player::m_iHealth);
 	}
 	int GetArmor(void)
 	{
-		return *(int*)((DWORD)this + 0xA9E8);
+		return *(int*)((DWORD)this + offsets::player::m_ArmorValue);
 	}
 	int GetTeamNum(void)
 	{
-		return *(int*)((DWORD)this + 0xF0);
+		return *(int*)((DWORD)this + offsets::player::m_iTeamNum);
 	}
 	bool IsProtected(void)
 	{
-		return *(bool*)((DWORD)this + 0x38A0);
+		return *(bool*)((DWORD)this + offsets::player::m_bGunGameImmunity);
 	}
 	int GetFlags(void)
 	{
-		return *(int*)((DWORD)this + 0x100);
+		return *(int*)((DWORD)this + offsets::player::m_fFlags);
 	}
 	int GetShotsFired()
 	{
-		return *(int*)((DWORD)this + 0xA2B0);
+		return *(int*)((DWORD)this + offsets::player::m_iShotsFired);
 	}
 	int GetTickBase()
 	{
-		return *(int*)((DWORD)this + 0x3414);
+		return *(int*)((DWORD)this + offsets::player::m_nTickBase);
 	}
 	const char* GetLastPlaceName(void)
 	{
-		return (char*)((DWORD)this + 0x3598);
+		return (char*)((DWORD)this + offsets::player::m_szLastPlaceName);
 	}
 	Vector GetViewOffset(void)
 	{
-		return *(Vector*)((DWORD)this + 0x104);
+		return *(Vector*)((DWORD)this + offsets::player::m_vecViewOffset);
 	}
 	Vector GetOrigin(void)
 	{
-		return *(Vector*)((DWORD)this + 0x134);
+		return *(Vector*)((DWORD)this + offsets::player::m_vecOrigin);
 	}
 	Vector GetEyePosition(void)
 	{
@@ -104,7 +110,11 @@ public:
 	}
 	QAngle GetPunchAngles(void)
 	{
-		return *(QAngle*)((DWORD)this + 0x3018);
+		return *(QAngle*)((DWORD)this + offsets::player::m_vecPunchAngle);
+	}
+	ULONG GetOwner()
+	{
+		return *(ULONG*)((DWORD)this + offsets::player::m_hOwner);
 	}
 	Vector& GetAbsOrigin(void)
 	{
@@ -193,19 +203,19 @@ private:
 public:
 	int GetItemDefinitionIndex(void)
 	{
-		return *(int*)((DWORD)this + 0x2F88);
+		return *(int*)((DWORD)this + offsets::weapon::m_iItemDefinitionIndex);
 	}
 	int GetClip1(void)
 	{
-		return *(int*)((DWORD)this + 0x31F4);
+		return *(int*)((DWORD)this + offsets::weapon::m_iClip1);
 	}
 	float GetNextPrimaryAttack()
 	{
-		return *(float*)((DWORD)this + 0x31C8);
+		return *(float*)((DWORD)this + offsets::weapon::m_flNextPrimaryAttack);
 	}
 	const char* GetWeaponName(void)
 	{
-		switch (GetItemDefinitionIndex())
+		switch (this->GetItemDefinitionIndex())
 		{
 		case ITEM_NONE:
 			return "None"; break;
@@ -319,7 +329,7 @@ public:
 	}
 	bool IsKnife(void)
 	{
-		switch (GetItemDefinitionIndex())
+		switch (this->GetItemDefinitionIndex())
 		{
 		case WEAPON_KNIFE_CT:
 			return true;
@@ -351,7 +361,7 @@ public:
 	}
 	bool IsOther(void)
 	{
-		switch (GetItemDefinitionIndex())
+		switch (this->GetItemDefinitionIndex())
 		{
 		case ITEM_NONE:
 			return true;
@@ -374,6 +384,32 @@ public:
 		default:
 			return false;
 		}
+	}
+	void SetPattern(player_info_t info, int skin, float wear, int seed, int stattrak, const char* customName = "")
+	{
+		if (this->IsOther())
+			return;
+
+		*(int*)((DWORD)this + offsets::weapon::m_OriginalOwnerXuidLow) = 0;
+		*(int*)((DWORD)this + offsets::weapon::m_OriginalOwnerXuidHigh) = 0;
+		*(int*)((DWORD)this + offsets::weapon::m_nFallbackSeed) = seed;
+		*(int*)((DWORD)this + offsets::weapon::m_nFallbackPaintKit) = skin;
+		*(float*)((DWORD)this + offsets::weapon::m_flFallbackWear) = wear;
+		*(int*)((DWORD)this + offsets::weapon::m_iAccountID) = info.m_nXuidLow;
+		*(int*)((DWORD)this + offsets::weapon::m_iItemIDHigh) = 1;
+
+		if (stattrak > 0)
+			*(int*)((DWORD)this + offsets::weapon::m_nFallbackStatTrak) = stattrak;
+
+		if (stattrak > 0 && !this->IsKnife())
+			*(int*)((DWORD)this + offsets::weapon::m_iEntityQuality) = 1;
+		else if (this->IsKnife())
+			*(int*)((DWORD)this + offsets::weapon::m_iEntityQuality) = 3;
+		else
+			*(int*)((DWORD)this + offsets::weapon::m_iEntityQuality) = 4;
+
+		if (customName)
+			sprintf_s((char*)this + offsets::weapon::m_szCustomName, 32, "%s", customName);
 	}
 };
 
@@ -625,61 +661,61 @@ public:
 // INPUT INTERFACE
 //----------------------------------------
 
-class CUserCmd
-{
-public:
-	CRC32_t GetChecksum(void) const
-	{
-		CRC32_t crc;
-		CRC32_Init(&crc);
-		CRC32_ProcessBuffer(&crc, &command_number, sizeof(command_number));
-		CRC32_ProcessBuffer(&crc, &tick_count, sizeof(tick_count));
-		CRC32_ProcessBuffer(&crc, &viewangles, sizeof(viewangles));
-		CRC32_ProcessBuffer(&crc, &aimdirection, sizeof(aimdirection));
-		CRC32_ProcessBuffer(&crc, &forwardmove, sizeof(forwardmove));
-		CRC32_ProcessBuffer(&crc, &sidemove, sizeof(sidemove));
-		CRC32_ProcessBuffer(&crc, &upmove, sizeof(upmove));
-		CRC32_ProcessBuffer(&crc, &buttons, sizeof(buttons));
-		CRC32_ProcessBuffer(&crc, &impulse, sizeof(impulse));
-		CRC32_ProcessBuffer(&crc, &weaponselect, sizeof(weaponselect));
-		CRC32_ProcessBuffer(&crc, &weaponsubtype, sizeof(weaponsubtype));
-		CRC32_ProcessBuffer(&crc, &random_seed, sizeof(random_seed));
-		CRC32_ProcessBuffer(&crc, &mousedx, sizeof(mousedx));
-		CRC32_ProcessBuffer(&crc, &mousedy, sizeof(mousedy));
-		CRC32_Final(&crc);
-		return crc;
-	}
-
-	BYTE		u1[4];
-	int			command_number;
-	int			tick_count;
-	QAngle		viewangles;
-	Vector		aimdirection;
-	float		forwardmove;
-	float		sidemove;
-	float		upmove;
-	int			buttons;
-	BYTE		impulse;
-	int			weaponselect;
-	int			weaponsubtype;
-	int			random_seed;
-	short		mousedx;
-	short		mousedy;
-	bool		hasbeenpredicted;
-	Vector		headangles;
-	Vector		headoffset;
-};
-
-class CVerifiedUserCmd
-{
-public:
-	CUserCmd		m_cmd;
-	unsigned long	m_crc;
-};
-
 class CInput
 {
 public:
+	class CUserCmd
+	{
+	public:
+		CRC32_t GetChecksum(void) const
+		{
+			CRC32_t crc;
+			CRC32_Init(&crc);
+			CRC32_ProcessBuffer(&crc, &command_number, sizeof(command_number));
+			CRC32_ProcessBuffer(&crc, &tick_count, sizeof(tick_count));
+			CRC32_ProcessBuffer(&crc, &viewangles, sizeof(viewangles));
+			CRC32_ProcessBuffer(&crc, &aimdirection, sizeof(aimdirection));
+			CRC32_ProcessBuffer(&crc, &forwardmove, sizeof(forwardmove));
+			CRC32_ProcessBuffer(&crc, &sidemove, sizeof(sidemove));
+			CRC32_ProcessBuffer(&crc, &upmove, sizeof(upmove));
+			CRC32_ProcessBuffer(&crc, &buttons, sizeof(buttons));
+			CRC32_ProcessBuffer(&crc, &impulse, sizeof(impulse));
+			CRC32_ProcessBuffer(&crc, &weaponselect, sizeof(weaponselect));
+			CRC32_ProcessBuffer(&crc, &weaponsubtype, sizeof(weaponsubtype));
+			CRC32_ProcessBuffer(&crc, &random_seed, sizeof(random_seed));
+			CRC32_ProcessBuffer(&crc, &mousedx, sizeof(mousedx));
+			CRC32_ProcessBuffer(&crc, &mousedy, sizeof(mousedy));
+			CRC32_Final(&crc);
+			return crc;
+		}
+
+		BYTE		u1[4];
+		int			command_number;
+		int			tick_count;
+		QAngle		viewangles;
+		Vector		aimdirection;
+		float		forwardmove;
+		float		sidemove;
+		float		upmove;
+		int			buttons;
+		BYTE		impulse;
+		int			weaponselect;
+		int			weaponsubtype;
+		int			random_seed;
+		short		mousedx;
+		short		mousedy;
+		bool		hasbeenpredicted;
+		Vector		headangles;
+		Vector		headoffset;
+	};
+
+	class CVerifiedUserCmd
+	{
+	public:
+		CUserCmd		m_cmd;
+		unsigned long	m_crc;
+	};
+
 	CUserCmd* GetUserCmd(int slot, int seq)
 	{
 		typedef CUserCmd* (__thiscall* fnOriginal)(void*, int, int);

@@ -9,6 +9,7 @@
 
 #include "PaintTraverse.h"
 #include "CreateMove.h"
+#include "FrameStageNotify.h"
 #include "OnScreenSizeChanged.h"
 
 namespace hooks

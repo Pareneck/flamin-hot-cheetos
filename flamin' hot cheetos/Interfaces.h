@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "stdafx.h"
+#include "SDK.h"
 
 class CHLClient;
 class IEngineClient;
@@ -31,7 +31,7 @@ namespace interfaces
 	extern IVModelInfo*       modelinfo;
 	extern CGlobalVars*       globalvars;
 
-	void initialize();
+	void  initialize();
 }
 
 #endif

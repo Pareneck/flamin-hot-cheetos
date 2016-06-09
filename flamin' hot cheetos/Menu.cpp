@@ -175,6 +175,7 @@ void Menu::drawMenu()
 		drawCheckbox(x + 30, y + 55, 450, cvar::misc_bunnyhop, charenc("Bunnyhop"));
 		drawCheckbox(x + 30, y + 80, 450, cvar::misc_triggerbot, charenc("Triggerbot"));
 		getKeyPressed(x + 30, y + 105, 50, 15, 430, cvar::general_key_triggerbot, charenc("Triggerbot Key"));
+		drawCheckbox(x + 30, y + 130, 450, cvar::misc_skinchanger, charenc("Skin Changer"));
 	}
 
 	drawing.drawFilledRect(x + 1, y + 45, w - 2, 2, Color(255, 165, 0));

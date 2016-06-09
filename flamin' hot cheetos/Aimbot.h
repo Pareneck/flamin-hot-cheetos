@@ -5,8 +5,6 @@
 
 #include "stdafx.h"
 
-class CBaseCombatWeapon;
-
 class Aimbot
 {
 public:

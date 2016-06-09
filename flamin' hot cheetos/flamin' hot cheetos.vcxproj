@@ -144,6 +144,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="FrameStageNotify.h" />
+    <ClInclude Include="Offsets.h" />
     <ClInclude Include="OnScreenSizeChanged.h" />
     <ClInclude Include="Triggerbot.h" />
     <ClInclude Include="Aimbot.h" />
@@ -170,6 +172,8 @@
     <ClInclude Include="VFTManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FrameStageNotify.cpp" />
+    <ClCompile Include="Offsets.cpp" />
     <ClCompile Include="OnScreenSizeChanged.cpp" />
     <ClCompile Include="Triggerbot.cpp" />
     <ClCompile Include="Aimbot.cpp" />

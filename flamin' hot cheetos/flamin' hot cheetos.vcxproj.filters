@@ -58,6 +58,12 @@
     <Filter Include="Project Files\Hooks\OnScreenSizeChanged">
       <UniqueIdentifier>{3eda171d-fa42-45d7-9669-89f1bdd5c53b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\Hooks\FrameStageNotify">
+      <UniqueIdentifier>{52e288fd-8fa8-42b5-9d78-d214b0c10c09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Offsets">
+      <UniqueIdentifier>{67264555-849c-47c2-8550-57f676b0cd55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK.cpp">
@@ -104,6 +110,12 @@
     </ClCompile>
     <ClCompile Include="OnScreenSizeChanged.cpp">
       <Filter>Project Files\Hooks\OnScreenSizeChanged</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameStageNotify.cpp">
+      <Filter>Project Files\Hooks\FrameStageNotify</Filter>
+    </ClCompile>
+    <ClCompile Include="Offsets.cpp">
+      <Filter>Project Files\Offsets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +190,12 @@
     </ClInclude>
     <ClInclude Include="OnScreenSizeChanged.h">
       <Filter>Project Files\Hooks\OnScreenSizeChanged</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameStageNotify.h">
+      <Filter>Project Files\Hooks\FrameStageNotify</Filter>
+    </ClInclude>
+    <ClInclude Include="Offsets.h">
+      <Filter>Project Files\Offsets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

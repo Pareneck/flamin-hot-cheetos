@@ -9,7 +9,7 @@ namespace cvar
 	extern int general_key_triggerbot;
 
 	extern bool aimbot_enabled;
-	extern int aimbot_fov;
+	extern float aimbot_fov;
 	extern float aimbot_rcs_min;
 	extern float aimbot_rcs_max;
 	extern float aimbot_randomize_hitbox;
@@ -28,6 +28,7 @@ namespace cvar
 
 	extern bool misc_bunnyhop;
 	extern bool misc_triggerbot;
+	extern bool misc_skinchanger;
 }
 
 #endif

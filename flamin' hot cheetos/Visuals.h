@@ -5,9 +5,6 @@
 
 #include "stdafx.h"
 
-// why the hell do I have to make forward declarations
-class CBaseEntity;
-
 class Visuals
 {
 public:

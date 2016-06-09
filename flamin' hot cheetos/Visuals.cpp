@@ -17,9 +17,8 @@ void Visuals::think(CBaseEntity* local)
 			continue;
 
 		CBaseEntity* entity = interfaces::entitylist->GetClientEntity(i);
-		if (!entity)
-			continue;
-		if (entity->IsDormant())
+		if (!entity
+			|| entity->IsDormant())
 			continue;
 
 		if (cvar::esp_draw_world)
@@ -37,7 +36,7 @@ void Visuals::think(CBaseEntity* local)
 
 void Visuals::drawPlayer(CBaseEntity* local, CBaseEntity* entity, player_info_t info)
 {
-	const matrix3x4& trans = *(matrix3x4*)((DWORD)entity + (0x470 - 0x30));
+	const matrix3x4& trans = *(matrix3x4*)((DWORD)entity + offsets::entity::m_rgflCoordinateFrame);
 
 	Vector min, max;
 	entity->GetRenderBounds(min, max);
@@ -183,7 +182,7 @@ void Visuals::drawWorld(CBaseEntity* entity)
 
 void Visuals::drawBoundingBox(CBaseEntity* entity, Color color, const char* text)
 {
-	const matrix3x4& trans = *(matrix3x4*)((DWORD)entity + (0x470 - 0x30));
+	const matrix3x4& trans = *(matrix3x4*)((DWORD)entity + offsets::entity::m_rgflCoordinateFrame);
 
 	Vector min, max;
 	entity->GetRenderBounds(min, max);

@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "stdafx.h"
 #include "Vector.h"
 
 //----------------------------------------
@@ -39,6 +38,18 @@ public:
 private:
 	int __pad1;
 } player_info_t;
+
+enum ClientFrameStage_t
+{
+	FRAME_UNDEFINED = -1,
+	FRAME_START,
+	FRAME_NET_UPDATE_START,
+	FRAME_NET_UPDATE_POSTDATAUPDATE_START,
+	FRAME_NET_UPDATE_POSTDATAUPDATE_END,
+	FRAME_NET_UPDATE_END,
+	FRAME_RENDER_START,
+	FRAME_RENDER_END
+};
 
 struct mstudiobbox_t
 {

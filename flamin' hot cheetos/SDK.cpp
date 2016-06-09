@@ -18,13 +18,13 @@ void* Tools::getInterface(std::string moduleName, std::string interfaceName)
 	for (int i = 0; i < 100; i++)
 	{
 		sprintf_s(buffer, "%s%0.3d", interfaceName.c_str(), i);
-		void* interface = CreateInterface(buffer, nullptr);
+		void* createdInterface = CreateInterface(buffer, nullptr);
 
-		if (interface && interface != nullptr)
+		if (createdInterface && createdInterface != nullptr)
 			break;
 	}
 
-	return CreateInterface(buffer, nullptr);
+	return (void*)CreateInterface(buffer, nullptr);
 }
 
 DWORD_PTR Tools::getPatternOffset(std::string moduleName, PBYTE pattern, std::string mask, DWORD_PTR codeBase, DWORD_PTR codeSize)

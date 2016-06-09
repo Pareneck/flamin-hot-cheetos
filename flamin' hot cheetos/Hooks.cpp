@@ -13,6 +13,7 @@ namespace hooks
 
 		clientHook = std::make_unique<VFTManager>((DWORD**)interfaces::client, true);
 		originalCreateMove = clientHook->hook(21, (CreateMove_t)CreateMove);
+		originalFrameStageNotify = clientHook->hook(36, (FrameStageNotify_t)FrameStageNotify);
 
 		surfaceHook = std::make_unique<VFTManager>((DWORD**)interfaces::surface, true);
 		originalOnScreenSizeChanged = surfaceHook->hook(116, (OnScreenSizeChanged_t)OnScreenSizeChanged);
@@ -24,7 +25,8 @@ namespace hooks
 	{
 		panelHook->restoreTable();
 		clientHook->restoreTable();
-		Sleep(100);
+		surfaceHook->restoreTable();
+		Sleep(300);
 
 		interfaces::engine->ExecuteClientCmd(charenc("cl_mouseenable 1"));
 		interfaces::engine->ExecuteClientCmd(charenc("echo [successfully unhooked functions]"));

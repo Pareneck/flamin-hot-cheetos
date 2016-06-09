@@ -6,12 +6,12 @@ void __stdcall CreateMove(int sequence_number, float input_sample_frametime, boo
 {
 	originalCreateMove(interfaces::client, sequence_number, input_sample_frametime, active);
 
-	CUserCmd* cmd = interfaces::input->GetUserCmd(0, sequence_number);
+	CInput::CUserCmd* cmd = interfaces::input->GetUserCmd(0, sequence_number);
 	if (!cmd)
 		return;
 
-	CVerifiedUserCmd* verifiedCmd = *(CVerifiedUserCmd**)((DWORD)interfaces::input + VERIFIEDCMDOFFSET);
-	CVerifiedUserCmd* verified = &verifiedCmd[sequence_number % MULTIPLAYER_BACKUP];
+	CInput::CVerifiedUserCmd* verifiedCommands = *(CInput::CVerifiedUserCmd**)((DWORD)interfaces::input + VERIFIEDCMDOFFSET);
+	CInput::CVerifiedUserCmd* verified = &verifiedCommands[sequence_number % MULTIPLAYER_BACKUP];
 	if (!verified)
 		return;
 
