@@ -2,12 +2,15 @@
 open-source csgo internal cheat
 
 overview:
+
    - this is a little fun project hazed and I worked on from time to time but before I realized it, lots of shit has been done
 
 credits:
+
    - valve, hazed, epik, kidua, peeps from stackoverflow, and others that I may have missed (please let me know)
 
 features:
+
    - aimbot
       - dynamic hitbox selection
       - randomized smoothing
@@ -29,6 +32,7 @@ features:
       - skin changer (modify skins via skinconfig.ini)
 
 usage:
-   1. download the cheetos
-   2. inject into csgo using preffered injector
-   3. press insert if you see the watermark at the top left corner
+
+      1. download the cheetos
+      2. inject into csgo using preffered injector
+      3. press insert if you see the watermark at the top left corner
