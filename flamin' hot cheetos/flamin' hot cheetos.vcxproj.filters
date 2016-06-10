@@ -73,6 +73,9 @@
     <Filter Include="Project Files\Features\Menu">
       <UniqueIdentifier>{43ef8e04-252f-4ac3-a361-125d487c98a4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\Hooks\IN_KeyEvent">
+      <UniqueIdentifier>{7c71e6d8-da86-40b6-ad91-c1008feb7a0b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK.cpp">
@@ -137,6 +140,9 @@
     </ClCompile>
     <ClCompile Include="OverrideView.cpp">
       <Filter>Project Files\Hooks\OverrideView</Filter>
+    </ClCompile>
+    <ClCompile Include="IN_KeyEvent.cpp">
+      <Filter>Project Files\Hooks\IN_KeyEvent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="OverrideView.h">
       <Filter>Project Files\Hooks\OverrideView</Filter>
+    </ClInclude>
+    <ClInclude Include="IN_KeyEvent.h">
+      <Filter>Project Files\Hooks\IN_KeyEvent</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

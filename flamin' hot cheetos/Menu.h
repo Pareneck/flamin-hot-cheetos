@@ -28,6 +28,8 @@ public:
 
 	void think();
 
+	bool isActive();
+
 private:
 	void setMouse();
 	void getMouse();

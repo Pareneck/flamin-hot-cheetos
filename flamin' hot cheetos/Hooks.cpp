@@ -15,6 +15,7 @@ namespace hooks
 		clientHook = std::make_unique<VFTManager>((DWORD**)interfaces::client, true);
 		originalCreateMove = clientHook->hook(21, (CreateMove_t)CreateMove);
 		originalFrameStageNotify = clientHook->hook(36, (FrameStageNotify_t)FrameStageNotify);
+		originalKeyEvent = clientHook->hook(20, (IN_KeyEvent_t)IN_KeyEvent);
 
 		clientModeHook = std::make_unique<VFTManager>((DWORD**)interfaces::clientMode, true);
 		originalOverrideView = clientModeHook->hook(18, (OverrideView_t)OverrideView);

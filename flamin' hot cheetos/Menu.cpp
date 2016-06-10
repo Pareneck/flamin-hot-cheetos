@@ -328,6 +328,11 @@ void Menu::drawSlider(int x, int y, int w, int h, int distance, int min, int max
 		drawing.drawString(drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color(150, 150, 150), "%i", value);
 }
 
+bool Menu::isActive()
+{
+	return isCursorActive;
+}
+
 void Menu::getKeyPressed(int x, int y, int w, int h, int distance, int& value, const char* text)
 {
 	drawing.drawString(drawing.menuFont, false, x, y + (float)1.5, Color(150, 150, 150), text);

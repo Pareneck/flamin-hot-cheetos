@@ -12,6 +12,7 @@
 #include "FrameStageNotify.h"
 #include "OverrideView.h"
 #include "OnScreenSizeChanged.h"
+#include "IN_KeyEvent.h"
 
 namespace hooks
 {
