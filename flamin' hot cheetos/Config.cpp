@@ -16,6 +16,7 @@ void Config::loadConfig(void)
 		configManager.getBoolean(charenc("Aimbot"), charenc("Enabled"), cvar::aimbot_enabled);
 		configManager.getInteger(charenc("Aimbot"), charenc("Aimbot Key"), cvar::general_key_aimbot);
 		configManager.getFloat(charenc("Aimbot"), charenc("Field of View"), cvar::aimbot_fov);
+		configManager.getFloat(charenc("Aimbot"), charenc("Smoothing"), cvar::aimbot_smoothing);
 		configManager.getFloat(charenc("Aimbot"), charenc("Recoil Control Min"), cvar::aimbot_rcs_min);
 		configManager.getFloat(charenc("Aimbot"), charenc("Recoil Control Max"), cvar::aimbot_rcs_max);
 		configManager.getFloat(charenc("Aimbot"), charenc("Randomize Hitbox"), cvar::aimbot_randomize_hitbox);
@@ -54,6 +55,7 @@ void Config::saveConfig(void)
 		configManager.setBoolean(charenc("Aimbot"), charenc("Enabled"), cvar::aimbot_enabled);
 		configManager.setInteger(charenc("Aimbot"), charenc("Aimbot Key"), cvar::general_key_aimbot);
 		configManager.setFloat(charenc("Aimbot"), charenc("Field of View"), cvar::aimbot_fov);
+		configManager.setFloat(charenc("Aimbot"), charenc("Smoothing"), cvar::aimbot_smoothing);
 		configManager.setFloat(charenc("Aimbot"), charenc("Recoil Control Min"), cvar::aimbot_rcs_min);
 		configManager.setFloat(charenc("Aimbot"), charenc("Recoil Control Max"), cvar::aimbot_rcs_max);
 		configManager.setFloat(charenc("Aimbot"), charenc("Randomize Hitbox"), cvar::aimbot_randomize_hitbox);

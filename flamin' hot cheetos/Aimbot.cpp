@@ -44,8 +44,8 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	if (!sensitivity)
 		return;
 
-	float pixels = sensitivity * 0.22f / tools.random(0.7f, 1.2f);
-	float smoothRate = tools.random(0.7f, 1.2f) * 2.f;
+	float pixels = sensitivity * 0.22f / tools.random(0.7f, 1.f);
+	float smoothRate = cvar::aimbot_smoothing;
 
 	if (finalAngles.x > smoothRate)
 		finalAngles.x = smoothRate;
@@ -57,11 +57,12 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	else if (finalAngles.y < -smoothRate)
 		finalAngles.y = -smoothRate;
 
+	finalAngles.x += getRandomizedAngles(local);
+	finalAngles.y += getRandomizedAngles(local);
+
 	finalAngles.x /= pixels * -1.f;
 	finalAngles.y /= pixels;
 	tools.normalizeAngles(finalAngles);
-
-	finalAngles.y += tools.random(-cvar::aimbot_randomize_angle, cvar::aimbot_randomize_angle);
 
 	moveMouse(finalAngles.y, finalAngles.x);
 }
@@ -80,6 +81,26 @@ Vector Aimbot::getRandomizedRecoil(CBaseEntity* local)
 {
 	QAngle punchAngles = local->GetPunchAngles() * tools.random(cvar::aimbot_rcs_min, cvar::aimbot_rcs_max);
 	return (local->GetShotsFired() > 1 ? punchAngles : Vector(0, 0, 0));
+}
+
+float Aimbot::getRandomizedAngles(CBaseEntity* local)
+{
+	float randomizedValue;
+
+	float randomRate = tools.random(-cvar::aimbot_randomize_angle, cvar::aimbot_randomize_angle);
+	float randomDeviation = tools.random(-cvar::aimbot_randomize_angle, cvar::aimbot_randomize_angle);
+
+	switch (rand() % 2)
+	{
+	case 0:
+		randomizedValue = (randomRate * cos(randomDeviation));
+		break;
+	case 1:
+		randomizedValue = (randomRate * sin(randomDeviation));
+		break;
+	}
+
+	return (local->GetShotsFired() > 1 ? randomizedValue : 0.f);
 }
 
 bool Aimbot::getClosestHitbox(CBaseEntity* local, CBaseEntity* entity, Vector& dest)

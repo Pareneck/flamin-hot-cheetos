@@ -7,6 +7,7 @@ namespace cvar
 
 	bool aimbot_enabled = true;
 	float aimbot_fov = 10.f;
+	float aimbot_smoothing = 50.f;
 	float aimbot_rcs_min = 1.8f;
 	float aimbot_rcs_max = 2.0f;
 	float aimbot_randomize_hitbox = 5.f;
