@@ -13,6 +13,9 @@ Aimbot::Aimbot(void)
 
 void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 {
+	if (weapon->IsOther() || weapon->IsKnife())
+		return;
+
 	if (!(GetAsyncKeyState(cvar::general_key_aimbot) & 0x8000))
 		return;
 
@@ -27,15 +30,12 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	if (tools.getDistance(local->GetEyePosition(), hitboxPosition) > 8192.f)
 		return;
 
-	hitboxPosition.x += tools.random(-cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox);
-	hitboxPosition.y += tools.random(-cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox);
-	hitboxPosition.z += tools.random(-cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox);
+	hitboxPosition += tools.random(-cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox);
 
 	tools.computeAngle(local->GetEyePosition(), hitboxPosition, finalAngles);
 	tools.normalizeAngles(finalAngles);
 
-	finalAngles.x -= getRandomizedRecoil(local).x;
-	finalAngles.y -= getRandomizedRecoil(local).y;
+	finalAngles -= getRandomizedRecoil(local);
 
 	finalAngles = viewAngles - finalAngles;
 	tools.normalizeAngles(finalAngles);
@@ -44,7 +44,7 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	if (!sensitivity)
 		return;
 
-	float pixels = sensitivity * 0.22f / tools.random(0.7f, 1.f);
+	float pixels = sensitivity * 0.22f / 1.f;
 	float smoothRate = cvar::aimbot_smoothing;
 
 	if (finalAngles.x > smoothRate)
@@ -57,8 +57,7 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	else if (finalAngles.y < -smoothRate)
 		finalAngles.y = -smoothRate;
 
-	finalAngles.x += getRandomizedAngles(local);
-	finalAngles.y += getRandomizedAngles(local);
+	finalAngles += getRandomizedAngles(local);
 
 	finalAngles.x /= pixels * -1.f;
 	finalAngles.y /= pixels;
@@ -73,7 +72,7 @@ void Aimbot::moveMouse(float x, float y)
 	input.type = INPUT_MOUSE;
 	input.mi.dx = x;
 	input.mi.dy = y;
-	input.mi.dwFlags = MOUSEEVENTF_MOVE;
+	input.mi.dwFlags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE;
 	SendInput(1, &input, sizeof(INPUT));
 }
 
@@ -111,10 +110,9 @@ bool Aimbot::getClosestHitbox(CBaseEntity* local, CBaseEntity* entity, Vector& d
 	std::vector<int> hitboxes;
 	hitboxes.push_back(HITBOX_HEAD);
 	hitboxes.push_back(HITBOX_NECK);
-	hitboxes.push_back(HITBOX_UPPER_CHEST);
+	// hitboxes.push_back(HITBOX_UPPER_CHEST);
 	hitboxes.push_back(HITBOX_CHEST);
 	hitboxes.push_back(HITBOX_BODY);
-	// add more hitboxes if you wish
 
 	for (auto hitbox : hitboxes)
 	{
@@ -163,6 +161,8 @@ int Aimbot::getBestTarget(CBaseEntity* local, CBaseCombatWeapon* weapon, Vector&
 		Vector hitbox;
 		if (getClosestHitbox(local, entity, hitbox))
 			continue;
+
+		hitbox = tools.getPredictedPosition(hitbox, entity->GetVelocity());
 
 		float fov = tools.getFov(viewAngles + getRandomizedRecoil(local), tools.computeAngle(local->GetEyePosition(), hitbox));
 		if (fov < bestFov && fov < cvar::aimbot_fov)

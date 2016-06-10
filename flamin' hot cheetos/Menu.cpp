@@ -146,7 +146,7 @@ void Menu::drawMenu()
 		drawCheckbox(x + 30, y + 55, 450, cvar::aimbot_enabled, charenc("Enable"));
 		getKeyPressed(x + 30, y + 80, 50, 15, 430, cvar::general_key_aimbot, charenc("Aimbot Key"));
 		drawSlider(x + 30, y + 105, 200, 6, 237, 0.f, 180.f, cvar::aimbot_fov, charenc("Field of View"));
-		drawSlider(x + 30, y + 130, 200, 6, 237, 0.f, 100.f, cvar::aimbot_smoothing, charenc("Smoothing"));
+		drawSlider(x + 30, y + 130, 200, 6, 237, 1.f, 100.f, cvar::aimbot_smoothing, charenc("Smoothing"));
 		drawSlider(x + 30, y + 155, 200, 6, 237, 0.f, 2.f, cvar::aimbot_rcs_min, charenc("Randomize Recoil Control Min"));
 		drawSlider(x + 30, y + 180, 200, 6, 237, cvar::aimbot_rcs_min, 2.f, cvar::aimbot_rcs_max, charenc("Randomize Recoil Control Max"));
 		drawSlider(x + 30, y + 205, 200, 6, 237, 0.f, 20.f, cvar::aimbot_randomize_hitbox, charenc("Randomize Hitbox"));

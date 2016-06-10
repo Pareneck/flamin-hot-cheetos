@@ -9,6 +9,9 @@ Triggerbot::Triggerbot(void)
 
 void Triggerbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon, CInput::CUserCmd* cmd)
 {
+	if (weapon->IsOther() || weapon->IsKnife())
+		return;
+
 	if (!(GetAsyncKeyState(cvar::general_key_triggerbot) & 0x8000))
 		return;
 
@@ -27,16 +30,16 @@ void Triggerbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon, CInput::CU
 	filter.skip = local;
 
 	ray.Init(traceStart, traceEnd);
-	interfaces::enginetrace->TraceRay(ray, 0x4600400B, &filter, &trace);
-
-	if (!(trace.hitgroup < 10 && trace.hitgroup > 0))
-		return;
+	interfaces::enginetrace->TraceRay(ray, 0x46004003, &filter, &trace);
 
 	if (!trace.entity
 		|| trace.entity == local
 		|| trace.entity->GetLifeState() != LIFE_ALIVE
 		|| trace.entity->IsProtected()
 		|| trace.entity->GetTeamNum() == local->GetTeamNum())
+		return;
+
+	if (!(trace.hitgroup < 10 && trace.hitgroup > 0))
 		return;
 
 	weapon->GetItemDefinitionIndex() == WEAPON_REVOLVER ? cmd->buttons |= IN_ATTACK2 : cmd->buttons |= IN_ATTACK;

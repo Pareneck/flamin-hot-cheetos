@@ -27,6 +27,7 @@ namespace offsets
 		extern DWORD m_hOwner;
 		extern DWORD m_vecPunchAngle;
 		extern DWORD m_bIsScoped;
+		extern DWORD m_vecVelocity;
 	}
 	namespace weapon
 	{
