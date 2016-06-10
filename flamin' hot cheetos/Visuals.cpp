@@ -59,14 +59,14 @@ void Visuals::drawPlayer(CBaseEntity* local, CBaseEntity* entity, player_info_t 
 
 	Vector flb, brt, blb, frt, frb, brb, blt, flt;
 
-	if (!tools.WorldToScreen(transformed[3], flb) ||
-		!tools.WorldToScreen(transformed[0], blb) ||
-		!tools.WorldToScreen(transformed[2], frb) ||
-		!tools.WorldToScreen(transformed[6], blt) ||
-		!tools.WorldToScreen(transformed[5], brt) ||
-		!tools.WorldToScreen(transformed[4], frt) ||
-		!tools.WorldToScreen(transformed[1], brb) ||
-		!tools.WorldToScreen(transformed[7], flt))
+	if (!tools.WorldToScreen(transformed[3], flb)
+		|| !tools.WorldToScreen(transformed[0], blb)
+		|| !tools.WorldToScreen(transformed[2], frb)
+		|| !tools.WorldToScreen(transformed[6], blt)
+		|| !tools.WorldToScreen(transformed[5], brt)
+		|| !tools.WorldToScreen(transformed[4], frt)
+		|| !tools.WorldToScreen(transformed[1], brb)
+		|| !tools.WorldToScreen(transformed[7], flt))
 		return;
 
 	Vector arr[] = { flb, brt, blb, frt, frb, brb, blt, flt };

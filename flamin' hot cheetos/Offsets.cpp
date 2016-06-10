@@ -18,6 +18,7 @@ namespace offsets
 		player::m_szLastPlaceName = 0x3598;
 		player::m_hOwner = 0x31C0;
 		player::m_vecPunchAngle = 0x3018;
+		player::m_bIsScoped = 0x388C;
 
 		weapon::m_iClip1 = 0x31F4;
 		weapon::m_flNextPrimaryAttack = 0x31C8;
@@ -56,6 +57,7 @@ namespace offsets
 		DWORD m_iShotsFired = 0;
 		DWORD m_hOwner = 0;
 		DWORD m_vecPunchAngle = 0;
+		DWORD m_bIsScoped = 0;
 	}
 	namespace weapon
 	{

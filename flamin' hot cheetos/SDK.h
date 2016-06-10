@@ -80,6 +80,10 @@ public:
 	{
 		return *(bool*)((DWORD)this + offsets::player::m_bGunGameImmunity);
 	}
+	bool IsScoped(void)
+	{
+		return *(bool*)((DWORD)this + offsets::player::m_bIsScoped);
+	}
 	int GetFlags(void)
 	{
 		return *(int*)((DWORD)this + offsets::player::m_fFlags);

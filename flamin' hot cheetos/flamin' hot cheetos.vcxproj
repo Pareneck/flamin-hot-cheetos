@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="OverrideView.h" />
     <ClInclude Include="Weapons.h" />
     <ClInclude Include="Config Manager.h" />
     <ClInclude Include="Config.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="VFTManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="OverrideView.cpp" />
     <ClCompile Include="Weapons.cpp" />
     <ClCompile Include="Config Manager.cpp" />
     <ClCompile Include="Config.cpp" />

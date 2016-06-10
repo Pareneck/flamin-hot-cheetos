@@ -21,6 +21,7 @@ namespace interfaces
 	extern DWORD              clientdll;
 
 	extern CHLClient*         client;
+	extern void*              clientMode;
 	extern IEngineClient*     engine;
 	extern IClientEntityList* entitylist;
 	extern ISurface*          surface;

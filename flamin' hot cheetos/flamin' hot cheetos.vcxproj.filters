@@ -31,9 +31,6 @@
     <Filter Include="Project Files\Vector">
       <UniqueIdentifier>{8825a124-88f8-491e-bfa8-3f2773f17b80}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Project Files\Menu">
-      <UniqueIdentifier>{43ef8e04-252f-4ac3-a361-125d487c98a4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Project Files\Control Variables">
       <UniqueIdentifier>{b5ddd6d5-e796-49b0-a79f-d847b5f83a3a}</UniqueIdentifier>
     </Filter>
@@ -70,6 +67,12 @@
     <Filter Include="Project Files\Config\Config Manager">
       <UniqueIdentifier>{fed25574-d26c-44b9-b174-d8f2955f86c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\Hooks\OverrideView">
+      <UniqueIdentifier>{fc013634-1cd8-45e9-882a-7e71311e1892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Features\Menu">
+      <UniqueIdentifier>{43ef8e04-252f-4ac3-a361-125d487c98a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK.cpp">
@@ -94,7 +97,7 @@
       <Filter>Project Files\Control Variables</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">
-      <Filter>Project Files\Menu</Filter>
+      <Filter>Project Files\Features\Menu</Filter>
     </ClCompile>
     <ClCompile Include="checksum_crc.cpp">
       <Filter>Project Files\SDK</Filter>
@@ -132,6 +135,9 @@
     <ClCompile Include="Weapons.cpp">
       <Filter>Project Files\Config</Filter>
     </ClCompile>
+    <ClCompile Include="OverrideView.cpp">
+      <Filter>Project Files\Hooks\OverrideView</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SDK.h">
@@ -168,7 +174,7 @@
       <Filter>Project Files\Control Variables</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
-      <Filter>Project Files\Menu</Filter>
+      <Filter>Project Files\Features\Menu</Filter>
     </ClInclude>
     <ClInclude Include="SDKDefinitions.h">
       <Filter>Project Files\SDK</Filter>
@@ -220,6 +226,9 @@
     </ClInclude>
     <ClInclude Include="Weapons.h">
       <Filter>Project Files\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="OverrideView.h">
+      <Filter>Project Files\Hooks\OverrideView</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

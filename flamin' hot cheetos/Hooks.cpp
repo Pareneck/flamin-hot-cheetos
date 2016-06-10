@@ -4,6 +4,7 @@ namespace hooks
 {
 	std::unique_ptr<VFTManager> clientHook = nullptr;
 	std::unique_ptr<VFTManager> panelHook = nullptr;
+	std::unique_ptr<VFTManager> clientModeHook = nullptr;
 	std::unique_ptr<VFTManager> surfaceHook = nullptr;
 
 	void initialize()
@@ -15,6 +16,9 @@ namespace hooks
 		originalCreateMove = clientHook->hook(21, (CreateMove_t)CreateMove);
 		originalFrameStageNotify = clientHook->hook(36, (FrameStageNotify_t)FrameStageNotify);
 
+		clientModeHook = std::make_unique<VFTManager>((DWORD**)interfaces::clientMode, true);
+		originalOverrideView = clientModeHook->hook(18, (OverrideView_t)OverrideView);
+
 		surfaceHook = std::make_unique<VFTManager>((DWORD**)interfaces::surface, true);
 		originalOnScreenSizeChanged = surfaceHook->hook(116, (OnScreenSizeChanged_t)OnScreenSizeChanged);
 
@@ -25,6 +29,7 @@ namespace hooks
 	{
 		panelHook->restoreTable();
 		clientHook->restoreTable();
+		clientModeHook->restoreTable();
 		surfaceHook->restoreTable();
 		Sleep(300);
 

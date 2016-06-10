@@ -26,6 +26,7 @@ namespace offsets
 		extern DWORD m_iShotsFired;
 		extern DWORD m_hOwner;
 		extern DWORD m_vecPunchAngle;
+		extern DWORD m_bIsScoped;
 	}
 	namespace weapon
 	{

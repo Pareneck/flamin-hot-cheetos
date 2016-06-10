@@ -36,6 +36,8 @@ void Config::loadConfig(void)
 		configManager.getBoolean(charenc("Misc"), charenc("Triggerbot"), cvar::misc_triggerbot);
 		configManager.getInteger(charenc("Misc"), charenc("Triggerbot Key"), cvar::general_key_triggerbot);
 		configManager.getBoolean(charenc("Misc"), charenc("Skin Changer"), cvar::misc_skinchanger);
+		configManager.getBoolean(charenc("Misc"), charenc("Override FoV"), cvar::misc_overridefov);
+		configManager.getInteger(charenc("Misc"), charenc("Override FoV Value"), cvar::misc_overridefov_value);
 	}
 	else
 	{
@@ -72,6 +74,8 @@ void Config::saveConfig(void)
 		configManager.setBoolean(charenc("Misc"), charenc("Triggerbot"), cvar::misc_triggerbot);
 		configManager.setInteger(charenc("Misc"), charenc("Triggerbot Key"), cvar::general_key_triggerbot);
 		configManager.setBoolean(charenc("Misc"), charenc("Skin Changer"), cvar::misc_skinchanger);
+		configManager.setBoolean(charenc("Misc"), charenc("Override FoV"), cvar::misc_overridefov);
+		configManager.setInteger(charenc("Misc"), charenc("Override FoV Value"), cvar::misc_overridefov_value);
 	}
 }
 

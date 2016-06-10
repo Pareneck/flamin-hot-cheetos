@@ -5,6 +5,7 @@ namespace interfaces
 	DWORD              clientdll = 0;
 
 	CHLClient*         client = nullptr;
+	void*              clientMode = nullptr;
 	IEngineClient*     engine = nullptr;
 	IClientEntityList* entitylist = nullptr;
 	ISurface*          surface = nullptr;
@@ -21,6 +22,7 @@ namespace interfaces
 			clientdll = (DWORD)GetModuleHandleA(charenc("client.dll"));
 
 		client = (CHLClient*)tools.getInterface(charenc("client.dll"), charenc("VClient"));
+		clientMode = **(void***)((*(DWORD**)interfaces::client)[10] + 0x5);
 		engine = (IEngineClient*)tools.getInterface(charenc("engine.dll"), charenc("VEngineClient"));
 		entitylist = (IClientEntityList*)tools.getInterface(charenc("client.dll"), charenc("VClientEntityList"));
 		surface = (ISurface*)tools.getInterface(charenc("vguimatsurface.dll"), charenc("VGUI_Surface"));
