@@ -44,9 +44,6 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	tools.normalizeAngles(finalAngles);
 
 	float sensitivity = *(float*)(interfaces::clientdll + 0xA35D0C);
-	if (!sensitivity)
-		return;
-
 	float pixels = sensitivity * 0.22f / 1.f;
 	float smoothRate = cvar::aimbot_smoothing / 2.f;
 
@@ -73,9 +70,9 @@ void Aimbot::moveMouse(float x, float y)
 {
 	INPUT input = { 0 };
 	input.type = INPUT_MOUSE;
-	input.mi.dx = x;
-	input.mi.dy = y;
-	input.mi.dwFlags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE;
+	input.mi.dx = (LONG)x;
+	input.mi.dy = (LONG)y;
+	input.mi.dwFlags = MOUSEEVENTF_MOVE;
 	SendInput(1, &input, sizeof(INPUT));
 }
 
