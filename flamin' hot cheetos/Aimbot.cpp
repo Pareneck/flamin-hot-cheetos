@@ -111,9 +111,9 @@ bool Aimbot::getClosestHitbox(CBaseEntity* local, CBaseEntity* entity, Vector& d
 	float bestFov = cvar::aimbot_fov;
 
 	std::vector<int> hitboxes;
-	hitboxes.push_back(HITBOX_HEAD);
+	// hitboxes.push_back(HITBOX_HEAD);
 	hitboxes.push_back(HITBOX_NECK);
-	// hitboxes.push_back(HITBOX_UPPER_CHEST);
+	hitboxes.push_back(HITBOX_UPPER_CHEST);
 	hitboxes.push_back(HITBOX_CHEST);
 	hitboxes.push_back(HITBOX_BODY);
 
