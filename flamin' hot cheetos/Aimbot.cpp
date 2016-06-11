@@ -155,7 +155,8 @@ int Aimbot::getBestTarget(CBaseEntity* local, CBaseCombatWeapon* weapon, Vector&
 			|| entity->GetLifeState() != LIFE_ALIVE
 			|| entity->IsProtected()
 			|| entity->GetClientClass()->GetClassID() != CCSPlayer
-			|| entity->GetTeamNum() == local->GetTeamNum())
+			|| entity->GetTeamNum() == local->GetTeamNum()
+			|| !(entity->GetFlags() & FL_ONGROUND))
 			continue;
 
 		Vector hitbox;
