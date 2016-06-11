@@ -13,17 +13,16 @@ features:
 
    - aimbot
       - dynamic hitbox selection
-      - randomized smoothing
       - randomized hitbox position
       - randomized angles
       - works on FACEIT (should)
       - fully mouse based, no forced angle setting
-     
+
    - visuals
       - dynamic esp using coordinate frame calculations (bounding box)
       - ability to draw: box, weapon, callout, health, armor and world
       - etc
-     
+    
    - miscellaneous
       - configuration system
       - automatic game resolution change detection
