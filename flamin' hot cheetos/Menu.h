@@ -26,21 +26,21 @@ class Menu
 public:
 	Menu(void);
 
-	void think();
+	void think(void);
 
-	bool isActive();
+	bool isActive(void);
 
 private:
-	void setMouse();
-	void getMouse();
+	void setMouse(void);
+	void getMouse(void);
 
 	bool isMenuKey(int key);
 	bool isHovered(int x, int y, int w, int h);
 	bool isClicked(int x, int y, int w, int h);
 
-	void drawMenu();
+	void drawMenu(void);
 	void drawBorder(int x, int y, int w, int h, const char* text);
-	void drawMouse();
+	void drawMouse(void);
 	void drawCheckbox(int x, int y, int distance, bool& value, const char* text);
 	void drawSlider(int x, int y, int w, int h, int distance, float min, float max, float& value, const char* text);
 	void drawSlider(int x, int y, int w, int h, int distance, int min, int max, int& value, const char* text);

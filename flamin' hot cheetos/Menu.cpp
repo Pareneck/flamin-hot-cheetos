@@ -15,7 +15,7 @@ Menu::Menu(void)
 	isRightClick = false, isRightClickReleased = false;
 }
 
-void Menu::think()
+void Menu::think(void)
 {
 	setMouse();
 	getMouse();
@@ -24,7 +24,7 @@ void Menu::think()
 	drawMouse();
 }
 
-void Menu::setMouse()
+void Menu::setMouse(void)
 {
 	if (!isMenuKey(VK_INSERT))
 		return;
@@ -39,7 +39,7 @@ void Menu::setMouse()
 	}
 }
 
-void Menu::getMouse()
+void Menu::getMouse(void)
 {
 	if (!isCursorActive)
 		return;
@@ -71,6 +71,11 @@ void Menu::getMouse()
 
 		isRightClick = false;
 	}
+}
+
+bool Menu::isActive(void)
+{
+	return isCursorActive;
 }
 
 bool Menu::isMenuKey(int key)
@@ -109,7 +114,7 @@ bool Menu::isClicked(int x, int y, int w, int h)
 	return false;
 }
 
-void Menu::drawMenu()
+void Menu::drawMenu(void)
 {
 	if (!isCursorActive)
 		return;
@@ -200,7 +205,7 @@ void Menu::drawBorder(int x, int y, int w, int h, const char* text)
 	drawing.drawLine(x + 1, y + 22, x + w - 2, y + 22, Color(130, 130, 130, 50));
 }
 
-void Menu::drawMouse()
+void Menu::drawMouse(void)
 {
 	if (!isCursorActive)
 		return;
@@ -326,11 +331,6 @@ void Menu::drawSlider(int x, int y, int w, int h, int distance, int min, int max
 		drawing.drawString(drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color(150, 150, 150), "%i", value);
 	else if (value > 99 && value < 1000)
 		drawing.drawString(drawing.menuFont, false, x + w + 15 + distance, y + 1.5f, Color(150, 150, 150), "%i", value);
-}
-
-bool Menu::isActive()
-{
-	return isCursorActive;
 }
 
 void Menu::getKeyPressed(int x, int y, int w, int h, int distance, int& value, const char* text)

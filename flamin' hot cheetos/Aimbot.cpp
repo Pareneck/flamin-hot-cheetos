@@ -15,7 +15,7 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 {
 	if (weapon->IsOther() || weapon->IsKnife())
 		return;
-	
+
 	if (menu.isActive())
 		return;
 
@@ -48,7 +48,7 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 		return;
 
 	float pixels = sensitivity * 0.22f / 1.f;
-	float smoothRate = cvar::aimbot_smoothing;
+	float smoothRate = cvar::aimbot_smoothing / 2.f;
 
 	if (finalAngles.x > smoothRate)
 		finalAngles.x = smoothRate;
