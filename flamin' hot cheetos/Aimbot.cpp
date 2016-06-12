@@ -44,6 +44,9 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	tools.normalizeAngles(finalAngles);
 
 	float sensitivity = *(float*)(interfaces::clientdll + 0xA35D0C);
+	if (!sensitivity)
+	    return;
+		
 	float pixels = sensitivity * 0.22f;
 	float smoothRate = cvar::aimbot_smoothing / 2.f;
 
