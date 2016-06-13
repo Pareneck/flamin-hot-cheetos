@@ -76,6 +76,9 @@
     <Filter Include="Project Files\Hooks\IN_KeyEvent">
       <UniqueIdentifier>{7c71e6d8-da86-40b6-ad91-c1008feb7a0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\Hooks\RenderView">
+      <UniqueIdentifier>{597ef671-e2f2-4ce1-bac3-f7f854e90934}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK.cpp">
@@ -143,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="IN_KeyEvent.cpp">
       <Filter>Project Files\Hooks\IN_KeyEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderView.cpp">
+      <Filter>Project Files\Hooks\RenderView</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +244,9 @@
     </ClInclude>
     <ClInclude Include="IN_KeyEvent.h">
       <Filter>Project Files\Hooks\IN_KeyEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderView.h">
+      <Filter>Project Files\Hooks\RenderView</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

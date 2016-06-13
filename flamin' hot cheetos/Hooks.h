@@ -11,6 +11,7 @@
 #include "CreateMove.h"
 #include "FrameStageNotify.h"
 #include "OverrideView.h"
+#include "RenderView.h"
 #include "OnScreenSizeChanged.h"
 #include "IN_KeyEvent.h"
 
