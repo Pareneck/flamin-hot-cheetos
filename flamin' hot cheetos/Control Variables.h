@@ -26,6 +26,7 @@ namespace cvar
 	extern bool esp_draw_armor;
 	extern bool esp_draw_armor_text;
 	extern bool esp_draw_world;
+	extern bool esp_draw_glow;
 
 	extern bool misc_bunnyhop;
 	extern bool misc_triggerbot;

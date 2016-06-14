@@ -172,6 +172,7 @@ void Menu::drawMenu(void)
 		drawCheckbox(x + 30, y + 230, 450, cvar::esp_draw_armor, charenc("Armor Bar"));
 		drawCheckbox(x + 30, y + 255, 450, cvar::esp_draw_armor_text, charenc("Armor Text"));
 		drawCheckbox(x + 30, y + 280, 450, cvar::esp_draw_world, charenc("World"));
+		drawCheckbox(x + 30, y + 305, 450, cvar::esp_draw_glow, charenc("Glow"));
 	}
 	else if (activeTab == 3)
 	{

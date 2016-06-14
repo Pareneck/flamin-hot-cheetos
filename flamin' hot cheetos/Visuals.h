@@ -17,10 +17,13 @@ private:
 	void drawWorld(CBaseEntity* entity);
 
 	void drawBoundingBox(CBaseEntity* entity, Color color, const char* text);
+	void drawGlow(CBaseEntity* entity);
 
 private:
 	Color espColor;
 };
+
+typedef CGlowObjectManager*(__thiscall* GlowObjectPointer_t)(void);
 
 extern Visuals visuals;
 

@@ -30,6 +30,8 @@ void Visuals::think(CBaseEntity* local)
 			|| !interfaces::engine->GetPlayerInfo(i, &info))
 			continue;
 
+		drawGlow(entity);
+
 		drawPlayer(local, entity, info);
 	}
 }
@@ -255,4 +257,29 @@ void Visuals::drawBoundingBox(CBaseEntity* entity, Color color, const char* text
 
 	if (text)
 		drawing.drawString(drawing.espFont, true, left + w / 2, top - 15, color, text);
+}
+
+void Visuals::drawGlow(CBaseEntity* entity)
+{
+	if (!cvar::esp_draw_glow)
+		return;
+
+	static GlowObjectPointer_t getGlowObjectPointer = (GlowObjectPointer_t)(tools.getPatternOffset(charenc("client.dll"), (PBYTE)charenc("\xA1\x00\x00\x00\x00\xA8\x01\x75\x4E\x33"), charenc("x????xxxx")));
+	static void* glowObjectPointer = getGlowObjectPointer();
+
+	UINT32 glowIndex = *(UINT32*)((uintptr_t)entity + 0xA2F8 + 0x18);
+	CGlowObjectManager::GlowObjectDefinition_t* glowObjectArray = *(CGlowObjectManager::GlowObjectDefinition_t**)glowObjectPointer;
+	CGlowObjectManager::GlowObjectDefinition_t* glowObject = &glowObjectArray[glowIndex];
+
+	static Color glowColor = Color(0, 0, 0, 0);
+
+	if (entity->GetTeamNum() == 2)
+		glowColor = Color(223, 175, 86, 153);
+	else if (entity->GetTeamNum() == 3)
+		glowColor = Color(113, 154, 220, 153);
+
+	glowObject->glowColor = Vector((1.f / 255.f) * glowColor.r(), (1.f / 255.f) * glowColor.g(), (1.f / 255.f) * glowColor.b());
+	glowObject->glowAlpha = (1.f / 255.f) * glowColor.a();
+	glowObject->shouldGlow = true;
+	glowObject->isUnknown = false;
 }

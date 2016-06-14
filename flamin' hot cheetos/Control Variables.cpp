@@ -23,6 +23,7 @@ namespace cvar
 	bool esp_draw_armor = true;
 	bool esp_draw_armor_text = true;
 	bool esp_draw_world = true;
+	bool esp_draw_glow = true;
 
 	bool misc_bunnyhop = true;
 	bool misc_triggerbot = true;

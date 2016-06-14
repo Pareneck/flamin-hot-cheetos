@@ -335,6 +335,34 @@ public:
 
 		return "";
 	}
+	bool IsPistol(void)
+	{
+		switch (this->GetItemDefinitionIndex())
+		{
+		case WEAPON_DEAGLE:
+			return true;
+		case WEAPON_DUALS:
+			return true;
+		case WEAPON_FIVE7:
+			return true;
+		case WEAPON_GLOCK:
+			return true;
+		case WEAPON_TEC9:
+			return true;
+		case WEAPON_P2000:
+			return true;
+		case WEAPON_USPS:
+			return true;
+		case WEAPON_P250:
+			return true;
+		case WEAPON_CZ75:
+			return true;
+		case WEAPON_REVOLVER:
+			return true;
+		default:
+			return false;
+		}
+	}
 	bool IsKnife(void)
 	{
 		switch (this->GetItemDefinitionIndex())

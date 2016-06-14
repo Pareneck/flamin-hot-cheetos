@@ -34,6 +34,7 @@ void Config::loadConfig(void)
 		configManager.getBoolean(charenc("ESP"), charenc("Armor"), cvar::esp_draw_armor);
 		configManager.getBoolean(charenc("ESP"), charenc("Armor Text"), cvar::esp_draw_armor_text);
 		configManager.getBoolean(charenc("ESP"), charenc("World"), cvar::esp_draw_world);
+		configManager.getBoolean(charenc("ESP"), charenc("Glow"), cvar::esp_draw_glow);
 
 		configManager.getBoolean(charenc("Misc"), charenc("Bunnyhop"), cvar::misc_bunnyhop);
 		configManager.getBoolean(charenc("Misc"), charenc("Triggerbot"), cvar::misc_triggerbot);
@@ -70,6 +71,7 @@ void Config::saveConfig(void)
 	configManager.setBoolean(charenc("ESP"), charenc("Armor"), cvar::esp_draw_armor);
 	configManager.setBoolean(charenc("ESP"), charenc("Armor Text"), cvar::esp_draw_armor_text);
 	configManager.setBoolean(charenc("ESP"), charenc("World"), cvar::esp_draw_world);
+	configManager.setBoolean(charenc("ESP"), charenc("Glow"), cvar::esp_draw_glow);
 
 	configManager.setBoolean(charenc("Misc"), charenc("Bunnyhop"), cvar::misc_bunnyhop);
 	configManager.setBoolean(charenc("Misc"), charenc("Triggerbot"), cvar::misc_triggerbot);

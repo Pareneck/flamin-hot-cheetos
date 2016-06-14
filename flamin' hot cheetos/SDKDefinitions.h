@@ -4,6 +4,7 @@
 #pragma once
 
 #include <windows.h>
+#include <vector>
 
 #include "Vector.h"
 
@@ -40,6 +41,25 @@ public:
 private:
 	int __pad1;
 } player_info_t;
+
+class CGlowObjectManager
+{
+public:
+	struct GlowObjectDefinition_t
+	{
+		CBaseEntity*	entity;
+		Vector			glowColor;
+		float			glowAlpha;
+		unsigned char   junk[16];
+		bool			shouldGlow;
+		bool			isUnknown;
+		bool			isFullBloom;
+		unsigned char   junk2[14];
+	};
+
+	std::vector<GlowObjectDefinition_t> glowObjectDefinitions;
+	int firstFreeSlot;
+};
 
 class CViewSetup
 {
