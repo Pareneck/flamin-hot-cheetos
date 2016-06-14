@@ -6,6 +6,7 @@ namespace hooks
 	std::unique_ptr<VFTManager> panelHook = nullptr;
 	std::unique_ptr<VFTManager> clientModeHook = nullptr;
 	std::unique_ptr<VFTManager> surfaceHook = nullptr;
+	std::unique_ptr<VFTManager> renderViewHook = nullptr;
 
 	void initialize()
 	{
@@ -14,9 +15,12 @@ namespace hooks
 
 		clientHook = std::make_unique<VFTManager>((DWORD**)interfaces::client, true);
 		originalCreateMove = clientHook->hook(21, (CreateMove_t)CreateMove);
-		originalRenderView = clientHook->hook(27, (RenderView_t)RenderView);
+
 		originalFrameStageNotify = clientHook->hook(36, (FrameStageNotify_t)FrameStageNotify);
 		originalKeyEvent = clientHook->hook(20, (IN_KeyEvent_t)IN_KeyEvent);
+
+		renderViewHook = std::make_unique<VFTManager>((DWORD**)interfaces::viewRender, true);
+		originalRenderView = renderViewHook->hook(6, (RenderView_t)RenderView);
 
 		// clientModeHook = std::make_unique<VFTManager>((DWORD**)interfaces::clientMode, true);
 		// originalOverrideView = clientModeHook->hook(18, (OverrideView_t)OverrideView);
@@ -24,7 +28,7 @@ namespace hooks
 		surfaceHook = std::make_unique<VFTManager>((DWORD**)interfaces::surface, true);
 		originalOnScreenSizeChanged = surfaceHook->hook(116, (OnScreenSizeChanged_t)OnScreenSizeChanged);
 
-		interfaces::engine->ExecuteClientCmd(charenc("echo [successfully hooked functions]"));
+		interfaces::engine->ClientCmd_Unrestricted(charenc("echo [successfully hooked functions]"));
 	}
 
 	void restore()
@@ -35,7 +39,7 @@ namespace hooks
 		surfaceHook->restoreTable();
 		Sleep(300);
 
-		interfaces::engine->ExecuteClientCmd(charenc("cl_mouseenable 1"));
-		interfaces::engine->ExecuteClientCmd(charenc("echo [successfully unhooked functions]"));
+		interfaces::engine->ClientCmd_Unrestricted(charenc("cl_mouseenable 1"));
+		interfaces::engine->ClientCmd_Unrestricted(charenc("echo [successfully unhooked functions]"));
 	}
 }

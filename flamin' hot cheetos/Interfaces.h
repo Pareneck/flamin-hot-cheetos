@@ -31,6 +31,7 @@ namespace interfaces
 	extern CInput*            input;
 	extern IVModelInfo*       modelinfo;
 	extern CGlobalVars*       globalvars;
+	extern void*              viewRender;
 
 	void  initialize();
 }

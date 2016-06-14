@@ -7,7 +7,7 @@
 
 void __stdcall RenderView(CViewSetup& view, int nClearFlags, int whatToDraw);
 
-typedef void(__thiscall* RenderView_t)(CHLClient*, CViewSetup&, int, int);
+typedef void(__thiscall* RenderView_t)(void*, CViewSetup&, int, int);
 extern RenderView_t originalRenderView;
 
 #endif

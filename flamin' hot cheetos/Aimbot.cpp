@@ -22,6 +22,9 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	if (!(GetAsyncKeyState(cvar::general_key_aimbot) & 0x8000))
 		return;
 
+	if (!(GetForegroundWindow() == FindWindow(charenc("Valve001"), 0)))
+		return;
+
 	bestTarget = getBestTarget(local, weapon, hitboxPosition);
 	if (bestTarget == -1)
 		return;
@@ -146,7 +149,7 @@ int Aimbot::getBestTarget(CBaseEntity* local, CBaseCombatWeapon* weapon, Vector&
 
 	interfaces::engine->GetViewAngles(viewAngles);
 
-	for (int i = 1; i <= interfaces::engine->GetMaxClients(); i++)
+	for (int i = 1; i <= interfaces::globalvars->maxclients; i++)
 	{
 		if (i == local->GetIndex())
 			continue;

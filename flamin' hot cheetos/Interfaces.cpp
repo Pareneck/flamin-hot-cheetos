@@ -15,6 +15,7 @@ namespace interfaces
 	CInput*            input = nullptr;
 	IVModelInfo*       modelinfo = nullptr;
 	CGlobalVars*       globalvars = nullptr;
+	void*              viewRender = nullptr;
 
 	void initialize()
 	{
@@ -31,10 +32,11 @@ namespace interfaces
 		enginetrace = (IEngineTrace*)tools.getInterface(charenc("engine.dll"), charenc("EngineTraceClient"));
 		modelinfo = (IVModelInfo*)tools.getInterface(charenc("engine.dll"), charenc("VModelInfoClient"));
 		globalvars = (CGlobalVars*)*(DWORD*)*(DWORD*)(tools.getPatternOffset(charenc("client.dll"), (PBYTE)charenc("\xA1\x00\x00\x00\x00\x8B\x40\x10\x89\x41\x04"), charenc("x????xxxxxx")) + 0x1);
+		viewRender = **(void***)((DWORD)tools.getPatternOffset(charenc("client.dll"), (PBYTE)charenc("\xFF\x50\x14\xE8\x00\x00\x00\x00\x5D"), charenc("xxxx????x")) - 7);
 
 		DWORD* clientVmt = (DWORD*)*(DWORD*)client;
 		input = *(CInput**)(clientVmt[15] + 0x1);
 
-		engine->ExecuteClientCmd(charenc("echo [successfully initialized interfaces]"));
+		engine->ClientCmd_Unrestricted(charenc("echo [successfully initialized interfaces]"));
 	}
 }

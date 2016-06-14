@@ -7,7 +7,10 @@ void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool all
 	originalPaintTraverse(interfaces::panel, vguiPanel, forceRepaint, allowForce);
 
 	if (GetAsyncKeyState(VK_DELETE) & 1)
-		shouldUnload = true;
+	{
+		if (GetForegroundWindow() == FindWindow(charenc("Valve001"), 0))
+			shouldUnload = true;
+	}
 
 	if (GetAsyncKeyState(VK_HOME) & 1)
 	{
@@ -46,6 +49,6 @@ void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool all
 
 		menu.think();
 
-		drawing.drawString(drawing.menuTitleFont, false, 3, 3, Color(255, 255, 255), charenc("flamin' hot cheetos"));
+		drawing.drawString(drawing.menuTitleFont, false, 3, 3, Color(255, 255, 255), charenc("flamin' hot cheetos | build 06-13-2016"));
 	}
 }

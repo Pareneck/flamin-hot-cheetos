@@ -130,7 +130,7 @@ public:
 		{
 			MOV ECX, this
 			MOV EAX, DWORD PTR DS : [ECX]
-			CALL DWORD PTR DS : [EAX + 0x28]
+				CALL DWORD PTR DS : [EAX + 0x28]
 		}
 	}
 	Vector GetAbsAngles(void)
@@ -148,8 +148,8 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, DWORD PTR DS : [EDI + 0x8]
-			MOV EDX, DWORD PTR DS : [ECX]
-			CALL DWORD PTR DS : [EDX + 0x28]
+				MOV EDX, DWORD PTR DS : [ECX]
+				CALL DWORD PTR DS : [EDX + 0x28]
 		}
 	}
 	bool IsDormant(void)
@@ -158,8 +158,8 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, [EDI + 0x8]
-			MOV EDX, DWORD PTR DS : [ecx]
-			CALL[EDX + 0x24]
+				MOV EDX, DWORD PTR DS : [ecx]
+				CALL[EDX + 0x24]
 		}
 	}
 	bool SetupBones(matrix3x4* matrix, int maxbones, int mask, float time)
@@ -168,12 +168,12 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, DWORD PTR DS : [EDI + 0x4]
-			MOV EDX, DWORD PTR DS : [ECX]
-			PUSH time
-			PUSH mask
-			PUSH maxbones
-			PUSH matrix
-			CALL DWORD PTR DS : [EDX + 0x34]
+				MOV EDX, DWORD PTR DS : [ECX]
+				PUSH time
+				PUSH mask
+				PUSH maxbones
+				PUSH matrix
+				CALL DWORD PTR DS : [EDX + 0x34]
 		}
 	}
 	model_t* GetModel()
@@ -182,21 +182,21 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, [EDI + 0x4]
-			MOV EDX, DWORD PTR DS : [ECX]
-			CALL[EDX + 0x20]
+				MOV EDX, DWORD PTR DS : [ECX]
+				CALL[EDX + 0x20]
 		}
 	}
 	IVClientClass* GetClientClass(void)
 	{
 		void* pNetworkable = (void*)(this + 0x8);
-		typedef IVClientClass* (__thiscall* fnOriginal)(void*);
-		return GetVirtualFunction<fnOriginal>(pNetworkable, 2)(pNetworkable);
+		typedef IVClientClass* (__thiscall* original)(void*);
+		return GetVirtualFunction<original>(pNetworkable, 2)(pNetworkable);
 	}
 	void GetRenderBounds(Vector& mins, Vector& maxs)
 	{
 		void* pRenderable = (void*)(this + 0x4);
-		typedef void(__thiscall* fnOriginal)(void*, Vector&, Vector&);
-		GetVirtualFunction<fnOriginal>(pRenderable, 17)(pRenderable, mins, maxs);
+		typedef void(__thiscall* original)(void*, Vector&, Vector&);
+		GetVirtualFunction<original>(pRenderable, 17)(pRenderable, mins, maxs);
 	}
 };
 
@@ -430,8 +430,8 @@ class CHLClient
 public:
 	IVClientClass* GetAllClasses(void)
 	{
-		typedef IVClientClass* (__thiscall* fnOriginal)(void*);
-		return GetVirtualFunction<fnOriginal>(this, 8)(this);
+		typedef IVClientClass* (__thiscall* original)(void*);
+		return GetVirtualFunction<original>(this, 8)(this);
 	}
 };
 
@@ -469,18 +469,18 @@ class IClientEntityList
 public:
 	CBaseEntity* GetClientEntity(int entnum)
 	{
-		typedef CBaseEntity* (__thiscall* fnOriginal)(void*, int);
-		return GetVirtualFunction<fnOriginal>(this, 3)(this, entnum);
+		typedef CBaseEntity* (__thiscall* original)(void*, int);
+		return GetVirtualFunction<original>(this, 3)(this, entnum);
 	}
 	CBaseEntity* GetClientEntityFromHandle(int hEnt)
 	{
-		typedef CBaseEntity* (__thiscall* fnOriginal)(void*, int);
-		return GetVirtualFunction<fnOriginal>(this, 4)(this, hEnt);
+		typedef CBaseEntity* (__thiscall* original)(void*, int);
+		return GetVirtualFunction<original>(this, 4)(this, hEnt);
 	}
 	int GetHighestEntityIndex(void)
 	{
-		typedef int(__thiscall* fnOriginal)(void*);
-		return GetVirtualFunction<fnOriginal>(this, 6)(this);
+		typedef int(__thiscall* original)(void*);
+		return GetVirtualFunction<original>(this, 6)(this);
 	}
 };
 
@@ -493,8 +493,8 @@ class IPanel
 public:
 	const char* GetName(unsigned int vguiPanel)
 	{
-		typedef const char*(__thiscall* fnOriginal)(void*, unsigned int);
-		return GetVirtualFunction<fnOriginal>(this, 36)(this, vguiPanel);
+		typedef const char*(__thiscall* original)(void*, unsigned int);
+		return GetVirtualFunction<original>(this, 36)(this, vguiPanel);
 	}
 };
 
@@ -507,78 +507,78 @@ class ISurface
 public:
 	void DrawSetColor(int r, int g, int b, int a)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, int, int, int, int);
-		GetVirtualFunction<fnOriginal>(this, 15)(this, r, g, b, a);
+		typedef void(__thiscall* original)(void*, int, int, int, int);
+		GetVirtualFunction<original>(this, 15)(this, r, g, b, a);
 	}
 	void DrawFilledRect(int x0, int y0, int x1, int y1)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, int, int, int, int);
-		GetVirtualFunction<fnOriginal>(this, 16)(this, x0, y0, x1, y1);
+		typedef void(__thiscall* original)(void*, int, int, int, int);
+		GetVirtualFunction<original>(this, 16)(this, x0, y0, x1, y1);
 	}
 	void DrawOutlinedRect(int x0, int y0, int x1, int y1)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, int x0, int y0, int x1, int y1);
-		GetVirtualFunction<fnOriginal>(this, 18)(this, x0, y0, x1, y1);
+		typedef void(__thiscall* original)(void*, int x0, int y0, int x1, int y1);
+		GetVirtualFunction<original>(this, 18)(this, x0, y0, x1, y1);
 	}
 	void DrawLine(int x0, int y0, int x1, int y1)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, int, int, int, int);
-		GetVirtualFunction<fnOriginal>(this, 19)(this, x0, y0, x1, y1);
+		typedef void(__thiscall* original)(void*, int, int, int, int);
+		GetVirtualFunction<original>(this, 19)(this, x0, y0, x1, y1);
 	}
 	void DrawSetTextFont(unsigned long font)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, unsigned long);
-		GetVirtualFunction<fnOriginal>(this, 23)(this, font);
+		typedef void(__thiscall* original)(void*, unsigned long);
+		GetVirtualFunction<original>(this, 23)(this, font);
 	}
 	void DrawSetTextColor(int r, int g, int b, int a)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, int, int, int, int);
-		GetVirtualFunction<fnOriginal>(this, 25)(this, r, g, b, a);
+		typedef void(__thiscall* original)(void*, int, int, int, int);
+		GetVirtualFunction<original>(this, 25)(this, r, g, b, a);
 	}
 	void DrawSetTextPos(int x, int y)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, int, int);
-		GetVirtualFunction<fnOriginal>(this, 26)(this, x, y);
+		typedef void(__thiscall* original)(void*, int, int);
+		GetVirtualFunction<original>(this, 26)(this, x, y);
 	}
 	void DrawPrintText(const wchar_t* text, int textLen)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, const wchar_t *, int, int);
-		GetVirtualFunction<fnOriginal>(this, 28)(this, text, textLen, 0);
+		typedef void(__thiscall* original)(void*, const wchar_t *, int, int);
+		GetVirtualFunction<original>(this, 28)(this, text, textLen, 0);
 	}
 	unsigned long CreateFont()
 	{
-		typedef unsigned int(__thiscall* fnOriginal)(void*);
-		return GetVirtualFunction<fnOriginal>(this, 71)(this);
+		typedef unsigned int(__thiscall* original)(void*);
+		return GetVirtualFunction<original>(this, 71)(this);
 	}
 	void SetFontGlyphSet(unsigned long& font, const char* windowsFontName, int tall, int weight, int blur, int scanlines, int flags)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, unsigned long, const char*, int, int, int, int, int, int, int);
-		GetVirtualFunction<fnOriginal>(this, 72)(this, font, windowsFontName, tall, weight, blur, scanlines, flags, 0, 0);
+		typedef void(__thiscall* original)(void*, unsigned long, const char*, int, int, int, int, int, int, int);
+		GetVirtualFunction<original>(this, 72)(this, font, windowsFontName, tall, weight, blur, scanlines, flags, 0, 0);
 	}
 	bool AddCustomFontFile(const char* fontName)
 	{
-		typedef bool(__thiscall* fnOriginal)(void*, const char*);
-		return GetVirtualFunction<fnOriginal>(this, 73)(this, fontName);
+		typedef bool(__thiscall* original)(void*, const char*);
+		return GetVirtualFunction<original>(this, 73)(this, fontName);
 	}
 	void GetTextSize(unsigned long font, const wchar_t *text, int &wide, int &tall)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, unsigned long font, const wchar_t *text, int &wide, int &tall);
-		GetVirtualFunction<fnOriginal>(this, 79)(this, font, text, wide, tall);
+		typedef void(__thiscall* original)(void*, unsigned long font, const wchar_t *text, int &wide, int &tall);
+		GetVirtualFunction<original>(this, 79)(this, font, text, wide, tall);
 	}
 	void GetCursorPos(int& x, int& y)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, int &, int &);
-		GetVirtualFunction<fnOriginal>(this, 100)(this, x, y);
+		typedef void(__thiscall* original)(void*, int &, int &);
+		GetVirtualFunction<original>(this, 100)(this, x, y);
 	}
 	void SetCursorPos(int x, int y)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, int, int);
-		GetVirtualFunction<fnOriginal>(this, 101)(this, x, y);
+		typedef void(__thiscall* original)(void*, int, int);
+		GetVirtualFunction<original>(this, 101)(this, x, y);
 	}
 	const char* GetFontName(unsigned long font)
 	{
-		typedef const char*(__thiscall* fnOriginal)(void*, unsigned long);
-		return GetVirtualFunction<fnOriginal>(this, 134)(this, font);
+		typedef const char*(__thiscall* original)(void*, unsigned long);
+		return GetVirtualFunction<original>(this, 134)(this, font);
 	}
 };
 
@@ -591,23 +591,23 @@ class IVDebugOverlay
 public:
 	void AddBoxOverlay(const Vector& origin, const Vector& mins, const Vector& max, Vector const& orientation, int r, int g, int b, int a, float duration)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, const Vector&, const Vector&, const Vector&, Vector const&, int, int, int, int, float);
-		GetVirtualFunction<fnOriginal>(this, 3)(this, origin, mins, max, orientation, r, g, b, a, duration);
+		typedef void(__thiscall* original)(void*, const Vector&, const Vector&, const Vector&, Vector const&, int, int, int, int, float);
+		GetVirtualFunction<original>(this, 3)(this, origin, mins, max, orientation, r, g, b, a, duration);
 	}
 	void AddLineOverlay(const Vector& origin, const Vector& dest, int r, int g, int b, bool noDepthTest, float duration)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, const Vector& origin, const Vector& dest, int r, int g, int b, bool noDepthTest, float duration);
-		GetVirtualFunction<fnOriginal>(this, 5)(this, origin, dest, r, g, b, noDepthTest, duration);
+		typedef void(__thiscall* original)(void*, const Vector& origin, const Vector& dest, int r, int g, int b, bool noDepthTest, float duration);
+		GetVirtualFunction<original>(this, 5)(this, origin, dest, r, g, b, noDepthTest, duration);
 	}
 	void AddSweptBoxOverlay(const Vector& origin, const Vector& end, const Vector& mins, const Vector& max, Vector const& orientation, int r, int g, int b, int a, float duration)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, const Vector&, const Vector&, const Vector&, const Vector&, Vector const&, int, int, int, int, float);
-		GetVirtualFunction<fnOriginal>(this, 9)(this, origin, end, mins, max, orientation, r, g, b, a, duration);
+		typedef void(__thiscall* original)(void*, const Vector&, const Vector&, const Vector&, const Vector&, Vector const&, int, int, int, int, float);
+		GetVirtualFunction<original>(this, 9)(this, origin, end, mins, max, orientation, r, g, b, a, duration);
 	}
 	bool ScreenPosition(const Vector& vIn, Vector& vOut)
 	{
-		typedef bool(__thiscall* fnOriginal)(void*, const Vector&, Vector&);
-		return GetVirtualFunction<fnOriginal>(this, 13)(this, vIn, vOut);
+		typedef bool(__thiscall* original)(void*, const Vector&, Vector&);
+		return GetVirtualFunction<original>(this, 13)(this, vIn, vOut);
 	}
 };
 
@@ -620,48 +620,53 @@ class IEngineClient
 public:
 	bool GetPlayerInfo(int iIndex, player_info_t* pInfo)
 	{
-		typedef bool(__thiscall* fnOriginal)(void*, int, player_info_t*);
-		return GetVirtualFunction<fnOriginal>(this, 8)(this, iIndex, pInfo);
+		typedef bool(__thiscall* original)(void*, int, player_info_t*);
+		return GetVirtualFunction<original>(this, 8)(this, iIndex, pInfo);
 	}
 	int GetLocalPlayer(void)
 	{
-		typedef int(__thiscall* fnOriginal)(void*);
-		return GetVirtualFunction<fnOriginal>(this, 12)(this);
+		typedef int(__thiscall* original)(void*);
+		return GetVirtualFunction<original>(this, 12)(this);
 	}
 	float GetLastTimeStamp(void)
 	{
-		typedef float(__thiscall* fnOriginal)(void*);
-		return GetVirtualFunction<fnOriginal>(this, 14)(this);
+		typedef float(__thiscall* original)(void*);
+		return GetVirtualFunction<original>(this, 14)(this);
 	}
 	void GetViewAngles(QAngle& angles)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, QAngle&);
-		GetVirtualFunction< fnOriginal >(this, 18)(this, angles);
+		typedef void(__thiscall* original)(void*, QAngle&);
+		GetVirtualFunction< original >(this, 18)(this, angles);
 	}
 	void SetViewAngles(QAngle& angles)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, QAngle&);
-		GetVirtualFunction<fnOriginal>(this, 19)(this, angles);
+		typedef void(__thiscall* original)(void*, QAngle&);
+		GetVirtualFunction<original>(this, 19)(this, angles);
 	}
 	int GetMaxClients(void)
 	{
-		typedef int(__thiscall* fnOriginal)(void*);
-		return GetVirtualFunction<fnOriginal>(this, 20)(this);
+		typedef int(__thiscall* original)(void*);
+		return GetVirtualFunction<original>(this, 20)(this);
 	}
 	bool InGame(void)
 	{
-		typedef bool(__thiscall* fnOriginal)(void*);
-		return GetVirtualFunction<fnOriginal>(this, 26)(this);
+		typedef bool(__thiscall* original)(void*);
+		return GetVirtualFunction<original>(this, 26)(this);
 	}
 	bool IsConnected(void)
 	{
-		typedef bool(__thiscall* fnOriginal)(void*);
-		return GetVirtualFunction<fnOriginal>(this, 27)(this);
+		typedef bool(__thiscall* original)(void*);
+		return GetVirtualFunction<original>(this, 27)(this);
 	}
-	void ExecuteClientCmd(char const* pszCommand)
+	void ExecuteClientCmd(const char* command)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, char const*);
-		GetVirtualFunction<fnOriginal>(this, 108)(this, pszCommand);
+		typedef void(__thiscall* original)(void*, const char*);
+		GetVirtualFunction<original>(this, 108)(this, command);
+	}
+	void ClientCmd_Unrestricted(const char* command)
+	{
+		typedef void(__thiscall* original)(void*, const char *);
+		GetVirtualFunction<original>(this, 114)(this, command);
 	}
 };
 
@@ -726,8 +731,8 @@ public:
 
 	CUserCmd* GetUserCmd(int slot, int seq)
 	{
-		typedef CUserCmd* (__thiscall* fnOriginal)(void*, int, int);
-		return GetVirtualFunction<fnOriginal>(this, 8)(this, slot, seq);
+		typedef CUserCmd* (__thiscall* original)(void*, int, int);
+		return GetVirtualFunction<original>(this, 8)(this, slot, seq);
 	}
 };
 
@@ -895,21 +900,22 @@ public:
 		void* passentity1;
 		void* passentity2;
 	};
+
 public:
 	void TraceRay(const Ray_t& ray, unsigned int mask, CTraceFilter* filter, trace_t* trace)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, const Ray_t&, unsigned int, CTraceFilter*, trace_t*);
-		GetVirtualFunction<fnOriginal>(this, 5)(this, ray, mask, filter, trace);
+		typedef void(__thiscall* original)(void*, const Ray_t&, unsigned int, CTraceFilter*, trace_t*);
+		GetVirtualFunction<original>(this, 5)(this, ray, mask, filter, trace);
 	}
 	void ClipRayToEntity(const Ray_t& ray, unsigned int mask, CBaseEntity* entity, trace_t* trace)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, const Ray_t&, unsigned int, CBaseEntity*, trace_t*);
-		GetVirtualFunction<fnOriginal>(this, 3)(this, ray, mask, entity, trace);
+		typedef void(__thiscall* original)(void*, const Ray_t&, unsigned int, CBaseEntity*, trace_t*);
+		GetVirtualFunction<original>(this, 3)(this, ray, mask, entity, trace);
 	}
 	int GetPointContents(const Vector& absPosition, unsigned int mask, CBaseEntity** entity = 0)
 	{
-		typedef int(__thiscall* fnOriginal)(void*, const Vector&, unsigned int, CBaseEntity**);
-		return GetVirtualFunction<fnOriginal>(this, 0)(this, absPosition, mask, entity);
+		typedef int(__thiscall* original)(void*, const Vector&, unsigned int, CBaseEntity**);
+		return GetVirtualFunction<original>(this, 0)(this, absPosition, mask, entity);
 	}
 };
 
@@ -950,28 +956,28 @@ class IVModelInfo
 public:
 	int GetModelIndex(const char* modelName)
 	{
-		typedef int(__thiscall* fnOriginal)(void*, const char*);
-		return GetVirtualFunction<fnOriginal>(this, 2)(this, modelName);
+		typedef int(__thiscall* original)(void*, const char*);
+		return GetVirtualFunction<original>(this, 2)(this, modelName);
 	}
 	const char* GetModelName(const model_t* pModel)
 	{
-		typedef const char* (__thiscall* fnOriginal)(void*, const model_t*);
-		return GetVirtualFunction<fnOriginal>(this, 3)(this, pModel);
+		typedef const char* (__thiscall* original)(void*, const model_t*);
+		return GetVirtualFunction<original>(this, 3)(this, pModel);
 	}
 	int GetInt(const char* keyName, int defaultValue = 0)
 	{
-		typedef int(__thiscall* fnOriginal)(void*, const char*, int);
-		return GetVirtualFunction<fnOriginal>(this, 6)(this, keyName, defaultValue);
+		typedef int(__thiscall* original)(void*, const char*, int);
+		return GetVirtualFunction<original>(this, 6)(this, keyName, defaultValue);
 	}
 	void GetModelMaterials(const model_t* model, int count, IMaterial** ppMaterial)
 	{
-		typedef void(__thiscall* fnOriginal)(void*, const model_t*, int, IMaterial**);
-		return GetVirtualFunction< fnOriginal >(this, 17)(this, model, count, ppMaterial);
+		typedef void(__thiscall* original)(void*, const model_t*, int, IMaterial**);
+		return GetVirtualFunction< original >(this, 17)(this, model, count, ppMaterial);
 	}
 	studiohdr_t* GetStudioModel(const model_t* model)
 	{
-		typedef studiohdr_t* (__thiscall* fnOriginal)(void*, const model_t*);
-		return GetVirtualFunction<fnOriginal>(this, 30)(this, model);
+		typedef studiohdr_t* (__thiscall* original)(void*, const model_t*);
+		return GetVirtualFunction<original>(this, 30)(this, model);
 	}
 };
 

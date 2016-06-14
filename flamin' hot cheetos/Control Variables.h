@@ -30,8 +30,7 @@ namespace cvar
 	extern bool misc_bunnyhop;
 	extern bool misc_triggerbot;
 	extern bool misc_skinchanger;
-	extern bool misc_overridefov;
-	extern int misc_overridefov_value;
+	extern int misc_overridefov;
 }
 
 #endif
