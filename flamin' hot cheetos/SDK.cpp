@@ -121,11 +121,11 @@ void Tools::sinCos(float radians, float* sine, float* cosine)
 		fld	DWORD PTR[radians]
 		fsincos
 
-		mov edx, DWORD PTR[cosine]
-		mov eax, DWORD PTR[sine]
+			mov edx, DWORD PTR[cosine]
+			mov eax, DWORD PTR[sine]
 
-		fstp DWORD PTR[edx]
-		fstp DWORD PTR[eax]
+			fstp DWORD PTR[edx]
+			fstp DWORD PTR[eax]
 	}
 }
 
