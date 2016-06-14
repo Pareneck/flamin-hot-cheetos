@@ -4,7 +4,7 @@ OverrideView_t originalOverrideView;
 
 void __stdcall OverrideView(CViewSetup* setup)
 {
-	CBaseEntity* local = interfaces::entitylist->GetClientEntity(interfaces::engine->GetLocalPlayer());
+	/*CBaseEntity* local = interfaces::entitylist->GetClientEntity(interfaces::engine->GetLocalPlayer());
 	if (local)
 	{
 		if (cvar::misc_overridefov)
@@ -12,7 +12,7 @@ void __stdcall OverrideView(CViewSetup* setup)
 			if (!local->IsScoped())
 				setup->fov += cvar::misc_overridefov_value;
 		}
-	}
+	}*/
 
 	originalOverrideView(interfaces::clientMode, setup);
 }

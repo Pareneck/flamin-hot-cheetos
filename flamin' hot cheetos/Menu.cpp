@@ -183,7 +183,7 @@ void Menu::drawMenu(void)
 		getKeyPressed(x + 30, y + 105, 50, 15, 430, cvar::general_key_triggerbot, charenc("Triggerbot Key"));
 		drawCheckbox(x + 30, y + 130, 450, cvar::misc_skinchanger, charenc("Skin Changer"));
 		drawCheckbox(x + 30, y + 155, 450, cvar::misc_overridefov, charenc("Override FoV"));
-		drawSlider(x + 30, y + 180, 200, 6, 237, 0, 60, cvar::misc_overridefov_value, charenc("Override FoV Value"));
+		drawSlider(x + 30, y + 180, 200, 6, 237, 0, 90, cvar::misc_overridefov_value, charenc("Override FoV Value"));
 	}
 
 	drawing.drawFilledRect(x + 1, y + 45, w - 2, 2, Color(255, 165, 0));

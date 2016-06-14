@@ -28,5 +28,5 @@ namespace cvar
 	bool misc_triggerbot = true;
 	bool misc_skinchanger = true;
 	bool misc_overridefov = true;
-	int misc_overridefov_value = 30;
+	int misc_overridefov_value = 90;
 }
