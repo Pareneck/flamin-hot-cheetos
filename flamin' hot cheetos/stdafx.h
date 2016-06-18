@@ -12,7 +12,6 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include <future>
 
 #include "cx_strenc.h"
 

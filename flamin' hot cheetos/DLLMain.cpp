@@ -17,8 +17,8 @@ bool shouldUnload = false;
 
 DWORD __stdcall initializeRoutine(LPVOID hInstance)
 {
-	while (!GetModuleHandleA(charenc("client.dll")) || !GetModuleHandleA(charenc("engine.dll")))
-		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+	while (!GetModuleHandle(charenc("client.dll")))
+		Sleep(100);
 
 	config.loadConfig();
 	config.loadSkinConfig();
@@ -28,7 +28,7 @@ DWORD __stdcall initializeRoutine(LPVOID hInstance)
 	hooks::initialize();
 
 	while (!shouldUnload)
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+		Sleep(1000);
 
 	FreeLibraryAndExitThread((HMODULE)hInstance, 0);
 
