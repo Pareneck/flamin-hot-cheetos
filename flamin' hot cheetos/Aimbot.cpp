@@ -171,7 +171,7 @@ int Aimbot::getBestTarget(CBaseEntity* local, CBaseCombatWeapon* weapon, Vector&
 
 		hitbox = tools.getPredictedPosition(hitbox, entity->GetVelocity());
 
-		float fov = tools.getFov(viewAngles + getRandomizedRecoil(local), tools.computeAngle(local->GetEyePosition(), hitbox));
+		float fov = tools.getFov(viewAngles + local->GetPunchAngles() * 2.f, tools.computeAngle(local->GetEyePosition(), hitbox));
 		if (fov < bestFov && fov < cvar::aimbot_fov)
 		{
 			if (tools.isVisible(local->GetEyePosition(), hitbox, entity))
