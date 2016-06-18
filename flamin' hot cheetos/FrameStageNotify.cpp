@@ -39,7 +39,17 @@ void __stdcall FrameStageNotify(ClientFrameStage_t curStage)
 				CBaseCombatWeapon* weapon = (CBaseCombatWeapon*)entity;
 
 				if (weapon && !weapon->IsKnife())
+				{
 					weapon->SetPattern(info, config.skincfg[weapon->GetItemDefinitionIndex()].skin, config.skincfg[weapon->GetItemDefinitionIndex()].wear, config.skincfg[weapon->GetItemDefinitionIndex()].seed, config.skincfg[weapon->GetItemDefinitionIndex()].stattrak, config.skincfg[weapon->GetItemDefinitionIndex()].name);
+				}
+				else if (weapon && weapon->IsKnife())
+				{
+					if (cvar::misc_knifechanger_model == 1)
+					{
+						*(int*)((DWORD)weapon + offsets::weapon::m_iItemDefinitionIndex) = WEAPON_KNIFE_BUTTERFLY;
+						weapon->SetPattern(info, config.skincfg[WEAPON_KNIFE_BUTTERFLY].skin, config.skincfg[WEAPON_KNIFE_BUTTERFLY].wear, config.skincfg[WEAPON_KNIFE_BUTTERFLY].seed, config.skincfg[WEAPON_KNIFE_BUTTERFLY].stattrak, config.skincfg[WEAPON_KNIFE_BUTTERFLY].name);
+					}
+				}
 			}
 		}
 	}

@@ -2,41 +2,45 @@
 
 namespace hooks
 {
-	std::unique_ptr<VFTManager> clientHook = nullptr;
-	std::unique_ptr<VFTManager> panelHook = nullptr;
-	std::unique_ptr<VFTManager> clientModeHook = nullptr;
-	std::unique_ptr<VFTManager> surfaceHook = nullptr;
-	std::unique_ptr<VFTManager> renderViewHook = nullptr;
+	std::unique_ptr<VFTManager> clienthook = nullptr;
+	std::unique_ptr<VFTManager> panelhook = nullptr;
+	std::unique_ptr<VFTManager> clientmodehook = nullptr;
+	std::unique_ptr<VFTManager> surfacehook = nullptr;
+	std::unique_ptr<VFTManager> modelcachehook = nullptr;
+	std::unique_ptr<VFTManager> renderviewhook = nullptr;
 
 	void initialize()
 	{
-		panelHook = std::make_unique<VFTManager>((DWORD**)interfaces::panel, true);
-		originalPaintTraverse = panelHook->hook(41, (PaintTraverse_t)PaintTraverse);
+		panelhook = std::make_unique<VFTManager>((DWORD**)interfaces::panel, true);
+		originalPaintTraverse = panelhook->hook(41, (PaintTraverse_t)PaintTraverse);
 
-		clientHook = std::make_unique<VFTManager>((DWORD**)interfaces::client, true);
-		originalCreateMove = clientHook->hook(21, (CreateMove_t)CreateMove);
+		clienthook = std::make_unique<VFTManager>((DWORD**)interfaces::client, true);
+		originalCreateMove = clienthook->hook(21, (CreateMove_t)CreateMove);
+		originalFrameStageNotify = clienthook->hook(36, (FrameStageNotify_t)FrameStageNotify);
+		originalKeyEvent = clienthook->hook(20, (IN_KeyEvent_t)IN_KeyEvent);
 
-		originalFrameStageNotify = clientHook->hook(36, (FrameStageNotify_t)FrameStageNotify);
-		originalKeyEvent = clientHook->hook(20, (IN_KeyEvent_t)IN_KeyEvent);
+		modelcachehook = std::make_unique<VFTManager>((DWORD**)interfaces::modelcache, true);
+		originalFindMDL = modelcachehook->hook(10, (FindMDL_t)FindMDL);
 
-		renderViewHook = std::make_unique<VFTManager>((DWORD**)interfaces::viewRender, true);
-		originalRenderView = renderViewHook->hook(6, (RenderView_t)RenderView);
+		renderviewhook = std::make_unique<VFTManager>((DWORD**)interfaces::viewRender, true);
+		originalRenderView = renderviewhook->hook(6, (RenderView_t)RenderView);
 
 		// clientModeHook = std::make_unique<VFTManager>((DWORD**)interfaces::clientMode, true);
 		// originalOverrideView = clientModeHook->hook(18, (OverrideView_t)OverrideView);
 
-		surfaceHook = std::make_unique<VFTManager>((DWORD**)interfaces::surface, true);
-		originalOnScreenSizeChanged = surfaceHook->hook(116, (OnScreenSizeChanged_t)OnScreenSizeChanged);
+		surfacehook = std::make_unique<VFTManager>((DWORD**)interfaces::surface, true);
+		originalOnScreenSizeChanged = surfacehook->hook(116, (OnScreenSizeChanged_t)OnScreenSizeChanged);
 
 		interfaces::engine->ClientCmd_Unrestricted(charenc("echo [successfully hooked functions]"));
 	}
 
 	void restore()
 	{
-		panelHook->restoreTable();
-		clientHook->restoreTable();
+		panelhook->restoreTable();
+		clienthook->restoreTable();
+		modelcachehook->restoreTable();
 		// clientModeHook->restoreTable();
-		surfaceHook->restoreTable();
+		surfacehook->restoreTable();
 		Sleep(300);
 
 		interfaces::engine->ClientCmd_Unrestricted(charenc("cl_mouseenable 1"));

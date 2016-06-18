@@ -185,7 +185,7 @@ void Menu::drawMenu(void)
 		drawCheckbox(x + 30, y + 130, 450, cvar::misc_skinchanger, charenc("Skin Changer"));
 		drawSlider(x + 30, y + 155, 200, 6, 237, 0, 60, cvar::misc_overridefov, charenc("Viewmodel Field of View"));
 		drawCheckbox(x + 30, y + 180, 450, cvar::misc_recoilcontrol, charenc("Standalone Recoil Control"));
-		drawSlider(x + 30, y + 205, 200, 6, 237, 1.f, 2.f, cvar::misc_recoilcontrol_scale, charenc("Standalone Recoil Control Scale"));
+		drawSlider(x + 30, y + 205, 200, 6, 237, 0.f, 2.f, cvar::misc_recoilcontrol_scale, charenc("Standalone Recoil Control Scale"));
 	}
 
 	drawing.drawFilledRect(x + 1, y + 45, w - 2, 2, Color(255, 165, 0));

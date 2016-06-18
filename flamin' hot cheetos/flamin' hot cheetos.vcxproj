@@ -144,6 +144,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="FindMDL.h" />
     <ClInclude Include="RenderView.h" />
     <ClInclude Include="IN_KeyEvent.h" />
     <ClInclude Include="OverrideView.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="VFTManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FindMDL.cpp" />
     <ClCompile Include="RenderView.cpp" />
     <ClCompile Include="IN_KeyEvent.cpp" />
     <ClCompile Include="OverrideView.cpp" />

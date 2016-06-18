@@ -28,6 +28,7 @@ namespace cvar
 	bool misc_bunnyhop = true;
 	bool misc_triggerbot = true;
 	bool misc_skinchanger = true;
+	int misc_knifechanger_model = 1;
 	int misc_overridefov = 22;
 	bool misc_recoilcontrol = true;
 	float misc_recoilcontrol_scale = 2.f;

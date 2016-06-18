@@ -15,6 +15,7 @@ class IEngineTrace;
 class CInput;
 class IVModelInfo;
 class CGlobalVars;
+class IMDLCache;
 
 namespace interfaces
 {
@@ -31,6 +32,7 @@ namespace interfaces
 	extern CInput*            input;
 	extern IVModelInfo*       modelinfo;
 	extern CGlobalVars*       globalvars;
+	extern IMDLCache*         modelcache;
 	extern void*              viewRender;
 
 	void  initialize();

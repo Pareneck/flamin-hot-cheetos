@@ -15,6 +15,8 @@
 typedef float matrix3x4[3][4];
 typedef float matrix4x4[4][4];
 
+typedef unsigned short MDLHandle_t;
+
 //----------------------------------------
 // FORWARD DECLARATIONS
 //----------------------------------------

@@ -79,6 +79,9 @@
     <Filter Include="Project Files\Hooks\RenderView">
       <UniqueIdentifier>{597ef671-e2f2-4ce1-bac3-f7f854e90934}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\Hooks\FindMDL">
+      <UniqueIdentifier>{8c773b51-e2e5-4b90-b667-d7a9c2e9d6a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK.cpp">
@@ -149,6 +152,9 @@
     </ClCompile>
     <ClCompile Include="RenderView.cpp">
       <Filter>Project Files\Hooks\RenderView</Filter>
+    </ClCompile>
+    <ClCompile Include="FindMDL.cpp">
+      <Filter>Project Files\Hooks\FindMDL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="RenderView.h">
       <Filter>Project Files\Hooks\RenderView</Filter>
+    </ClInclude>
+    <ClInclude Include="FindMDL.h">
+      <Filter>Project Files\Hooks\FindMDL</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

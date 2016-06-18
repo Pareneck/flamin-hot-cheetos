@@ -14,6 +14,7 @@
 #include "RenderView.h"
 #include "OnScreenSizeChanged.h"
 #include "IN_KeyEvent.h"
+#include "FindMDL.h"
 
 namespace hooks
 {
