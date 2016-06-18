@@ -40,7 +40,9 @@ void Config::loadConfig(void)
 		configManager.getBoolean(charenc("Misc"), charenc("Triggerbot"), cvar::misc_triggerbot);
 		configManager.getInteger(charenc("Misc"), charenc("Triggerbot Key"), cvar::general_key_triggerbot);
 		configManager.getBoolean(charenc("Misc"), charenc("Skin Changer"), cvar::misc_skinchanger);
-		configManager.getInteger(charenc("Misc"), charenc("Viewmodel Field of View"), cvar::misc_overridefov);
+		configManager.getInteger(charenc("Misc"), charenc("View Model Field of View"), cvar::misc_overridefov);
+		configManager.getBoolean(charenc("Misc"), charenc("Standalone Recoil Control"), cvar::misc_recoilcontrol);
+		configManager.getFloat(charenc("Misc"), charenc("Standalone Recoil Control Scale"), cvar::misc_recoilcontrol_scale);
 	}
 	else
 	{
@@ -78,6 +80,8 @@ void Config::saveConfig(void)
 	configManager.setInteger(charenc("Misc"), charenc("Triggerbot Key"), cvar::general_key_triggerbot);
 	configManager.setBoolean(charenc("Misc"), charenc("Skin Changer"), cvar::misc_skinchanger);
 	configManager.setInteger(charenc("Misc"), charenc("Viewmodel Field of View"), cvar::misc_overridefov);
+	configManager.setInteger(charenc("Misc"), charenc("Standalone Recoil Control"), cvar::misc_recoilcontrol);
+	configManager.setFloat(charenc("Misc"), charenc("Standalone Recoil Control Scale"), cvar::misc_recoilcontrol_scale);
 }
 
 void Config::loadSkinConfig(void)

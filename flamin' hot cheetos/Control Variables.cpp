@@ -29,4 +29,6 @@ namespace cvar
 	bool misc_triggerbot = true;
 	bool misc_skinchanger = true;
 	int misc_overridefov = 22;
+	bool misc_recoilcontrol = true;
+	float misc_recoilcontrol_scale = 2.f;
 }

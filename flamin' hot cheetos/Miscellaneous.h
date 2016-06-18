@@ -8,7 +8,8 @@
 class Misc
 {
 public:
-	void bunnyhop(CBaseEntity* local, CInput::CUserCmd* cmd);
+	void doBunnyhop(CBaseEntity* local, CInput::CUserCmd* cmd);
+	void doRecoilControl(CBaseEntity* local, CBaseCombatWeapon* weapon, CInput::CUserCmd* cmd);
 };
 
 extern Misc misc;

@@ -21,6 +21,7 @@ private:
 
 private:
 	Color espColor;
+	Color glowColor;
 };
 
 typedef CGlowObjectManager*(__thiscall* GlowObjectPointer_t)(void);

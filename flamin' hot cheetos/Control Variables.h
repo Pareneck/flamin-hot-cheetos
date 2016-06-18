@@ -32,6 +32,8 @@ namespace cvar
 	extern bool misc_triggerbot;
 	extern bool misc_skinchanger;
 	extern int misc_overridefov;
+	extern bool misc_recoilcontrol;
+	extern float misc_recoilcontrol_scale;
 }
 
 #endif

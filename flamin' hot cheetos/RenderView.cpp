@@ -8,10 +8,7 @@ void __stdcall RenderView(CViewSetup& view, int nClearFlags, int whatToDraw)
 	if (local)
 	{
 		if (cvar::misc_overridefov)
-		{
-			if (!local->IsScoped())
-				view.fovViewmodel += cvar::misc_overridefov;
-		}
+			view.fovViewmodel += cvar::misc_overridefov;
 	}
 
 	originalRenderView(interfaces::viewRender, view, nClearFlags, whatToDraw);

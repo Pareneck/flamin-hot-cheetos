@@ -5,6 +5,7 @@ Visuals visuals;
 Visuals::Visuals(void)
 {
 	espColor = Color(0, 0, 0, 0);
+	glowColor = Color(0, 0, 0, 0);
 }
 
 void Visuals::think(CBaseEntity* local)
@@ -236,8 +237,8 @@ void Visuals::drawBoundingBox(CBaseEntity* entity, Color color, const char* text
 			bottom = arr[i].y;
 	}
 
-	float h = (bottom - top);
-	float w = (right - left);
+	float h = bottom - top;
+	float w = right - left;
 
 	drawing.drawLine(left, bottom, left, top, color);
 	drawing.drawLine(left - 1, bottom - 1, left - 1, top + 2, Color(0, 0, 0));
@@ -270,8 +271,6 @@ void Visuals::drawGlow(CBaseEntity* entity)
 	UINT32 glowIndex = *(UINT32*)((uintptr_t)entity + 0xA2F8 + 0x18);
 	CGlowObjectManager::GlowObjectDefinition_t* glowObjectArray = *(CGlowObjectManager::GlowObjectDefinition_t**)glowObjectPointer;
 	CGlowObjectManager::GlowObjectDefinition_t* glowObject = &glowObjectArray[glowIndex];
-
-	static Color glowColor = Color(0, 0, 0, 0);
 
 	if (entity->GetTeamNum() == 2)
 		glowColor = Color(223, 175, 86, 153);

@@ -118,6 +118,7 @@ bool Aimbot::getClosestHitbox(CBaseEntity* local, CBaseEntity* entity, Vector& d
 	hitboxes.push_back(HITBOX_UPPER_CHEST);
 	hitboxes.push_back(HITBOX_CHEST);
 	hitboxes.push_back(HITBOX_BODY);
+	hitboxes.push_back(HITBOX_PELVIS);
 
 	for (auto hitbox : hitboxes)
 	{

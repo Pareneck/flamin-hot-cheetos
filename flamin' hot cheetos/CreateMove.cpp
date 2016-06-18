@@ -19,11 +19,14 @@ void __stdcall CreateMove(int sequence_number, float input_sample_frametime, boo
 	if (local)
 	{
 		if (cvar::misc_bunnyhop)
-			misc.bunnyhop(local, cmd);
+			misc.doBunnyhop(local, cmd);
 
 		CBaseCombatWeapon* weapon = tools.getActiveWeapon(local);
 		if (weapon)
 		{
+			if (cvar::misc_recoilcontrol)
+				misc.doRecoilControl(local, weapon, cmd);
+
 			if (cvar::aimbot_enabled)
 				aimbot.think(local, weapon);
 

@@ -49,6 +49,6 @@ void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool all
 
 		menu.think();
 
-		drawing.drawString(drawing.menuTitleFont, false, 3, 3, Color(255, 255, 255), charenc("flamin' hot cheetos | build 06-13-2016"));
+		drawing.drawString(drawing.menuTitleFont, false, 3, 3, Color(255, 255, 255), charenc("flamin' hot cheetos | build 06-17-2016"));
 	}
 }
