@@ -31,6 +31,7 @@ namespace cvar
 	extern bool misc_bunnyhop;
 	extern bool misc_triggerbot;
 	extern bool misc_skinchanger;
+	extern bool misc_knifechanger;
 	extern int misc_knifechanger_model;
 	extern int misc_overridefov;
 	extern bool misc_recoilcontrol;
