@@ -42,7 +42,7 @@ namespace offsets
 		entity::m_CollisionGroup = 0x470;
 		entity::m_rgflCoordinateFrame = entity::m_CollisionGroup - 0x30;
 
-		misc::m_dwSensitivity = *(DWORD*)(tools.getPatternOffset(charenc("client.dll"), (PBYTE)charenc("\xF3\x0F\x10\x05\x00\x00\x00\x00\xEB\x17\x8B\x01\x8B\x40\x30\xFF\xD0\xF3\x0F\x10\x0D"), charenc("xxxx????xxxxxxxxxxxxx")) - 4);
+		misc::m_dwSensitivity = 0xA35D0C;
 	}
 
 	namespace player
