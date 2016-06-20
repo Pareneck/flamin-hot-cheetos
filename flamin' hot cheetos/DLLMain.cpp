@@ -14,9 +14,15 @@
 //  - figure out this 'undefined class' shit (circular header includes?)
 //------------------------------------------------------------------------------------------
 
+//------------------------------------------------------------------------------------------
+// notes:
+//  - modern c++ functions such as sleep_for and async threading breaks injection
+//    - probably because of the run-time shit it does on process entry
+//------------------------------------------------------------------------------------------
+
 bool shouldUnload = false;
 
-void initializeRoutine(void* hInstance)
+DWORD __stdcall initializeRoutine(void* hInstance)
 {
 	while (!GetModuleHandleA(charenc("client.dll")))
 		Sleep(100);
@@ -29,7 +35,7 @@ void initializeRoutine(void* hInstance)
 	hooks::initialize();
 
 	while (!shouldUnload)
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+		Sleep(1000);
 
 	FreeLibraryAndExitThread((HMODULE)hInstance, 0);
 }
@@ -39,8 +45,8 @@ BOOL APIENTRY DllMain(HMODULE hInstance, DWORD dwReason, LPVOID lpReserved)
 	switch (dwReason)
 	{
 	case DLL_PROCESS_ATTACH:
-		DisableThreadLibraryCalls(hInstance);
-		std::async(std::launch::async, initializeRoutine, hInstance);
+		// DisableThreadLibraryCalls(hInstance);
+		CreateThread(nullptr, 0, initializeRoutine, hInstance, 0, nullptr);
 		break;
 	case DLL_PROCESS_DETACH:
 		hooks::restore();

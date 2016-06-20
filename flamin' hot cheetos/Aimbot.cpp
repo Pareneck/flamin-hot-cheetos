@@ -36,7 +36,8 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	if (tools.getDistance(local->GetEyePosition(), hitboxPosition) > 8192.f)
 		return;
 
-	hitboxPosition += tools.random(-cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox);
+	hitboxPosition.x += tools.random(-cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox);
+	hitboxPosition.y += tools.random(-cvar::aimbot_randomize_hitbox, cvar::aimbot_randomize_hitbox);
 
 	tools.computeAngle(local->GetEyePosition(), hitboxPosition, finalAngles);
 	tools.normalizeAngles(finalAngles);
@@ -46,8 +47,7 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	finalAngles = viewAngles - finalAngles;
 	tools.normalizeAngles(finalAngles);
 
-	DWORD sensitivityAddress = *(DWORD*)(tools.getPatternOffset(charenc("client.dll"), (PBYTE)"\xF3\x0F\x10\x05\x00\x00\x00\x00\xEB\x17\x8B\x01\x8B\x40\x30\xFF\xD0\xF3\x0F\x10\x0D", "xxxx????xxxxxxxxxxxxx") - 4);
-	float sensitivity = *(float*)(interfaces::clientdll + sensitivityAddress /*0xA35D0C*/);
+	float sensitivity = *(float*)(interfaces::clientdll + offsets::misc::m_dwSensitivity);
 	if (!sensitivity)
 		return;
 
