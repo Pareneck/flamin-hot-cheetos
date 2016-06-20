@@ -11,7 +11,7 @@ private:
 	UCHAR m_Color[4];
 
 public:
-	Color(void)
+	Color()
 	{
 		*((int*)this) = 0;
 	}
@@ -19,23 +19,23 @@ public:
 	{
 		SetColor(r, g, b, a);
 	}
-	int r(void) const
+	int r() const
 	{
 		return m_Color[0];
 	}
-	int g(void) const
+	int g() const
 	{
 		return m_Color[1];
 	}
-	int b(void) const
+	int b() const
 	{
 		return m_Color[2];
 	}
-	int a(void) const
+	int a() const
 	{
 		return m_Color[3];
 	}
-	int GetRawColor(void) const
+	int GetRawColor() const
 	{
 		return *((int*)this);
 	}
@@ -80,7 +80,7 @@ public:
 			return m_Color[0];
 		}
 	}
-	float* ToFloatPtr(void) const
+	float* ToFloatPtr() const
 	{
 		static float pflColor[4] = { 0.f };
 
@@ -114,19 +114,19 @@ public:
 	}
 
 public:
-	template<class T> T R(void) const
+	template<class T> T R() const
 	{
 		return (T)m_Color[0];
 	}
-	template<class T> T G(void) const
+	template<class T> T G() const
 	{
 		return (T)m_Color[1];
 	}
-	template<class T> T B(void) const
+	template<class T> T B() const
 	{
 		return (T)m_Color[2];
 	}
-	template<class T> T A(void) const
+	template<class T> T A() const
 	{
 		return (T)m_Color[3];
 	}

@@ -2,18 +2,18 @@
 
 Drawing drawing;
 
-Drawing::Drawing(void)
+Drawing::Drawing()
 {
 	resetFonts();
 }
 
-void Drawing::resetFonts(void)
+void Drawing::resetFonts()
 {
 	menuFont = 0, menuTitleFont = 0;
 	espFont = 0;
 }
 
-void Drawing::initializeFonts(void)
+void Drawing::initializeFonts()
 {
 	resetFonts();
 

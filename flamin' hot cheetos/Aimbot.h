@@ -8,7 +8,7 @@
 class Aimbot
 {
 public:
-	Aimbot(void);
+	Aimbot();
 
 	void   think(CBaseEntity* local, CBaseCombatWeapon* weapon);
 

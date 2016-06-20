@@ -24,23 +24,23 @@ __forceinline float clamp(float value, float minValue, float maxValue)
 class Menu
 {
 public:
-	Menu(void);
+	Menu();
 
-	void think(void);
+	void think();
 
-	bool isActive(void);
+	bool isActive();
 
 private:
-	void setMouse(void);
-	void getMouse(void);
+	void setMouse();
+	void getMouse();
 
 	bool isMenuKey(int key);
 	bool isHovered(int x, int y, int w, int h);
 	bool isClicked(int x, int y, int w, int h);
 
-	void drawMenu(void);
+	void drawMenu();
 	void drawBorder(int x, int y, int w, int h, const char* text);
-	void drawMouse(void);
+	void drawMouse();
 	void drawCheckbox(int x, int y, int distance, bool& value, const char* text);
 	void drawSlider(int x, int y, int w, int h, int distance, float min, float max, float& value, const char* text);
 	void drawSlider(int x, int y, int w, int h, int distance, int min, int max, int& value, const char* text);

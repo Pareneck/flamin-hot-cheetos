@@ -2,7 +2,7 @@
 
 Aimbot aimbot;
 
-Aimbot::Aimbot(void)
+Aimbot::Aimbot()
 {
 	bestTarget = -1;
 

@@ -2,7 +2,7 @@
 
 Triggerbot triggerbot;
 
-Triggerbot::Triggerbot(void)
+Triggerbot::Triggerbot()
 {
 	viewAngles = QAngle(0.f, 0.f, 0.f);
 }

@@ -8,10 +8,10 @@
 class Drawing
 {
 public:
-	Drawing(void);
+	Drawing();
 
-	void resetFonts(void);
-	void initializeFonts(void);
+	void resetFonts();
+	void initializeFonts();
 
 	void drawLine(int x1, int y1, int x2, int y2, Color color);
 	void drawFilledRect(int x, int y, int w, int h, Color color);

@@ -60,31 +60,31 @@ inline Fn GetVirtualFunction(const void* inst, size_t index, size_t offset = 0)
 class CBaseEntity
 {
 public:
-	char GetLifeState(void)
+	char GetLifeState()
 	{
 		return *(char*)((DWORD)this + offsets::player::m_lifeState);
 	}
-	int GetHealth(void)
+	int GetHealth()
 	{
 		return *(int*)((DWORD)this + offsets::player::m_iHealth);
 	}
-	int GetArmor(void)
+	int GetArmor()
 	{
 		return *(int*)((DWORD)this + offsets::player::m_ArmorValue);
 	}
-	int GetTeamNum(void)
+	int GetTeamNum()
 	{
 		return *(int*)((DWORD)this + offsets::player::m_iTeamNum);
 	}
-	bool IsProtected(void)
+	bool IsProtected()
 	{
 		return *(bool*)((DWORD)this + offsets::player::m_bGunGameImmunity);
 	}
-	bool IsScoped(void)
+	bool IsScoped()
 	{
 		return *(bool*)((DWORD)this + offsets::player::m_bIsScoped);
 	}
-	int GetFlags(void)
+	int GetFlags()
 	{
 		return *(int*)((DWORD)this + offsets::player::m_fFlags);
 	}
@@ -96,27 +96,27 @@ public:
 	{
 		return *(int*)((DWORD)this + offsets::player::m_nTickBase);
 	}
-	const char* GetLastPlaceName(void)
+	const char* GetLastPlaceName()
 	{
 		return (char*)((DWORD)this + offsets::player::m_szLastPlaceName);
 	}
-	Vector GetViewOffset(void)
+	Vector GetViewOffset()
 	{
 		return *(Vector*)((DWORD)this + offsets::player::m_vecViewOffset);
 	}
-	Vector GetOrigin(void)
+	Vector GetOrigin()
 	{
 		return *(Vector*)((DWORD)this + offsets::player::m_vecOrigin);
 	}
-	Vector GetEyePosition(void)
+	Vector GetEyePosition()
 	{
 		return (GetOrigin() + GetViewOffset());
 	}
-	Vector GetVelocity(void)
+	Vector GetVelocity()
 	{
 		return *(Vector*)((DWORD)this + offsets::player::m_vecVelocity);
 	}
-	QAngle GetPunchAngles(void)
+	QAngle GetPunchAngles()
 	{
 		return *(QAngle*)((DWORD)this + offsets::player::m_vecPunchAngle);
 	}
@@ -124,7 +124,7 @@ public:
 	{
 		return *(ULONG*)((DWORD)this + offsets::player::m_hOwner);
 	}
-	Vector& GetAbsOrigin(void)
+	Vector& GetAbsOrigin()
 	{
 		__asm
 		{
@@ -133,7 +133,7 @@ public:
 				CALL DWORD PTR DS : [EAX + 0x28]
 		}
 	}
-	Vector GetAbsAngles(void)
+	Vector GetAbsAngles()
 	{
 		__asm
 		{
@@ -142,7 +142,7 @@ public:
 				CALL DWORD PTR DS : [EAX + 0x2C]
 		}
 	}
-	int GetIndex(void)
+	int GetIndex()
 	{
 		__asm
 		{
@@ -152,7 +152,7 @@ public:
 				CALL DWORD PTR DS : [EDX + 0x28]
 		}
 	}
-	bool IsDormant(void)
+	bool IsDormant()
 	{
 		__asm
 		{
@@ -186,7 +186,7 @@ public:
 				CALL[EDX + 0x20]
 		}
 	}
-	IVClientClass* GetClientClass(void)
+	IVClientClass* GetClientClass()
 	{
 		void* pNetworkable = (void*)(this + 0x8);
 		typedef IVClientClass* (__thiscall* original)(void*);
@@ -209,11 +209,11 @@ class CBaseCombatWeapon : public CBaseEntity
 private:
 	DWORD dwBase;
 public:
-	int GetItemDefinitionIndex(void)
+	int GetItemDefinitionIndex()
 	{
 		return *(int*)((DWORD)this + offsets::weapon::m_iItemDefinitionIndex);
 	}
-	int GetClip1(void)
+	int GetClip1()
 	{
 		return *(int*)((DWORD)this + offsets::weapon::m_iClip1);
 	}
@@ -221,7 +221,7 @@ public:
 	{
 		return *(float*)((DWORD)this + offsets::weapon::m_flNextPrimaryAttack);
 	}
-	const char* GetWeaponName(void)
+	const char* GetWeaponName()
 	{
 		switch (this->GetItemDefinitionIndex())
 		{
@@ -335,7 +335,7 @@ public:
 
 		return "";
 	}
-	bool IsPistol(void)
+	bool IsPistol()
 	{
 		switch (this->GetItemDefinitionIndex())
 		{
@@ -363,7 +363,7 @@ public:
 			return false;
 		}
 	}
-	bool IsKnife(void)
+	bool IsKnife()
 	{
 		switch (this->GetItemDefinitionIndex())
 		{
@@ -395,7 +395,7 @@ public:
 			return false;
 		}
 	}
-	bool IsOther(void)
+	bool IsOther()
 	{
 		switch (this->GetItemDefinitionIndex())
 		{
@@ -456,7 +456,7 @@ public:
 class CHLClient
 {
 public:
-	IVClientClass* GetAllClasses(void)
+	IVClientClass* GetAllClasses()
 	{
 		typedef IVClientClass* (__thiscall* original)(void*);
 		return GetVirtualFunction<original>(this, 8)(this);
@@ -470,19 +470,19 @@ public:
 class IVClientClass
 {
 public:
-	const char* GetName(void)
+	const char* GetName()
 	{
 		return *(char**)(this + 0x8);
 	}
-	RecvTable* GetTable(void)
+	RecvTable* GetTable()
 	{
 		return *(RecvTable**)(this + 0xC);
 	}
-	IVClientClass* NextClass(void)
+	IVClientClass* NextClass()
 	{
 		return *(IVClientClass**)(this + 0x10);
 	}
-	int GetClassID(void)
+	int GetClassID()
 	{
 		return *(int*)(this + 0x14);
 	}
@@ -505,7 +505,7 @@ public:
 		typedef CBaseEntity* (__thiscall* original)(void*, int);
 		return GetVirtualFunction<original>(this, 4)(this, hEnt);
 	}
-	int GetHighestEntityIndex(void)
+	int GetHighestEntityIndex()
 	{
 		typedef int(__thiscall* original)(void*);
 		return GetVirtualFunction<original>(this, 6)(this);
@@ -651,12 +651,12 @@ public:
 		typedef bool(__thiscall* original)(void*, int, player_info_t*);
 		return GetVirtualFunction<original>(this, 8)(this, iIndex, pInfo);
 	}
-	int GetLocalPlayer(void)
+	int GetLocalPlayer()
 	{
 		typedef int(__thiscall* original)(void*);
 		return GetVirtualFunction<original>(this, 12)(this);
 	}
-	float GetLastTimeStamp(void)
+	float GetLastTimeStamp()
 	{
 		typedef float(__thiscall* original)(void*);
 		return GetVirtualFunction<original>(this, 14)(this);
@@ -671,17 +671,17 @@ public:
 		typedef void(__thiscall* original)(void*, QAngle&);
 		GetVirtualFunction<original>(this, 19)(this, angles);
 	}
-	int GetMaxClients(void)
+	int GetMaxClients()
 	{
 		typedef int(__thiscall* original)(void*);
 		return GetVirtualFunction<original>(this, 20)(this);
 	}
-	bool InGame(void)
+	bool InGame()
 	{
 		typedef bool(__thiscall* original)(void*);
 		return GetVirtualFunction<original>(this, 26)(this);
 	}
-	bool IsConnected(void)
+	bool IsConnected()
 	{
 		typedef bool(__thiscall* original)(void*);
 		return GetVirtualFunction<original>(this, 27)(this);
@@ -708,7 +708,7 @@ public:
 	class CUserCmd
 	{
 	public:
-		CRC32_t GetChecksum(void) const
+		CRC32_t GetChecksum() const
 		{
 			CRC32_t crc;
 			CRC32_Init(&crc);

@@ -156,7 +156,7 @@ struct ModelRenderInfo_t
 struct mstudiohitboxset_t
 {
 	int                                      sznameindex;
-	inline char* const                       pszName(void) const { return ((char*)this) + sznameindex; }
+	inline char* const                       pszName() const { return ((char*)this) + sznameindex; }
 	int                                      numhitboxes;
 	int                                      hitboxindex;
 	inline mstudiobbox_t*                    pHitbox(int i) const { return (mstudiobbox_t*)(((BYTE*)this) + hitboxindex) + i; };
@@ -233,9 +233,9 @@ struct studiohdr_t
 	//public:
 	int					GetSequenceActivity(int iSequence);
 	void				SetSequenceActivity(int iSequence, int iActivity);
-	int					GetActivityListVersion(void);
+	int					GetActivityListVersion();
 	void				SetActivityListVersion(int version) const;
-	int					GetEventListVersion(void);
+	int					GetEventListVersion();
 	void				SetEventListVersion(int version);
 
 	// raw textures
@@ -260,7 +260,7 @@ struct studiohdr_t
 	int					numlocalattachments;
 	int					localattachmentindex;
 	//public:
-	int					GetNumAttachments(void) const;
+	int					GetNumAttachments() const;
 	int					GetAttachmentBone(int i);
 	// used on my tools in hlmv, not persistant
 	void				SetAttachmentBone(int iAttachment, int iBone);
@@ -293,18 +293,18 @@ struct studiohdr_t
 	int					numlocalposeparameters;
 	int					localposeparamindex;
 	//public:
-	int					GetNumPoseParameters(void) const;
+	int					GetNumPoseParameters() const;
 	int					GetSharedPoseParameter(int iSequence, int iLocalPose) const;
 	int					surfacepropindex;
-	inline char * const pszSurfaceProp(void) const { return ((char *)this) + surfacepropindex; }
+	inline char * const pszSurfaceProp() const { return ((char *)this) + surfacepropindex; }
 
 	// Key values
 	int					keyvalueindex;
 	int					keyvaluesize;
-	inline const char * KeyValueText(void) const { return keyvaluesize != 0 ? ((char *)this) + keyvalueindex : NULL; }
+	inline const char * KeyValueText() const { return keyvaluesize != 0 ? ((char *)this) + keyvalueindex : NULL; }
 	int					numlocalikautoplaylocks;
 	int					localikautoplaylockindex;
-	int					GetNumIKAutoplayLocks(void) const;
+	int					GetNumIKAutoplayLocks() const;
 	int					CountAutoplaySequences() const;
 	int					CopyAutoplaySequences(unsigned short *pOut, int outCount) const;
 	int					GetAutoplayList(unsigned short **pOut) const;
@@ -322,11 +322,11 @@ struct studiohdr_t
 
 	// implementation specific back pointer to virtual data
 	mutable void		*virtualModel;
-	//virtualmodel_t		GetVirtualModel(void) const;
+	//virtualmodel_t		GetVirtualModel() const;
 
 	// for demand loaded animation blocks
 	int					szanimblocknameindex;
-	inline char* const pszAnimBlockName(void) const { return ((char *)this) + szanimblocknameindex; }
+	inline char* const pszAnimBlockName() const { return ((char *)this) + szanimblocknameindex; }
 	int					numanimblocks;
 	int					animblockindex;
 	mutable void		*animblockModel;

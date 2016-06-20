@@ -2,7 +2,7 @@
 
 Visuals visuals;
 
-Visuals::Visuals(void)
+Visuals::Visuals()
 {
 	espColor = Color(0, 0, 0, 0);
 	glowColor = Color(0, 0, 0, 0);

@@ -8,7 +8,7 @@
 class Triggerbot
 {
 public:
-	Triggerbot(void);
+	Triggerbot();
 
 	void think(CBaseEntity* local, CBaseCombatWeapon* weapon, CInput::CUserCmd* cmd);
 

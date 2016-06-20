@@ -2,7 +2,7 @@
 
 Menu menu;
 
-Menu::Menu(void)
+Menu::Menu()
 {
 	isCursorActive = false;
 	cursorPosition[0] = 0, cursorPosition[1] = 0;
@@ -15,7 +15,7 @@ Menu::Menu(void)
 	isRightClick = false, isRightClickReleased = false;
 }
 
-void Menu::think(void)
+void Menu::think()
 {
 	setMouse();
 	getMouse();
@@ -24,7 +24,7 @@ void Menu::think(void)
 	drawMouse();
 }
 
-void Menu::setMouse(void)
+void Menu::setMouse()
 {
 	if (!isMenuKey(VK_INSERT))
 		return;
@@ -39,7 +39,7 @@ void Menu::setMouse(void)
 	}
 }
 
-void Menu::getMouse(void)
+void Menu::getMouse()
 {
 	if (!isCursorActive)
 		return;
@@ -73,7 +73,7 @@ void Menu::getMouse(void)
 	}
 }
 
-bool Menu::isActive(void)
+bool Menu::isActive()
 {
 	return isCursorActive;
 }
@@ -114,7 +114,7 @@ bool Menu::isClicked(int x, int y, int w, int h)
 	return false;
 }
 
-void Menu::drawMenu(void)
+void Menu::drawMenu()
 {
 	if (!isCursorActive)
 		return;
@@ -209,7 +209,7 @@ void Menu::drawBorder(int x, int y, int w, int h, const char* text)
 	drawing.drawLine(x + 1, y + 22, x + w - 2, y + 22, Color(130, 130, 130, 50));
 }
 
-void Menu::drawMouse(void)
+void Menu::drawMouse()
 {
 	if (!isCursorActive)
 		return;

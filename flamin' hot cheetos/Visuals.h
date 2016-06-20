@@ -8,7 +8,7 @@
 class Visuals
 {
 public:
-	Visuals(void);
+	Visuals();
 
 	void think(CBaseEntity* local);
 
@@ -24,7 +24,7 @@ private:
 	Color glowColor;
 };
 
-typedef CGlowObjectManager*(__thiscall* GlowObjectPointer_t)(void);
+typedef CGlowObjectManager*(__thiscall* GlowObjectPointer_t)();
 
 extern Visuals visuals;
 
