@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <future>
 
 //------------------------------------------------------------------------------------------
 // flamin' hot cheetos
@@ -15,7 +16,7 @@
 
 bool shouldUnload = false;
 
-DWORD __stdcall initializeRoutine(LPVOID hInstance)
+void initializeRoutine(void* hInstance)
 {
 	while (!GetModuleHandle(charenc("client.dll")))
 		Sleep(100);
@@ -31,8 +32,6 @@ DWORD __stdcall initializeRoutine(LPVOID hInstance)
 		Sleep(1000);
 
 	FreeLibraryAndExitThread((HMODULE)hInstance, 0);
-
-	return 0;
 }
 
 BOOL APIENTRY DllMain(HMODULE hInstance, DWORD dwReason, LPVOID lpReserved)
@@ -41,7 +40,7 @@ BOOL APIENTRY DllMain(HMODULE hInstance, DWORD dwReason, LPVOID lpReserved)
 	{
 	case DLL_PROCESS_ATTACH:
 		DisableThreadLibraryCalls(hInstance);
-		CreateThread(nullptr, 0, initializeRoutine, hInstance, 0, nullptr);
+		std::async(std::launch::async, initializeRoutine, hInstance);
 		break;
 	case DLL_PROCESS_DETACH:
 		hooks::restore();
