@@ -18,6 +18,8 @@
 // notes:
 //  - modern c++ functions such as sleep_for and async threading breaks injection
 //    - probably because of the run-time shit it does on process entry
+//  - manual mapping crashes game on team selection
+//    - this is possible that it's just a extreme injector thing
 //------------------------------------------------------------------------------------------
 
 bool shouldUnload = false;
