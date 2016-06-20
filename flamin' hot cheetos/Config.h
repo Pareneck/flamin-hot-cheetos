@@ -27,13 +27,13 @@ public:
 	}; std::vector<SkinConfig> skincfg = std::vector<SkinConfig>(517);
 
 public:
-	Config(void);
+	Config();
 
-	void loadConfig(void);
-	void saveConfig(void);
+	void loadConfig();
+	void saveConfig();
 
-	void loadSkinConfig(void);
-	void saveSkinConfig(void);
+	void loadSkinConfig();
+	void saveSkinConfig();
 };
 
 extern Config config;

@@ -18,7 +18,7 @@ bool shouldUnload = false;
 
 void initializeRoutine(void* hInstance)
 {
-	while (!GetModuleHandle(charenc("client.dll")))
+	while (!GetModuleHandleA(charenc("client.dll")))
 		Sleep(100);
 
 	config.loadConfig();

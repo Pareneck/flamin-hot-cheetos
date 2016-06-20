@@ -2,14 +2,14 @@
 
 Config config;
 
-Config::Config(void)
+Config::Config()
 {
-	CreateDirectory(charenc("csgo//"), 0);
-	CreateDirectory(charenc("csgo//cfg//"), 0);
-	CreateDirectory(charenc("csgo//cfg//cheetos//"), 0);
+	CreateDirectoryA(charenc("csgo//"), 0);
+	CreateDirectoryA(charenc("csgo//cfg//"), 0);
+	CreateDirectoryA(charenc("csgo//cfg//cheetos//"), 0);
 }
 
-void Config::loadConfig(void)
+void Config::loadConfig()
 {
 	if (doesFileExist(charenc("csgo//cfg//cheetos//config.ini")))
 	{
@@ -52,7 +52,7 @@ void Config::loadConfig(void)
 	}
 }
 
-void Config::saveConfig(void)
+void Config::saveConfig()
 {
 	configManager.initialize(charenc("config.ini"));
 
@@ -88,7 +88,7 @@ void Config::saveConfig(void)
 	configManager.setFloat(charenc("Misc"), charenc("Standalone Recoil Control Scale"), cvar::misc_recoilcontrol_scale);
 }
 
-void Config::loadSkinConfig(void)
+void Config::loadSkinConfig()
 {
 	if (doesFileExist(charenc("csgo//cfg//cheetos//skinconfig.ini")))
 	{
@@ -124,7 +124,7 @@ void Config::loadSkinConfig(void)
 	}
 }
 
-void Config::saveSkinConfig(void)
+void Config::saveSkinConfig()
 {
 	configManager.initialize(charenc("skinconfig.ini"));
 
