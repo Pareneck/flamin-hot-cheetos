@@ -29,7 +29,7 @@ void initializeRoutine(void* hInstance)
 	hooks::initialize();
 
 	while (!shouldUnload)
-		Sleep(1000);
+		std::this_thread::sleep_for(std::chrono::seconds(1));
 
 	FreeLibraryAndExitThread((HMODULE)hInstance, 0);
 }
