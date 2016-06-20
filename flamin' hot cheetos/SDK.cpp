@@ -103,7 +103,6 @@ float DotProductFloat(const float* v1, const float* v2)
 
 void VectorTransformFloat(const float* in1, const matrix3x4& in2, float* out)
 {
-	Assert(in1 != out);
 	out[0] = DotProductFloat(in1, in2[0]) + in2[0][3];
 	out[1] = DotProductFloat(in1, in2[1]) + in2[1][3];
 	out[2] = DotProductFloat(in1, in2[2]) + in2[2][3];

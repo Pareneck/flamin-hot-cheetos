@@ -72,7 +72,6 @@ public:
 	Vector& operator=(const Vector &vOther);
 	Vector	operator-(const Vector& v) const;
 	Vector	operator+(const Vector& v) const;
-	Vector	operator-(const Vector& v) const;
 	Vector	operator*(const Vector& v) const;
 	Vector	operator/(const Vector& v) const;
 	Vector	operator*(float fl) const;
@@ -237,7 +236,7 @@ inline Vector CrossProduct(const Vector& a, const Vector& b)
 	return Vector(a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x);
 }
 //===============================================
-float Vector::DistToSqr(const Vector &vOther) const
+__forceinline float Vector::DistToSqr(const Vector &vOther) const
 {
 	Vector delta;
 

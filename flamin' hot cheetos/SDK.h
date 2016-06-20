@@ -809,7 +809,7 @@ public:
 
 		void Init(Vector const& start, Vector const& end)
 		{
-			Assert(&end);
+			(&end);
 			VectorSubtract(end, start, m_delta);
 
 			m_isSwept = (m_delta.LengthSqr() != 0);
@@ -823,7 +823,7 @@ public:
 		}
 		void Init(Vector const& start, Vector const& end, Vector const& mins, Vector const& maxs)
 		{
-			Assert(&end);
+			(&end);
 			VectorSubtract(end, start, m_delta); //wait
 
 			m_worldAxisTransform = 0;

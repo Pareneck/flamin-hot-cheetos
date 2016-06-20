@@ -46,7 +46,8 @@ void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 	finalAngles = viewAngles - finalAngles;
 	tools.normalizeAngles(finalAngles);
 
-	float sensitivity = *(float*)(interfaces::clientdll + 0xA35D0C);
+	DWORD sensitivityAddress = *(DWORD*)(tools.getPatternOffset(charenc("client.dll"), (PBYTE)"\xF3\x0F\x10\x05\x00\x00\x00\x00\xEB\x17\x8B\x01\x8B\x40\x30\xFF\xD0\xF3\x0F\x10\x0D", "xxxx????xxxxxxxxxxxxx") - 4);
+	float sensitivity = *(float*)(interfaces::clientdll + sensitivityAddress /*0xA35D0C*/);
 	if (!sensitivity)
 		return;
 

@@ -206,7 +206,7 @@ inline int RecvTable::GetNumProps()
 
 inline RecvProp* RecvTable::GetProp(int i)
 {
-	// Assert( i >= 0 && i < m_nProps );
+	// ( i >= 0 && i < m_nProps );
 	return &m_pProps[i];
 }
 

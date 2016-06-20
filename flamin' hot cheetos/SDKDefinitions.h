@@ -190,7 +190,7 @@ struct studiohdr_t
 	// Look up hitbox set by index
 	mstudiohitboxset_t	*pHitboxSet(int i) const
 	{
-		Assert(i >= 0 && i < numhitboxsets);
+		(i >= 0 && i < numhitboxsets);
 		return (mstudiohitboxset_t *)(((BYTE *)this) + hitboxsetindex) + i;
 	};
 
@@ -270,8 +270,8 @@ struct studiohdr_t
 	int					numlocalnodes;
 	int					localnodeindex;
 	int					localnodenameindex;
-	inline char			*pszLocalNodeName(int iNode) const { Assert(iNode >= 0 && iNode < numlocalnodes); return (((char *)this) + *((int *)(((BYTE *)this) + localnodenameindex) + iNode)); }
-	inline BYTE			*pLocalTransition(int i) const { Assert(i >= 0 && i < (numlocalnodes * numlocalnodes)); return (BYTE *)(((BYTE *)this) + localnodeindex) + i; };
+	inline char			*pszLocalNodeName(int iNode) const { (iNode >= 0 && iNode < numlocalnodes); return (((char *)this) + *((int *)(((BYTE *)this) + localnodenameindex) + iNode)); }
+	inline BYTE			*pLocalTransition(int i) const { (i >= 0 && i < (numlocalnodes * numlocalnodes)); return (BYTE *)(((BYTE *)this) + localnodeindex) + i; };
 
 	//public:
 	int					EntryNode(int iSequence);

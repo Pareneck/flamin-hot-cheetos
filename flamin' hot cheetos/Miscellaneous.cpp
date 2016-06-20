@@ -32,7 +32,7 @@ void Misc::doRecoilControl(CBaseEntity* local, CBaseCombatWeapon* weapon, CInput
 
 	if (cmd->buttons & IN_ATTACK && shotsFired > 1 && shotsFired > oldShotsFired)
 	{
-		QAngle compensatedAngles = { punchAngles.x - oldPunchAngles.x, punchAngles.y - oldPunchAngles.y, 0 };
+		QAngle compensatedAngles = QAngle(punchAngles.x - oldPunchAngles.x, punchAngles.y - oldPunchAngles.y, 0);
 		compensatedAngles *= cvar::misc_recoilcontrol_scale;
 		tools.normalizeAngles(compensatedAngles);
 
