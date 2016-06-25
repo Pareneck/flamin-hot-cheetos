@@ -323,7 +323,8 @@ void Visuals::drawScoreboard(CBaseEntity* local)
 	drawing.drawString(drawing.scoreboardFont, false, x + 15, y + 190, Color(0, 100, 255, 255), charenc("Counter-Terrorists"));
 	drawing.drawLine(x + 10, y + 205, x + boardWidth - 10, y + 205, Color(0, 100, 255, 255));
 
-	static DWORD playerResource = **(DWORD**)tools.getPatternOffset(charenc("client.dll"), (PBYTE)charenc("\x55\x8B\xEC\x83\xE4\xF8\x81\xEC\x00\x00\x00\x00\x83\x3D\x00\x00\x00\x00\x00\x53\x56\x8B\xD9\xC7"), charenc("xxxxxxxx????xx?????xxxxx")) + 0xE;
+	static DWORD playerResource = tools.getPatternOffset(charenc("client.dll"), (PBYTE)charenc("\x55\x8B\xEC\x83\xE4\xF8\x81\xEC\x00\x00\x00\x00\x83\x3D\x00\x00\x00\x00\x00\x53\x56\x8B\xD9\xC7"), charenc("xxxxxxxx????xx?????xxxxx")) + 0xE;
+	DWORD resourcePointer = **(DWORD**)playerResource;
 
 	int ii = 0, iii = 0;
 	bool doSwap = false, doSwap2 = false;
@@ -337,8 +338,8 @@ void Visuals::drawScoreboard(CBaseEntity* local)
 			|| !interfaces::engine->GetPlayerInfo(i, &info))
 			continue;
 
-		int playerRank = *(int*)(playerResource + offsets::player::m_iCompetitiveRanking + i * 4);
-		int playerWins = *(int*)(playerResource + offsets::player::m_iCompetitiveWins + i * 4);
+		int playerRank = *(int*)(resourcePointer + offsets::player::m_iCompetitiveRanking + i * 4);
+		int playerWins = *(int*)(resourcePointer + offsets::player::m_iCompetitiveWins + i * 4);
 
 		char playerRankName[100];
 		switch (playerRank)
@@ -380,7 +381,7 @@ void Visuals::drawScoreboard(CBaseEntity* local)
 				drawing.drawFilledRect(x + 8, y + 38 + (ii * 20), boardWidth - 18, 19, Color(20, 20, 20, 150));
 
 			drawing.drawString(drawing.scoreboardFont, false, x + 10, y + 40 + (ii * 20), Color(255, 0, 0, 255), players[i].name);
-			drawing.drawString(drawing.scoreboardFont, false, x + 325 + 65, y + 40 + (ii * 20), Color(255, 0, 0, 255), "%i", players[i].health);
+			drawing.drawString(drawing.scoreboardFont, false, x + 325 + 65, y + 40 + (ii * 20), Color(255, 0, 0, 255), "$%i", players[i].health);
 			drawing.drawString(drawing.scoreboardFont, false, x + 375 + 65, y + 40 + (ii * 20), Color(255, 0, 0, 255), "%i", players[i].money);
 			drawing.drawString(drawing.scoreboardFont, false, x + 475 + 65, y + 40 + (ii * 20), Color(255, 0, 0, 255), "%i", players[i].mmwins);
 			drawing.drawString(drawing.scoreboardFont, false, x + 605, y + 40 + (ii * 20), Color(255, 0, 0, 255), players[i].mmrank);
