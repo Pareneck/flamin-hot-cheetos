@@ -24,6 +24,7 @@ public:
 public:
 	unsigned long menuFont, menuTitleFont;
 	unsigned long espFont;
+	unsigned long scoreboardFont;
 };
 
 extern Drawing drawing;

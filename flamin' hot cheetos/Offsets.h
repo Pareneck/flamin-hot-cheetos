@@ -28,6 +28,9 @@ namespace offsets
 		extern DWORD m_vecPunchAngle;
 		extern DWORD m_bIsScoped;
 		extern DWORD m_vecVelocity;
+		extern DWORD m_iAccount;
+		extern DWORD m_iCompetitiveRanking;
+		extern DWORD m_iCompetitiveWins;
 	}
 	namespace weapon
 	{

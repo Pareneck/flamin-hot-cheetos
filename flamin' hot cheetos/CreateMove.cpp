@@ -16,22 +16,16 @@ void __stdcall CreateMove(int sequence_number, float input_sample_frametime, boo
 		return;
 
 	CBaseEntity* local = interfaces::entitylist->GetClientEntity(interfaces::engine->GetLocalPlayer());
-	if (local)
+	if (local && local->GetLifeState() == LIFE_ALIVE)
 	{
-		if (cvar::misc_bunnyhop)
-			misc.doBunnyhop(local, cmd);
+		misc.doBunnyhop(local, cmd);
 
 		CBaseCombatWeapon* weapon = tools.getActiveWeapon(local);
 		if (weapon)
 		{
-			if (cvar::misc_recoilcontrol)
-				misc.doRecoilControl(local, weapon, cmd);
-
-			if (cvar::aimbot_enabled)
-				aimbot.think(local, weapon);
-
-			if (cvar::misc_triggerbot)
-				triggerbot.think(local, weapon, cmd);
+			misc.doRecoilControl(local, weapon, cmd);
+			aimbot.think(local, weapon);
+			triggerbot.think(local, weapon, cmd);
 		}
 	}
 

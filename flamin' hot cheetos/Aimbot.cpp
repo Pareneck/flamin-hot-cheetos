@@ -13,10 +13,13 @@ Aimbot::Aimbot()
 
 void Aimbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon)
 {
-	if (weapon->IsOther() || weapon->IsKnife())
+	if (!cvar::aimbot_enabled)
 		return;
 
 	if (menu.isActive())
+		return;
+
+	if (weapon->IsOther() || weapon->IsKnife())
 		return;
 
 	if (!(GetAsyncKeyState(cvar::general_key_aimbot) & 0x8000))

@@ -188,6 +188,7 @@ void Menu::drawMenu()
 		drawSlider(x + 30, y + 205, 200, 6, 237, 0, 60, cvar::misc_overridefov, charenc("Viewmodel Field of View"));
 		drawCheckbox(x + 30, y + 230, 450, cvar::misc_recoilcontrol, charenc("Standalone Recoil Control"));
 		drawSlider(x + 30, y + 255, 200, 6, 237, 0.f, 2.f, cvar::misc_recoilcontrol_scale, charenc("Standalone Recoil Control Scale"));
+		drawCheckbox(x + 30, y + 280, 450, cvar::misc_scoreboard, charenc("Matchmaking Scoreboard"));
 	}
 
 	drawing.drawFilledRect(x + 1, y + 45, w - 2, 2, Color(255, 165, 0));

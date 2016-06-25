@@ -11,6 +11,7 @@ void Drawing::resetFonts()
 {
 	menuFont = 0, menuTitleFont = 0;
 	espFont = 0;
+	scoreboardFont = 0;
 }
 
 void Drawing::initializeFonts()
@@ -25,6 +26,9 @@ void Drawing::initializeFonts()
 
 	espFont = interfaces::surface->CreateFont();
 	interfaces::surface->SetFontGlyphSet(espFont, charenc("Tahoma"), 13, 1250, 0, 0, FONTFLAG_DROPSHADOW);
+
+	scoreboardFont = interfaces::surface->CreateFont();
+	interfaces::surface->SetFontGlyphSet(scoreboardFont, charenc("Tahoma"), 13, 500, 0, 0, FONTFLAG_ANTIALIAS);
 }
 
 int getWidth(unsigned long font, const char* text, ...)

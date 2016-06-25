@@ -36,6 +36,7 @@ namespace cvar
 	extern int misc_overridefov;
 	extern bool misc_recoilcontrol;
 	extern float misc_recoilcontrol_scale;
+	extern bool misc_scoreboard;
 }
 
 #endif

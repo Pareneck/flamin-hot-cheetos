@@ -45,6 +45,7 @@ void Config::loadConfig()
 		configManager.getInteger(charenc("Misc"), charenc("Viewmodel Field of View"), cvar::misc_overridefov);
 		configManager.getBoolean(charenc("Misc"), charenc("Standalone Recoil Control"), cvar::misc_recoilcontrol);
 		configManager.getFloat(charenc("Misc"), charenc("Standalone Recoil Control Scale"), cvar::misc_recoilcontrol_scale);
+		configManager.getBoolean(charenc("Misc"), charenc("Matchmaking Scoreboard"), cvar::misc_scoreboard);
 	}
 	else
 	{
@@ -84,8 +85,9 @@ void Config::saveConfig()
 	configManager.setBoolean(charenc("Misc"), charenc("Knife Changer"), cvar::misc_knifechanger);
 	configManager.setInteger(charenc("Misc"), charenc("Knife Model"), cvar::misc_knifechanger_model);
 	configManager.setInteger(charenc("Misc"), charenc("Viewmodel Field of View"), cvar::misc_overridefov);
-	configManager.setInteger(charenc("Misc"), charenc("Standalone Recoil Control"), cvar::misc_recoilcontrol);
+	configManager.setBoolean(charenc("Misc"), charenc("Standalone Recoil Control"), cvar::misc_recoilcontrol);
 	configManager.setFloat(charenc("Misc"), charenc("Standalone Recoil Control Scale"), cvar::misc_recoilcontrol_scale);
+	configManager.setBoolean(charenc("Misc"), charenc("Matchmaking Scoreboard"), cvar::misc_scoreboard);
 }
 
 void Config::loadSkinConfig()

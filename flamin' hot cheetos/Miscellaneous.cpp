@@ -4,13 +4,16 @@ Misc misc;
 
 void Misc::doBunnyhop(CBaseEntity* local, CInput::CUserCmd* cmd)
 {
+	if (!cvar::misc_bunnyhop)
+		return;
+
 	if ((cmd->buttons & IN_JUMP) && !(local->GetFlags() & FL_ONGROUND))
 		cmd->buttons &= ~IN_JUMP;
 }
 
 void Misc::doRecoilControl(CBaseEntity* local, CBaseCombatWeapon* weapon, CInput::CUserCmd* cmd)
 {
-	if (cvar::misc_recoilcontrol_scale <= 0.f)
+	if (!cvar::misc_recoilcontrol || cvar::misc_recoilcontrol_scale <= 0.f)
 		return;
 
 	if (weapon->IsOther() || weapon->IsKnife())

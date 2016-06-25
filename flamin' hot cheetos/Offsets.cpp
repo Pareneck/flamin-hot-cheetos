@@ -21,6 +21,9 @@ namespace offsets
 		player::m_vecPunchAngle = 0x3018;
 		player::m_bIsScoped = 0x388C;
 		player::m_vecVelocity = 0x110;
+		player::m_iAccount = 0;
+		player::m_iCompetitiveRanking = 0;
+		player::m_iCompetitiveWins = 0;
 
 		weapon::m_iClip1 = 0x31F4;
 		weapon::m_flNextPrimaryAttack = 0x31C8;
@@ -63,6 +66,9 @@ namespace offsets
 		DWORD m_vecPunchAngle = 0;
 		DWORD m_bIsScoped = 0;
 		DWORD m_vecVelocity = 0;
+		DWORD m_iAccount = 0;
+		DWORD m_iCompetitiveRanking = 0;
+		DWORD m_iCompetitiveWins = 0;
 	}
 	namespace weapon
 	{

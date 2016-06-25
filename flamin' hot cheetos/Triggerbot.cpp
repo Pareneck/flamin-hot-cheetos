@@ -9,6 +9,9 @@ Triggerbot::Triggerbot()
 
 void Triggerbot::think(CBaseEntity* local, CBaseCombatWeapon* weapon, CInput::CUserCmd* cmd)
 {
+	if (!cvar::misc_triggerbot)
+		return;
+
 	if (weapon->IsOther() || weapon->IsKnife())
 		return;
 

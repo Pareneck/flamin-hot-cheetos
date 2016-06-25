@@ -7,6 +7,16 @@
 
 class Visuals
 {
+	struct plist_t
+	{
+		char* name;
+		char* steamid;
+		int   money;
+		int   health;
+		int   mmwins;
+		char* mmrank;
+	}players[64];
+
 public:
 	Visuals();
 
@@ -15,9 +25,9 @@ public:
 private:
 	void drawPlayer(CBaseEntity* local, CBaseEntity* entity, player_info_t info);
 	void drawWorld(CBaseEntity* entity);
-
 	void drawBoundingBox(CBaseEntity* entity, Color color, const char* text);
 	void drawGlow(CBaseEntity* entity);
+	void drawScoreboard(CBaseEntity* local);
 
 private:
 	Color espColor;

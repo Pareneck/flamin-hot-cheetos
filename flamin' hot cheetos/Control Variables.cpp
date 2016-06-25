@@ -33,4 +33,5 @@ namespace cvar
 	int misc_overridefov = 22;
 	bool misc_recoilcontrol = true;
 	float misc_recoilcontrol_scale = 2.f;
+	bool misc_scoreboard = true;
 }

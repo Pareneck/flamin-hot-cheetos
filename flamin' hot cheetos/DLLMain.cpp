@@ -26,7 +26,7 @@ bool shouldUnload = false;
 
 DWORD __stdcall initializeRoutine(void* hInstance)
 {
-	while (!GetModuleHandleA(charenc("client.dll")))
+	while (!GetModuleHandleA(charenc("client.dll")) || !GetModuleHandleA(charenc("engine.dll")))
 		Sleep(100);
 
 	config.loadConfig();

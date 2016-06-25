@@ -43,12 +43,11 @@ void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool all
 			if (!local)
 				return;
 
-			if (cvar::esp_enabled)
-				visuals.think(local);
+			visuals.think(local);
 		}
 
 		menu.think();
 
-		drawing.drawString(drawing.menuTitleFont, false, 3, 3, Color(255, 255, 255), charenc("flamin' hot cheetos | 06-19-2016"));
+		drawing.drawString(drawing.menuTitleFont, false, 3, 3, Color(255, 255, 255), charenc("flamin' hot cheetos | 06-25-2016"));
 	}
 }
