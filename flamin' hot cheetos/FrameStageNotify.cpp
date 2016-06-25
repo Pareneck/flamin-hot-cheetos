@@ -37,12 +37,14 @@ void __stdcall FrameStageNotify(ClientFrameStage_t curStage)
 					continue;
 
 				CBaseCombatWeapon* weapon = (CBaseCombatWeapon*)entity;
+				if (!weapon)
+					return;
 
-				if (weapon && !weapon->IsKnife())
+				if (!weapon->IsKnife())
 				{
 					weapon->SetPattern(info, config.skincfg[weapon->GetItemDefinitionIndex()].skin, config.skincfg[weapon->GetItemDefinitionIndex()].wear, config.skincfg[weapon->GetItemDefinitionIndex()].seed, config.skincfg[weapon->GetItemDefinitionIndex()].stattrak, config.skincfg[weapon->GetItemDefinitionIndex()].name);
 				}
-				else if (weapon && weapon->IsKnife())
+				else
 				{
 					if (cvar::misc_knifechanger)
 					{

@@ -8,46 +8,29 @@ MDLHandle_t __stdcall FindMDL(const char* pMDLRelativePath)
 	{
 		if (strstr(pMDLRelativePath, charenc("v_knife_default_ct.mdl")) || strstr(pMDLRelativePath, charenc("v_knife_default_t.mdl")))
 		{
-			const char* knifeModelPath;
-
 			switch (cvar::misc_knifechanger_model)
 			{
 			case 0:
-				knifeModelPath = charenc("models/weapons/v_knife_bayonet.mdl");
-				break;
+				return originalFindMDL(interfaces::modelcache, charenc("models/weapons/v_knife_bayonet.mdl"));
 			case 1:
-				knifeModelPath = charenc("models/weapons/v_knife_flip.mdl");
-				break;
+				return originalFindMDL(interfaces::modelcache, charenc("models/weapons/v_knife_flip.mdl"));
 			case 2:
-				knifeModelPath = charenc("models/weapons/v_knife_gut.mdl");
-				break;
+				return originalFindMDL(interfaces::modelcache, charenc("models/weapons/v_knife_gut.mdl"));
 			case 3:
-				knifeModelPath = charenc("models/weapons/v_knife_karam.mdl");
-				break;
+				return originalFindMDL(interfaces::modelcache, charenc("models/weapons/v_knife_karam.mdl"));
 			case 4:
-				knifeModelPath = charenc("models/weapons/v_knife_m9_bay.mdl");
-				break;
+				return originalFindMDL(interfaces::modelcache, charenc("models/weapons/v_knife_m9_bay.mdl"));
 			case 5:
-				knifeModelPath = charenc("models/weapons/v_knife_tactical.mdl");
-				break;
+				return originalFindMDL(interfaces::modelcache, charenc("models/weapons/v_knife_tactical.mdl"));
 			case 6:
-				knifeModelPath = charenc("models/weapons/v_knife_falchion_advanced.mdl");
-				break;
+				return originalFindMDL(interfaces::modelcache, charenc("models/weapons/v_knife_falchion_advanced.mdl"));
 			case 7:
-				knifeModelPath = charenc("models/weapons/v_knife_butterfly.mdl");
-				break;
+				return originalFindMDL(interfaces::modelcache, charenc("models/weapons/v_knife_butterfly.mdl"));
 			case 8:
-				knifeModelPath = charenc("models/weapons/v_knife_push.mdl");
-				break;
+				return originalFindMDL(interfaces::modelcache, charenc("models/weapons/v_knife_push.mdl"));
 			case 9:
-				knifeModelPath = charenc("models/weapons/v_knife_survival_bowie.mdl");
-				break;
-			default:
-				knifeModelPath = charenc("models/weapons/v_knife_bayonet.mdl");
-				break;
+				return originalFindMDL(interfaces::modelcache, charenc("models/weapons/v_knife_survival_bowie.mdl"));
 			}
-
-			return originalFindMDL(interfaces::modelcache, knifeModelPath);
 		}
 	}
 
