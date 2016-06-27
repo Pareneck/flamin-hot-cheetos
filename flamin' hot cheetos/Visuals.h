@@ -21,17 +21,25 @@ public:
 	Visuals();
 
 	void think(CBaseEntity* local);
+	void getScreenSize();
 
 private:
-	void drawPlayer(CBaseEntity* local, CBaseEntity* entity, player_info_t info);
+	void drawPlayer(CBaseEntity* local, CBaseEntity* entity);
 	void drawWorld(CBaseEntity* entity);
 	void drawBoundingBox(CBaseEntity* entity, Color color, const char* text);
 	void drawGlow(CBaseEntity* entity);
 	void drawScoreboard(CBaseEntity* local);
 
+public:
+	int width;
+	int height;
+
 private:
 	Color espColor;
 	Color glowColor;
+
+private:
+	player_info_t info;
 };
 
 typedef CGlowObjectManager*(__thiscall* GlowObjectPointer_t)();

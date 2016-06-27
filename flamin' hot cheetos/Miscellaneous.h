@@ -12,6 +12,6 @@ public:
 	void doRecoilControl(CBaseEntity* local, CBaseCombatWeapon* weapon, CInput::CUserCmd* cmd);
 };
 
-extern Misc misc;
+extern Misc miscellaneous;
 
 #endif

@@ -18,12 +18,12 @@ void __stdcall CreateMove(int sequence_number, float input_sample_frametime, boo
 	CBaseEntity* local = interfaces::entitylist->GetClientEntity(interfaces::engine->GetLocalPlayer());
 	if (local && local->GetLifeState() == LIFE_ALIVE)
 	{
-		misc.doBunnyhop(local, cmd);
+		miscellaneous.doBunnyhop(local, cmd);
 
 		CBaseCombatWeapon* weapon = tools.getActiveWeapon(local);
 		if (weapon)
 		{
-			misc.doRecoilControl(local, weapon, cmd);
+			miscellaneous.doRecoilControl(local, weapon, cmd);
 			aimbot.think(local, weapon);
 			triggerbot.think(local, weapon, cmd);
 		}

@@ -34,7 +34,6 @@ void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool all
 	if (!panelName)
 		return;
 
-	// MatSystemTopPanel
 	if (panelName[0] == 'M' && panelName[3] == 'S' && panelName[9] == 'T')
 	{
 		if (interfaces::engine->InGame() && interfaces::engine->IsConnected())
@@ -43,11 +42,12 @@ void __stdcall PaintTraverse(unsigned int vguiPanel, bool forceRepaint, bool all
 			if (!local)
 				return;
 
+			visuals.getScreenSize();
 			visuals.think(local);
 		}
 
 		menu.think();
 
-		drawing.drawString(drawing.menuTitleFont, false, 3, 3, Color(255, 255, 255), charenc("flamin' hot cheetos | 06-25-2016"));
+		drawing.drawString(drawing.menuTitleFont, false, 3, 3, Color(255, 255, 255), charenc("flamin' hot cheetos | 06-27-2016"));
 	}
 }

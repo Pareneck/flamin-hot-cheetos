@@ -1,6 +1,6 @@
 #include "Miscellaneous.h"
 
-Misc misc;
+Misc miscellaneous;
 
 void Misc::doBunnyhop(CBaseEntity* local, CInput::CUserCmd* cmd)
 {
