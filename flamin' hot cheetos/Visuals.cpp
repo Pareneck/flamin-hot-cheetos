@@ -389,7 +389,7 @@ void Visuals::drawScoreboard(CBaseEntity* local)
 	static DWORD resourcePointer = **(DWORD**)playerResource;
 
 	int place = 0, place2 = 0;
-	bool swap = false, swap2 = false;
+	bool doSwap = false, doSwap2 = false;
 
 	for (int i = 1; i <= interfaces::engine->GetMaxClients(); i++)
 	{
@@ -430,50 +430,58 @@ void Visuals::drawScoreboard(CBaseEntity* local)
 		if (entity->GetTeamNum() == 2)
 		{
 			place++;
-			swap = !swap;
 
-			players[i].name = info.m_szPlayerName;
-			players[i].steamid = info.m_szSteamID;
-			players[i].health = entity->GetHealth();
-			players[i].money = entity->GetAccount();
-			players[i].mmrank = playerRankName;
-			players[i].mmwins = playerWins;
+			if (place <= 5)
+			{
+				doSwap = !doSwap;
 
-			if (swap)
-				drawing.drawFilledRect(x + 8, y + 38 + (place * 20), boardWidth - 18, 19, Color(20, 20, 20, 150));
+				players[i].name = info.m_szPlayerName;
+				players[i].steamid = info.m_szSteamID;
+				players[i].health = entity->GetHealth();
+				players[i].money = entity->GetAccount();
+				players[i].mmrank = playerRankName;
+				players[i].mmwins = playerWins;
 
-			drawing.drawString(drawing.scoreboardFont, false, x + 10, y + 40 + (place * 20), Color(255, 0, 0), players[i].name);
-			drawing.drawString(drawing.scoreboardFont, false, x + 325 + 65, y + 40 + (place * 20), Color(255, 0, 0), "$%i", players[i].health);
-			drawing.drawString(drawing.scoreboardFont, false, x + 375 + 65, y + 40 + (place * 20), Color(255, 0, 0), "%i", players[i].money);
-			drawing.drawString(drawing.scoreboardFont, false, x + 475 + 65, y + 40 + (place * 20), Color(255, 0, 0), "%i", players[i].mmwins);
-			drawing.drawString(drawing.scoreboardFont, false, x + 605, y + 40 + (place * 20), Color(255, 0, 0), players[i].mmrank);
-			drawing.drawString(drawing.scoreboardFont, false, x + 805, y + 40 + (place * 20), Color(255, 0, 0), players[i].steamid);
+				if (doSwap)
+					drawing.drawFilledRect(x + 8, y + 38 + (place * 20), boardWidth - 18, 19, Color(20, 20, 20, 150));
+
+				drawing.drawString(drawing.scoreboardFont, false, x + 10, y + 40 + (place * 20), Color(255, 0, 0), players[i].name);
+				drawing.drawString(drawing.scoreboardFont, false, x + 325 + 65, y + 40 + (place * 20), Color(255, 0, 0), "$%i", players[i].health);
+				drawing.drawString(drawing.scoreboardFont, false, x + 375 + 65, y + 40 + (place * 20), Color(255, 0, 0), "%i", players[i].money);
+				drawing.drawString(drawing.scoreboardFont, false, x + 475 + 65, y + 40 + (place * 20), Color(255, 0, 0), "%i", players[i].mmwins);
+				drawing.drawString(drawing.scoreboardFont, false, x + 605, y + 40 + (place * 20), Color(255, 0, 0), players[i].mmrank);
+				drawing.drawString(drawing.scoreboardFont, false, x + 805, y + 40 + (place * 20), Color(255, 0, 0), players[i].steamid);
+			}
 		}
 
 		if (entity->GetTeamNum() == 3)
 		{
 			place2++;
-			swap2 = !swap2;
 
-			players[i].name = info.m_szPlayerName;
-			players[i].steamid = info.m_szSteamID;
-			players[i].health = entity->GetHealth();
-			players[i].money = entity->GetAccount();
-			players[i].mmrank = playerRankName;
-			players[i].mmwins = playerWins;
+			if (place2 <= 5)
+			{
+				doSwap2 = !doSwap2;
 
-			if (swap2)
-				drawing.drawFilledRect(x + 8, y + 193 + (place2 * 20), boardWidth - 18, 19, Color(20, 20, 20, 150));
+				players[i].name = info.m_szPlayerName;
+				players[i].steamid = info.m_szSteamID;
+				players[i].health = entity->GetHealth();
+				players[i].money = entity->GetAccount();
+				players[i].mmrank = playerRankName;
+				players[i].mmwins = playerWins;
 
-			drawing.drawString(drawing.scoreboardFont, false, x + 10, y + 195 + (place2 * 20), Color(0, 100, 255), players[i].name);
-			drawing.drawString(drawing.scoreboardFont, false, x + 325 + 65, y + 195 + (place2 * 20), Color(0, 100, 255), "%i", players[i].health);
-			drawing.drawString(drawing.scoreboardFont, false, x + 375 + 65, y + 195 + (place2 * 20), Color(0, 100, 255), "%i", players[i].money);
-			drawing.drawString(drawing.scoreboardFont, false, x + 475 + 65, y + 195 + (place2 * 20), Color(0, 100, 255), "%i", players[i].mmwins);
-			drawing.drawString(drawing.scoreboardFont, false, x + 605, y + 195 + (place2 * 20), Color(0, 100, 255), players[i].mmrank);
-			drawing.drawString(drawing.scoreboardFont, false, x + 805, y + 195 + (place2 * 20), Color(0, 100, 255), players[i].steamid);
+				if (doSwap2)
+					drawing.drawFilledRect(x + 8, y + 193 + (place2 * 20), boardWidth - 18, 19, Color(20, 20, 20, 150));
+
+				drawing.drawString(drawing.scoreboardFont, false, x + 10, y + 195 + (place2 * 20), Color(0, 100, 255), players[i].name);
+				drawing.drawString(drawing.scoreboardFont, false, x + 325 + 65, y + 195 + (place2 * 20), Color(0, 100, 255), "%i", players[i].health);
+				drawing.drawString(drawing.scoreboardFont, false, x + 375 + 65, y + 195 + (place2 * 20), Color(0, 100, 255), "%i", players[i].money);
+				drawing.drawString(drawing.scoreboardFont, false, x + 475 + 65, y + 195 + (place2 * 20), Color(0, 100, 255), "%i", players[i].mmwins);
+				drawing.drawString(drawing.scoreboardFont, false, x + 605, y + 195 + (place2 * 20), Color(0, 100, 255), players[i].mmrank);
+				drawing.drawString(drawing.scoreboardFont, false, x + 805, y + 195 + (place2 * 20), Color(0, 100, 255), players[i].steamid);
+			}
 		}
 	}
 
 	place = 0, place2 = 0;
-	swap = false, swap2 = false;
+	doSwap = false, doSwap2 = false;
 }
