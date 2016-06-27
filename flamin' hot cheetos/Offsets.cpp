@@ -45,7 +45,7 @@ namespace offsets
 		entity::m_CollisionGroup = 0x470;
 		entity::m_rgflCoordinateFrame = entity::m_CollisionGroup - 0x30;
 
-		misc::m_dwSensitivity = 0xA35D0C;
+		misc::m_dwSensitivity = 0xA36D0C;
 	}
 
 	namespace player
