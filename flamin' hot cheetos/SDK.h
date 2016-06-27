@@ -7,6 +7,11 @@
 
 #pragma once
 #pragma warning(disable: 4307)
+#pragma warning(disable: 4172)
+#pragma warning(disable: 4996)
+
+#define WIN32_LEAN_AND_MEAN
+#define _CRT_SECURE_NO_WARNINGS
 
 #include <windows.h>
 
@@ -134,7 +139,7 @@ public:
 		{
 			MOV ECX, this
 			MOV EAX, DWORD PTR DS : [ECX]
-			CALL DWORD PTR DS : [EAX + 0x28]
+				CALL DWORD PTR DS : [EAX + 0x28]
 		}
 	}
 	Vector GetAbsAngles()
@@ -152,8 +157,8 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, DWORD PTR DS : [EDI + 0x8]
-			MOV EDX, DWORD PTR DS : [ECX]
-			CALL DWORD PTR DS : [EDX + 0x28]
+				MOV EDX, DWORD PTR DS : [ECX]
+				CALL DWORD PTR DS : [EDX + 0x28]
 		}
 	}
 	bool IsDormant()
@@ -162,8 +167,8 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, [EDI + 0x8]
-			MOV EDX, DWORD PTR DS : [ecx]
-			CALL[EDX + 0x24]
+				MOV EDX, DWORD PTR DS : [ecx]
+				CALL[EDX + 0x24]
 		}
 	}
 	bool SetupBones(matrix3x4* matrix, int maxbones, int mask, float time)
@@ -172,12 +177,12 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, DWORD PTR DS : [EDI + 0x4]
-			MOV EDX, DWORD PTR DS : [ECX]
-			PUSH time
-			PUSH mask
-			PUSH maxbones
-			PUSH matrix
-			CALL DWORD PTR DS : [EDX + 0x34]
+				MOV EDX, DWORD PTR DS : [ECX]
+				PUSH time
+				PUSH mask
+				PUSH maxbones
+				PUSH matrix
+				CALL DWORD PTR DS : [EDX + 0x34]
 		}
 	}
 	model_t* GetModel()
@@ -186,8 +191,8 @@ public:
 		{
 			MOV EDI, this
 			LEA ECX, [EDI + 0x4]
-			MOV EDX, DWORD PTR DS : [ECX]
-			CALL[EDX + 0x20]
+				MOV EDX, DWORD PTR DS : [ECX]
+				CALL[EDX + 0x20]
 		}
 	}
 	IVClientClass* GetClientClass()
@@ -225,204 +230,56 @@ public:
 	{
 		return *(float*)((DWORD)this + offsets::weapon::m_flNextPrimaryAttack);
 	}
-	const char* GetWeaponName()
-	{
-		switch (this->GetItemDefinitionIndex())
-		{
-		case ITEM_NONE:
-			return "None"; break;
-		case WEAPON_DEAGLE:
-			return "Deagle"; break;
-		case WEAPON_DUALS:
-			return "Dualies"; break;
-		case WEAPON_FIVE7:
-			return "Five-Seven"; break;
-		case WEAPON_GLOCK:
-			return "Glock"; break;
-		case WEAPON_AK47:
-			return "AK-47"; break;
-		case WEAPON_AUG:
-			return "AUG"; break;
-		case WEAPON_AWP:
-			return "AWP"; break;
-		case WEAPON_FAMAS:
-			return "Famas"; break;
-		case WEAPON_G3SG1:
-			return "G3SG1"; break;
-		case WEAPON_GALIL:
-			return "Galil"; break;
-		case WEAPON_M249:
-			return "M249"; break;
-		case WEAPON_M4A1:
-			return "M4A4"; break;
-		case WEAPON_MAC10:
-			return "MAC-10"; break;
-		case WEAPON_P90:
-			return "P90"; break;
-		case WEAPON_UMP45:
-			return "UMP-45"; break;
-		case WEAPON_XM1014:
-			return "XM1014"; break;
-		case WEAPON_BIZON:
-			return "Bizon"; break;
-		case WEAPON_MAG7:
-			return "MAG-7"; break;
-		case WEAPON_NEGEV:
-			return "Negev"; break;
-		case WEAPON_SAWEDOFF:
-			return "Sawed-Off"; break;
-		case WEAPON_TEC9:
-			return "TEC-9"; break;
-		case WEAPON_TASER:
-			return "Zeus"; break;
-		case WEAPON_P2000:
-			return "P2000"; break;
-		case WEAPON_MP7:
-			return "MP7"; break;
-		case WEAPON_MP9:
-			return "MP9"; break;
-		case WEAPON_NOVA:
-			return "Nova"; break;
-		case WEAPON_P250:
-			return "P250"; break;
-		case WEAPON_SCAR20:
-			return "SCAR-20"; break;
-		case WEAPON_SG553:
-			return "SG-553"; break;
-		case WEAPON_SCOUT:
-			return "Scout"; break;
-		case WEAPON_REVOLVER:
-			return "Revolver"; break;
-		case WEAPON_KNIFE_CT:
-			return "Knife"; break;
-		case WEAPON_KNIFE_T:
-			return "Knife"; break;
-		case WEAPON_KNIFE_GUT:
-			return "Gut Knife"; break;
-		case WEAPON_KNIFE_FLIP:
-			return "Flip Knife"; break;
-		case WEAPON_KNIFE_BAYONET:
-			return "Bayonet"; break;
-		case WEAPON_KNIFE_KARAMBIT:
-			return "Karambit"; break;
-		case WEAPON_KNIFE_M9BAYONET:
-			return "M9 Bayonet"; break;
-		case WEAPON_KNIFE_BUTTERFLY:
-			return "Butterfly Knife"; break;
-		case WEAPON_KNIFE_FALCHION:
-			return "Falchion Knife"; break;
-		case WEAPON_KNIFE_HUNTSMAN:
-			return "Huntsman Knife"; break;
-		case WEAPON_KNIFE_BOWIE:
-			return "Bowie Knife"; break;
-		case WEAPON_FLASH:
-			return "Flashbang"; break;
-		case WEAPON_HE:
-			return "HE Grenade"; break;
-		case WEAPON_SMOKE:
-			return "Smoke"; break;
-		case WEAPON_MOLOTOV:
-			return "Molotov"; break;
-		case WEAPON_DECOY:
-			return "Decoy"; break;
-		case WEAPON_INC:
-			return "Inc Grenade"; break;
-		case WEAPON_M4A1S:
-			return "M4A1-S"; break;
-		case WEAPON_USPS:
-			return "USP-S"; break;
-		case WEAPON_CZ75:
-			return "CZ-75"; break;
-		case WEAPON_C4:
-			return "C4"; break;
-		}
-
-		return "";
-	}
 	bool IsPistol()
 	{
 		switch (this->GetItemDefinitionIndex())
 		{
-		case WEAPON_DEAGLE:
-			return true;
-		case WEAPON_DUALS:
-			return true;
-		case WEAPON_FIVE7:
-			return true;
-		case WEAPON_GLOCK:
-			return true;
-		case WEAPON_TEC9:
-			return true;
-		case WEAPON_P2000:
-			return true;
-		case WEAPON_USPS:
-			return true;
-		case WEAPON_P250:
-			return true;
-		case WEAPON_CZ75:
-			return true;
-		case WEAPON_REVOLVER:
-			return true;
-		default:
-			return false;
+		case WEAPON_DEAGLE: return true;
+		case WEAPON_DUALS: return true;
+		case WEAPON_FIVE7: return true;
+		case WEAPON_GLOCK: return true;
+		case WEAPON_TEC9: return true;
+		case WEAPON_P2000: return true;
+		case WEAPON_USPS: return true;
+		case WEAPON_P250: return true;
+		case WEAPON_CZ75: return true;
+		case WEAPON_REVOLVER: return true;
+		default: return false;
 		}
 	}
 	bool IsKnife()
 	{
 		switch (this->GetItemDefinitionIndex())
 		{
-		case WEAPON_KNIFE_CT:
-			return true;
-		case WEAPON_KNIFE_T:
-			return true;
-		case WEAPON_KNIFE_GUT:
-			return true;
-		case WEAPON_KNIFE_FLIP:
-			return true;
-		case WEAPON_KNIFE_BAYONET:
-			return true;
-		case WEAPON_KNIFE_M9BAYONET:
-			return true;
-		case WEAPON_KNIFE_KARAMBIT:
-			return true;
-		case WEAPON_KNIFE_HUNTSMAN:
-			return true;
-		case WEAPON_KNIFE_BUTTERFLY:
-			return true;
-		case WEAPON_KNIFE_BOWIE:
-			return true;
-		case WEAPON_KNIFE_FALCHION:
-			return true;
-		case WEAPON_KNIFE_DAGGER:
-			return true;
-		default:
-			return false;
+		case WEAPON_KNIFE_CT: return true;
+		case WEAPON_KNIFE_T: return true;
+		case WEAPON_KNIFE_GUT: return true;
+		case WEAPON_KNIFE_FLIP: return true;
+		case WEAPON_KNIFE_BAYONET: return true;
+		case WEAPON_KNIFE_M9BAYONET: return true;
+		case WEAPON_KNIFE_KARAMBIT: return true;
+		case WEAPON_KNIFE_HUNTSMAN: return true;
+		case WEAPON_KNIFE_BUTTERFLY: return true;
+		case WEAPON_KNIFE_BOWIE: return true;
+		case WEAPON_KNIFE_FALCHION: return true;
+		case WEAPON_KNIFE_DAGGER: return true;
+		default: return false;
 		}
 	}
 	bool IsOther()
 	{
 		switch (this->GetItemDefinitionIndex())
 		{
-		case ITEM_NONE:
-			return true;
-		case WEAPON_TASER:
-			return true;
-		case WEAPON_FLASH:
-			return true;
-		case WEAPON_HE:
-			return true;
-		case WEAPON_SMOKE:
-			return true;
-		case WEAPON_MOLOTOV:
-			return true;
-		case WEAPON_DECOY:
-			return true;
-		case WEAPON_INC:
-			return true;
-		case WEAPON_C4:
-			return true;
-		default:
-			return false;
+		case ITEM_NONE: return true;
+		case WEAPON_TASER: return true;
+		case WEAPON_FLASH: return true;
+		case WEAPON_HE: return true;
+		case WEAPON_SMOKE: return true;
+		case WEAPON_MOLOTOV: return true;
+		case WEAPON_DECOY: return true;
+		case WEAPON_INC: return true;
+		case WEAPON_C4: return true;
+		default: return false;
 		}
 	}
 	void SetPattern(player_info_t info, int skin, float wear, int seed, int stattrak, const char* name = "")

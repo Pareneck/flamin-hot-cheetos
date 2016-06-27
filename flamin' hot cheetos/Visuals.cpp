@@ -139,12 +139,70 @@ void Visuals::drawPlayer(CBaseEntity* local, CBaseEntity* entity)
 		CBaseCombatWeapon* weapon = tools.getActiveWeapon(entity);
 		if (weapon)
 		{
+			char weaponName[32];
+			switch (weapon->GetItemDefinitionIndex())
+			{
+			case ITEM_NONE: { strcpy(weaponName, charenc("NONE")); break; }
+			case WEAPON_DEAGLE: { strcpy(weaponName, charenc("DEAGLE")); break; }
+			case WEAPON_DUALS: { strcpy(weaponName, charenc("DUALIES")); break; }
+			case WEAPON_FIVE7: { strcpy(weaponName, charenc("FIVE-SEVEN")); break; }
+			case WEAPON_GLOCK: { strcpy(weaponName, charenc("GLOCK")); break; }
+			case WEAPON_AK47: { strcpy(weaponName, charenc("AK47")); break; }
+			case WEAPON_AUG: { strcpy(weaponName, charenc("AUG")); break; }
+			case WEAPON_AWP: { strcpy(weaponName, charenc("AWP")); break; }
+			case WEAPON_FAMAS: { strcpy(weaponName, charenc("FAMAS")); break; }
+			case WEAPON_G3SG1: { strcpy(weaponName, charenc("G3SG1")); break; }
+			case WEAPON_GALIL: { strcpy(weaponName, charenc("GALIL")); break; }
+			case WEAPON_M249: { strcpy(weaponName, charenc("M249")); break; }
+			case WEAPON_M4A1: { strcpy(weaponName, charenc("M4A1")); break; }
+			case WEAPON_MAC10: { strcpy(weaponName, charenc("MAC-10")); break; }
+			case WEAPON_P90: { strcpy(weaponName, charenc("P90")); break; }
+			case WEAPON_UMP45: { strcpy(weaponName, charenc("UMP-45")); break; }
+			case WEAPON_XM1014: { strcpy(weaponName, charenc("XM1014")); break; }
+			case WEAPON_BIZON: { strcpy(weaponName, charenc("BIZON")); break; }
+			case WEAPON_MAG7: { strcpy(weaponName, charenc("MAG-7")); break; }
+			case WEAPON_NEGEV: { strcpy(weaponName, charenc("NEGEV")); break; }
+			case WEAPON_SAWEDOFF: { strcpy(weaponName, charenc("SAWED-OFF")); break; }
+			case WEAPON_TEC9: { strcpy(weaponName, charenc("TEC-9")); break; }
+			case WEAPON_TASER: { strcpy(weaponName, charenc("ZEUS")); break; }
+			case WEAPON_P2000: { strcpy(weaponName, charenc("P2000")); break; }
+			case WEAPON_MP7: { strcpy(weaponName, charenc("MP7")); break; }
+			case WEAPON_MP9: { strcpy(weaponName, charenc("MP9")); break; }
+			case WEAPON_NOVA: { strcpy(weaponName, charenc("NOVA")); break; }
+			case WEAPON_P250: { strcpy(weaponName, charenc("P250")); break; }
+			case WEAPON_SCAR20: {  strcpy(weaponName, charenc("SCAR-20")); break; }
+			case WEAPON_SG553: { strcpy(weaponName, charenc("SG553")); break; }
+			case WEAPON_SCOUT: { strcpy(weaponName, charenc("SCOUT")); break; }
+			case WEAPON_REVOLVER: { strcpy(weaponName, charenc("REVOLVER")); break; }
+			case WEAPON_KNIFE_CT: { strcpy(weaponName, charenc("KNIFE")); break; }
+			case WEAPON_KNIFE_T: { strcpy(weaponName, charenc("KNIFE")); break; }
+			case WEAPON_KNIFE_GUT: { strcpy(weaponName, charenc("GUT KNIFE")); break; }
+			case WEAPON_KNIFE_FLIP: { strcpy(weaponName, charenc("FLIP KNIFE")); break; }
+			case WEAPON_KNIFE_BAYONET: { strcpy(weaponName, charenc("BAYONET")); break; }
+			case WEAPON_KNIFE_KARAMBIT: { strcpy(weaponName, charenc("KARAMBIT")); break; }
+			case WEAPON_KNIFE_M9BAYONET: { strcpy(weaponName, charenc("M9 BAYONET")); break; }
+			case WEAPON_KNIFE_BUTTERFLY: { strcpy(weaponName, charenc("BUTTERFLY KNIFE")); break; }
+			case WEAPON_KNIFE_HUNTSMAN: { strcpy(weaponName, charenc("HUNTSMAN KNIFE")); break; }
+			case WEAPON_KNIFE_BOWIE: { strcpy(weaponName, charenc("BOWIE KNIFE")); break; }
+			case WEAPON_FLASH: { strcpy(weaponName, charenc("FLASHBANG")); break; }
+			case WEAPON_HE: { strcpy(weaponName, charenc("HE GRENADE")); break; }
+			case WEAPON_SMOKE: { strcpy(weaponName, charenc("SMOKE GRENADE")); break; }
+			case WEAPON_MOLOTOV: { strcpy(weaponName, charenc("MOLOTOV")); break; }
+			case WEAPON_DECOY: { strcpy(weaponName, charenc("DECOY GRENADE")); break; }
+			case WEAPON_INC: { strcpy(weaponName, charenc("INCENDIARY GRENADE")); break; }
+			case WEAPON_M4A1S: { strcpy(weaponName, charenc("M4A1-S")); break; }
+			case WEAPON_USPS: { strcpy(weaponName, charenc("USP-S")); break; }
+			case WEAPON_CZ75: { strcpy(weaponName, charenc("CZ-75")); break; }
+			case WEAPON_C4: { strcpy(weaponName, charenc("BOMB")); break; }
+			default: { strcpy(weaponName, charenc("NONE")); break; }
+			}
+
 			char buffer[32];
 
 			if (!weapon->IsKnife() && !weapon->IsOther())
-				sprintf_s(buffer, sizeof(buffer), "%s | %i", weapon->GetWeaponName(), weapon->GetClip1());
+				sprintf_s(buffer, sizeof(buffer), "%s | %i", weaponName, weapon->GetClip1());
 			else
-				sprintf_s(buffer, sizeof(buffer), "%s", weapon->GetWeaponName());
+				sprintf_s(buffer, sizeof(buffer), "%s", weaponName);
 
 			drawing.drawString(drawing.espFont, true, x + w / 2, top + 2, Color(255, 255, 255), buffer);
 		}
@@ -345,28 +403,28 @@ void Visuals::drawScoreboard(CBaseEntity* local)
 		int playerRank = *(int*)(resourcePointer + offsets::player::m_iCompetitiveRanking + i * 4);
 		int playerWins = *(int*)(resourcePointer + offsets::player::m_iCompetitiveWins + i * 4);
 
-		char playerRankName[100];
+		char playerRankName[64];
 		switch (playerRank)
 		{
 		case 0: {strcpy(playerRankName, charenc("Unranked")); break; }
-		case 1: {strcpy(playerRankName, "Silver I"); break; }
-		case 2: {strcpy(playerRankName, "Silver II"); break; }
-		case 3: {strcpy(playerRankName, "Silver III"); break; }
-		case 4: {strcpy(playerRankName, "Silver IV"); break; }
-		case 5: {strcpy(playerRankName, "Silver Elite"); break; }
-		case 6: {strcpy(playerRankName, "Silver Elite Master"); break; }
-		case 7: {strcpy(playerRankName, "Gold Nova I"); break; }
-		case 8: {strcpy(playerRankName, "Gold Nova II"); break; }
-		case 9: {strcpy(playerRankName, "Gold Nova III"); break; }
-		case 10: {strcpy(playerRankName, "Gold Nova Master"); break; }
-		case 11: {strcpy(playerRankName, "Master Guardian I"); break; }
-		case 12: {strcpy(playerRankName, "Master Guardian II"); break; }
-		case 13: {strcpy(playerRankName, "Master Guardian Elite"); break; }
-		case 14: {strcpy(playerRankName, "Distinguished Master Guardian"); break; }
-		case 15: {strcpy(playerRankName, "Legendary Eagle"); break; }
-		case 16: {strcpy(playerRankName, "Legendary Eagle Master"); break; }
-		case 17: {strcpy(playerRankName, "Supreme Master First Class"); break; }
-		case 18: {strcpy(playerRankName, "The Global Elite"); break; }
+		case 1: {strcpy(playerRankName, charenc("Silver I")); break; }
+		case 2: {strcpy(playerRankName, charenc("Silver II")); break; }
+		case 3: {strcpy(playerRankName, charenc("Silver III")); break; }
+		case 4: {strcpy(playerRankName, charenc("Silver IV")); break; }
+		case 5: {strcpy(playerRankName, charenc("Silver Elite")); break; }
+		case 6: {strcpy(playerRankName, charenc("Silver Elite Master")); break; }
+		case 7: {strcpy(playerRankName, charenc("Gold Nova I")); break; }
+		case 8: {strcpy(playerRankName, charenc("Gold Nova II")); break; }
+		case 9: {strcpy(playerRankName, charenc("Gold Nova III")); break; }
+		case 10: {strcpy(playerRankName, charenc("Gold Nova Master")); break; }
+		case 11: {strcpy(playerRankName, charenc("Master Guardian I")); break; }
+		case 12: {strcpy(playerRankName, charenc("Master Guardian II")); break; }
+		case 13: {strcpy(playerRankName, charenc("Master Guardian Elite")); break; }
+		case 14: {strcpy(playerRankName, charenc("Distinguished Master Guardian")); break; }
+		case 15: {strcpy(playerRankName, charenc("Legendary Eagle")); break; }
+		case 16: {strcpy(playerRankName, charenc("Legendary Eagle Master")); break; }
+		case 17: {strcpy(playerRankName, charenc("Supreme Master First Class")); break; }
+		case 18: {strcpy(playerRankName, charenc("The Global Elite")); break; }
 		}
 
 		if (entity->GetTeamNum() == 2)

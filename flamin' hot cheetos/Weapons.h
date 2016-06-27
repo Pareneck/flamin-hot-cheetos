@@ -1,6 +1,11 @@
 #pragma once
+#pragma warning(disable: 4172)
+#pragma warning(disable: 4996)
+
+#define _CRT_SECURE_NO_WARNINGS
 
 #include "SDKDefinitions.h"
+#include "cx_strenc.h"
 
 namespace WeaponConfig
 {
@@ -9,6 +14,4 @@ namespace WeaponConfig
 	bool isAutomatic(int index);
 	bool isSniper(int index);
 	bool isKnife(int index);
-
-	const char* getWeaponName(int index);
 }
