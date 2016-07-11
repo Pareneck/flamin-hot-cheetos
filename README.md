@@ -1,6 +1,8 @@
 # flamin-hot-cheetos
 open-source csgo internal cheat
 
+disclaimer: the information below is outdated!
+
 overview:
 
    - this is a little fun project hazed and I worked on from time to time but before I realized it, lots of shit has been done
