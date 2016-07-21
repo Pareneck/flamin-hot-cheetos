@@ -885,7 +885,7 @@ public:
 };
 
 //----------------------------------------
-// TOOLS CLASS
+// TOOLS CLASS (move class declaration elsewhere to fix issues)
 //----------------------------------------
 
 class Tools
