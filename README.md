@@ -1,11 +1,11 @@
 # flamin-hot-cheetos
 open-source csgo internal cheat
 
-disclaimer: the information below is outdated!
+disclaimer: the information below may be outdated!
 
 overview:
 
-   - this is a little fun project hazed and I worked on from time to time but before I realized it, lots of shit has been done
+   - this was a little fun project I worked on with others from time to time, too lazy to update it so it's now open-source
 
 credits:
 
@@ -31,9 +31,3 @@ features:
       - basic bunnyhop
       - hitbox triggerbot via engine ray tracing
       - skin changer (modify skins via skinconfig.ini)
-
-usage:
-
-      1. download the cheetos
-      2. inject into csgo using preffered injector
-      3. press insert if you see the watermark at the top left corner
